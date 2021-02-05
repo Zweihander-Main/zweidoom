@@ -47,6 +47,7 @@ logs
 pids
 *.pid
 *.seed
+flycheck_*
 
 # Testing #
 ###########
