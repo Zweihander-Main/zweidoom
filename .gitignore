@@ -47,7 +47,12 @@ logs
 pids
 *.pid
 *.seed
+
+# Emacs related #
+#################
 flycheck_*
+custom.el
+
 
 # Testing #
 ###########
