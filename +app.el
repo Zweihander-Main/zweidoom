@@ -79,11 +79,16 @@
         ispell-extra-args '("--sug-mode=fast")))
 
 
+;; ================
+;;  Lookup/Docsets
+;; ================
+(setq +lookup-open-url-fn #'eww)
+
+
 ;; =====
 ;;  Ivy
 ;; =====
-
-                                        ; Set search to ignore archives
+; Set search to ignore archives
 (setq counsel-find-file-ignore-regexp "\\(?:^[#.]\\)\\|\\(?:[#~]$\\)\\|\\(?:^Icon?\\)\\|\\.org_archive")
 
 
