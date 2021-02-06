@@ -12,6 +12,7 @@
       doom-unicode-font (font-spec :family "Iosevka Term SS09 Extended" :size 15)
       doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 16)
       doom-serif-font doom-variable-pitch-font
+      doom-themes-treemacs-theme "doom-colors"
       org-ellipsis "▼"
       display-line-numbers-type t
       line-spacing 0.1

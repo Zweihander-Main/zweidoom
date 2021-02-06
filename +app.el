@@ -158,7 +158,6 @@
       (setq clipboard (substring clipboard 0 -1))
       (insert clipboard))))
 
-
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
