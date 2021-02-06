@@ -349,6 +349,10 @@ If CHECK-FUNC is provided, will check using that too."
         :desc "Toggle entry text mode" "E" #'org-agenda-entry-text-mode
         :desc "Break into child tasks" "b" #'zwei/org-agenda-break-into-child)
 
+  ;;; Enable easymotion in agenda
+  (map! :map evil-org-agenda-mode-map
+        :m "gs" evilem-map)
+
   ;; Config
 
   (setq org-agenda-files (directory-files zwei/org-agenda-directory t "\.org$" t)
