@@ -52,7 +52,7 @@ pids
 #################
 flycheck_*
 custom.el
-
+.local
 
 # Testing #
 ###########
