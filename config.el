@@ -14,8 +14,4 @@
 (load! "+mu4e")
 (load! "+code")
 
-;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
-;; End:
-
 ;;; config.el ends here

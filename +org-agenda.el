@@ -462,8 +462,4 @@ If CHECK-FUNC is provided, will check using that too."
       "o" #'org-clock-convenience-fill-gap
       "e" #'org-clock-convenience-fill-gap-both)
 
-;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
-;; End:
-
 ;;; +org-agenda.el ends here

@@ -3,7 +3,8 @@
 ;;; Commentary:
 ;;; -*- lexical-binding: t; -*-
 ;;;
-;;; Contains common variables and functions used repeatedly throughout the config.
+;;; Contains common variables and functions used repeatedly throughout the
+;;; config.
 ;;;
 ;;; Code:
 
@@ -99,8 +100,5 @@ Intended for short term usage - not designed to survive restart."
                     (goto-char old-point)
                     (save-mark-and-excursion--restore old-mark)
                     (set (intern var-string) nil))))))
-;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
-;; End:
 
 ;;; +common.el ends here

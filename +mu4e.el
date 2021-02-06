@@ -126,14 +126,10 @@ Will setup the mu4e-view which is then hooked into the process function."
         mu4e-context-policy 'pick-first
         mu4e-compose-context-policy nil)
   (require 'org-mu4e)
-  (setq org-mu4e-link-query-in-headers-mode nil)
+  (setq mu4e-org-link-query-in-headers-mode nil)
 
   ;; Init
 
   (zwei/mu4e-script-mode t))
-
-;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
-;; End:
 
 ;;; +mu4e.el ends here

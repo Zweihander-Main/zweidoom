@@ -217,8 +217,5 @@
            (file ,zwei/org-agenda-daily-review-template-file)
            :jump-to-captured t
            :immediate-finish nil))))
-;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
-;; End:
 
 ;;; +org.el ends here

@@ -11,8 +11,4 @@
   :defer t
   :after elisp-mode)
 
-;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
-;; End:
-
 ;;; +code.el ends here

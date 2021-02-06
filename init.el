@@ -167,8 +167,4 @@
        ;;literate
        (default +bindings +smartparens))
 
-;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
-;; End:
-
 ;;; init.el ends here

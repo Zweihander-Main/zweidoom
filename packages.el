@@ -14,8 +14,4 @@
 (package! org-habit-plus
   :recipe '(:host github :repo "oddious/org-habit-plus"))
 
-;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
-;; End:
-
 ;;; packages.el ends here

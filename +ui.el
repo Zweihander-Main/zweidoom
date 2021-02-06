@@ -52,9 +52,4 @@
   '(line-number :family "Iosevka Term SS09")
   '(line-number-current-line :inherit line-number))
 
-
-;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
-;; End:
-
 ;;; +ui.el ends here
