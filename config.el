@@ -17,9 +17,11 @@
 (after! org
   (load! "./org/+org"))
 (after! org-agenda
-  (load! "./org/+org-agenda"))
+  (load! "./org/+org-agenda")
+  (load! "./org/+org-agenda-process-inbox")
+  (load! "./org/+org-agenda-custom-commands"))
 (after! org-habit-plus
-  (load! "./org/+org-habit-plus"))
+  (load! "./org/+org-habit"))
 (after! org-roam
   (load! "./org/+org-roam"))
 

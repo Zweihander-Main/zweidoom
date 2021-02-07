@@ -73,6 +73,17 @@
   (org-map-entries 'org-archive-subtree "/DONE" 'file)
   (org-map-entries 'org-archive-subtree "/KILL" 'file))
 
+(defun zwei/set-todo-state-next ()
+  "Change todo to NEXT."
+  (org-todo "NEXT"))
+
+(defun zwei/org-current-is-todo-esque ()
+  "Returns if current heading is a form of todo"
+  (let ((state (org-get-todo-state)))
+    (or
+     (string= "TODO" state)
+     (string= "NEXT" state))))
+
 ;; Mappings
 
 (map! :after org
