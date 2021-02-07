@@ -3,8 +3,11 @@
 ;;; Commentary:
 ;;; -*- lexical-binding: t; -*-
 ;;;
-;;; Contains all org-related config NOT related to knowledge management
-;;; (org-roam.el) or specific agenda config (org-agenda.el).
+;;; Contains org related config that's not:
+;;; - agenda related (+org-agenda.el ect.)
+;;; - habit related (+org-habit.el)
+;;; - roam/wiki/kb related (+org-roam.el)
+;;; - capture/reviews related (+org-capture.el)
 ;;;
 ;;; Code:
 
@@ -195,38 +198,5 @@
         org-journal-file-format "%Y-%m-%d.org"
         org-journal-date-format "%A, %d %B %Y"
         org-journal-enable-agenda-integration t))
-
-
-;; =============
-;;  org-capture
-;; =============
-(after! org-capture
-  (setq org-capture-templates
-        `(("i" "inbox"
-           entry
-           (file ,zwei/org-agenda-todo-file)
-           "* TODO %?")
-          ("n" "next"
-           entry
-           (file ,zwei/org-agenda-next-file)
-           "* NEXT %? %^g:@work: %^{Effort}p ")
-          ("c" "org-protocol-capture"
-           entry
-           (file ,zwei/org-agenda-todo-file)
-           "* TODO [[%:link][%:description]]\n\n %i"
-           :immediate-finish t)
-          ("w" "Weekly Review"
-           entry
-           (file+olp+datetree ,zwei/org-agenda-reviews-file)
-           (file ,zwei/org-agenda-weekly-review-template-file)
-           :jump-to-captured t
-           :tree-type 'week
-           :immediate-finish nil)
-          ("d" "Daily Review"
-           entry
-           (function (lambda () (org-journal-new-entry nil)))
-           (file ,zwei/org-agenda-daily-review-template-file)
-           :jump-to-captured t
-           :immediate-finish nil))))
 
 ;;; +org.el ends here
