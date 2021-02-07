@@ -49,6 +49,9 @@
 (defvar zwei/org-agenda-next-file (concat zwei/org-agenda-directory "/next.org")
   "File for one-off tasks that should be done immediately or are currently being worked on.")
 
+(defvar zwei/org-agenda-goals-file (concat zwei/org-agenda-directory "/goals.org")
+  "File for overarching goal tracking.")
+
 (setq +org-capture-todo-file zwei/org-agenda-todo-file)
 
 

@@ -381,6 +381,7 @@ If CHECK-FUNC is provided, will check using that too."
                   (todo "NEXT"
                         ((org-agenda-overriding-header "In Progress")
                          (org-agenda-files '(,zwei/org-agenda-projects-file
+                                             ,zwei/org-agenda-goals-file
                                              ,zwei/org-agenda-tickler-file
                                              ,zwei/org-agenda-next-file))))
                   (todo "TODO"
