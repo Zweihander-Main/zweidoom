@@ -1,4 +1,4 @@
-;;; +org-habit.el -- ~/.doom.d/org/+org.el
+;;; +org-habit.el -- ~/.doom.d/org/+org-habit.el
 ;;;
 ;;; Commentary:
 ;;; -*- lexical-binding: t; -*-
