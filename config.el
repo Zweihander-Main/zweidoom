@@ -27,7 +27,8 @@
 
 ;; Other apps
 (after! mu4e
-  (load! "./mu4e/+mu4e"))
+  (load! "./mu4e/+mu4e")
+  (load! "./mu4e/+mu4e-memo-to-inbox"))
 
 ;; Code
 (load! "+code")
