@@ -20,6 +20,7 @@
          (file ,zwei/org-agenda-todo-file)
          "* TODO [[%:link][%:description]]\n\n %i"
          :immediate-finish t)
+        ("r" "Review templates")
         ("rw" "Weekly Review"
          entry
          (file+olp+datetree ,zwei/org-agenda-reviews-file)
@@ -33,5 +34,23 @@
          (file ,zwei/org-agenda-daily-review-template-file)
          :jump-to-captured t
          :immediate-finish nil)))
+
+(defun zwei/org-capture-goal-extract (GOAL)
+  "Return GOAL todo in the format:
+todo text by yyyy-mm-dd"
+  (let* ((headline
+          (plist-get
+           (car
+            (org-ql-query
+              :from zwei/org-agenda-goals-file
+              :where `(and (todo "TODO")
+                           (parent ,GOAL))))
+           'headline))
+         (raw (plist-get headline ':raw-value))
+         (scheduled (plist-get headline ':scheduled)))
+    (if scheduled
+        (concat raw " by " (org-timestamp-format scheduled "%Y-%m-%d"))
+      raw)))
+
 
 ;;; +org-capture.el ends here
