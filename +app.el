@@ -88,8 +88,18 @@
 ;; =====
 ;;  Ivy
 ;; =====
-; Set search to ignore archives
-(setq counsel-find-file-ignore-regexp "\\(?:^[#.]\\)\\|\\(?:[#~]$\\)\\|\\(?:^Icon?\\)\\|\\.org_archive")
+                                        ; Set search to ignore archives
+(after! ivy
+  (setq counsel-find-file-ignore-regexp "\\(?:^[#.]\\)\\|\\(?:[#~]$\\)\\|\\(?:^Icon?\\)\\|\\.org_archive"))
+
+
+;; ======
+;;  Deft
+;; ======
+;; In use for org-roam
+(after! deft
+  (setq deft-use-filter-string-for-filename t
+        deft-recursive t))
 
 
 ;; ==============

@@ -10,7 +10,7 @@
 (package! format-all)
 (package! org-clock-convenience)
 (package! org-variable-pitch
-  :recipe '(:local-repo "lisp/org-variable-pitch"))
+  :recipe '(:local-repo "packages/org-variable-pitch"))
 (package! org-habit-plus
   :recipe '(:host github :repo "oddious/org-habit-plus"))
 
