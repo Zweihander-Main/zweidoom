@@ -75,7 +75,8 @@
 ;; ========
 (after! ispell
   :config
-  (setq ispell-list-command "--list"
+  (setq ispell-dictionary "en"
+        ispell-list-command "--list"
         ispell-extra-args '("--sug-mode=fast")))
 
 
