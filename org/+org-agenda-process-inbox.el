@@ -22,7 +22,7 @@
          (type "todo"))
      (while (not continue)
        (setq answer
-             (read-answer "Item options: [v]iew/[e]dit/[t]odo/[d]one/[a]:note/[l]ink/[k]ill/[n]ext/[i]nfo/[RET]:Continue "
+             (read-answer "Item options: [v]iew/[e]dit/[t]odo/[d]one/[a]:note/[l]ink/[k]ill/[n]ext/[i]nfo/[r]ear/[RET]:Continue "
                           '(("view" ?v "View in minibuffer")
                             ("edit" ?e "Edit the headline of the item")
                             ("todo" ?t "Change TODO state of item")
@@ -32,6 +32,7 @@
                             ("kill" ?k "Kill current line")
                             ("next" ?n "Put in next file")
                             ("info" ?i "Conver to list item and refile under item")
+                            ("rear" ?r "Move to end (rear) of list")
                             ("continue" ?\r "Continue processing"))))
        (cond ((string= answer "continue") (setq continue t))
              ((string= answer "view") (org-agenda-tree-to-indirect-buffer 1)  )
@@ -41,6 +42,8 @@
                 (unless (and (stringp ret-msg )(string= ret-msg "No link to open here"))
                   (setq type "link"
                         continue t))))
+             ((string= answer "rear") (setq type "rear"
+                                            continue t))
              ((string= answer "next") (setq type "next"
                                             continue t))
              ((string= answer "done") (setq type "done"
@@ -66,6 +69,8 @@
             (progn
               (org-agenda-todo "DONE")
               (org-agenda-archive)))
+           ((string= type "rear")
+            (org-agenda-drag-line-forward (- (length org-agenda-markers) 1)))
            ((string= type "next")
             (progn
               (org-agenda-todo "NEXT")
