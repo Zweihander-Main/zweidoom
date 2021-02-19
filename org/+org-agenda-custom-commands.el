@@ -18,7 +18,7 @@ If CHECK-FUNC is provided, will check using that too."
                           (save-excursion
                             (when (funcall check-func)
                               (setq pass nil))))
-                        (and pass (zwei/org-agenda-current-is-todo-esque))))))
+                        (and pass (zwei/org-current-is-todo-esque))))))
     (unless (funcall all-checks)
       (setq should-skip-entry t))
     (save-excursion
