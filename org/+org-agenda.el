@@ -140,6 +140,14 @@
       (when (string-match-p child txt-at-point)
         (call-interactively 'zwei/org-agenda-set-effort)))))
 
+(defun zwei/org-agenda-directory-plus-archives ()
+  "zwei/org-agenda-directory plus the addition of the archive files."
+  (org-agenda-files
+   (directory-files
+    zwei/org-agenda-directory
+    t
+    "\\(\.org\\)\\|\\(.org_archive\\)$" t)))
+
 ;; Hooks
 
 (add-hook! 'org-clock-in-hook :append #'zwei/set-todo-state-next)

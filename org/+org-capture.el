@@ -21,16 +21,25 @@
          "* TODO [[%:link][%:description]]\n\n %i"
          :immediate-finish t)
         ("r" "Review templates")
+        ("rm" "Monthly Review"
+         entry
+         (file+olp+datetree ,zwei/org-agenda-reviews-file "Monthly Reviews")
+         (file ,zwei/org-agenda-monthly-review-template-file)
+         :jump-to-captured t
+         :tree-type 'monthly
+         :immediate-finish nil)
         ("rw" "Weekly Review"
          entry
-         (file+olp+datetree ,zwei/org-agenda-reviews-file)
+         (file+olp+datetree ,zwei/org-agenda-reviews-file "Weekly Reviews")
          (file ,zwei/org-agenda-weekly-review-template-file)
          :jump-to-captured t
          :tree-type 'week
          :immediate-finish nil)
         ("rd" "Daily Review"
          entry
-         (function (lambda () (org-journal-new-entry nil)))
+         (function (lambda ()
+                     (org-journal-new-entry nil)
+                     (insert "Daily Review")))
          (file ,zwei/org-agenda-daily-review-template-file)
          :jump-to-captured t
          :immediate-finish nil)))

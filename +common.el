@@ -34,6 +34,9 @@
 (defvar zwei/org-agenda-templates-directory (concat zwei/org-agenda-directory "/templates")
   "Directory to store templates for GTD system (weekly review template for example).")
 
+(defvar zwei/org-agenda-monthly-review-template-file (concat zwei/org-agenda-templates-directory "/monthly_review.org")
+  "Template file for monthly review.")
+
 (defvar zwei/org-agenda-weekly-review-template-file (concat zwei/org-agenda-templates-directory "/weekly_review.org")
   "Template file for weekly review.")
 

@@ -33,14 +33,6 @@ If CHECK-FUNC is provided, will check using that too."
         (or (outline-next-heading)
             (goto-char (point-max)))))))
 
-(defvar zwei/org-agenda-directory-plus-archives
-  (org-agenda-files
-   (directory-files
-    zwei/org-agenda-directory
-    t
-    "\\(\.org\\)\\|\\(.org_archive\\)$" t))
-  "zwei/org-agenda-directory plus the addition of the archive files.")
-
 ;; Custom commands and their mappings
 (setq org-agenda-custom-commands nil)
 
