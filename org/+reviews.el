@@ -7,6 +7,12 @@
 ;;;
 ;;; Code:
 
+(defun zwei/reviews-daily ()
+  "Return the daily review agenda string."
+  (save-window-excursion
+    (org-agenda nil "x2")
+    (progn (string-trim (buffer-string)))))
+
 (defun zwei/reviews-weekly (questions-string)
   "Takes a string QUESTIONS-STRING and outputs a string consisting of the
 agenda divided by goal."
