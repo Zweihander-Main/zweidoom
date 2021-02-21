@@ -153,7 +153,8 @@ If CHECK-FUNC is provided, will check using that too."
                     ((org-ql-block
                       '(and (or (clocked 7)
                                 (closed 7))
-                            (tags ,tag))))
+                            (tags ,tag))
+                      ((org-ql-block-header (concat ,tag)))))
                     (zwei/org-agenda-directory-plus-archives)))))
  zwei/org-tag-goal-table)
 
@@ -161,9 +162,10 @@ If CHECK-FUNC is provided, will check using that too."
              `("xw0" "Other"
                ((org-ql-block
                  '(and (or (clocked 7)
-                            (closed 7))
+                           (closed 7))
                        (not (tags
-                             ,@(hash-table-keys zwei/org-tag-goal-table))))))
+                             ,@(hash-table-keys zwei/org-tag-goal-table))))
+                 ((org-ql-block-header (concat ,"OTHER")))))
                (zwei/org-agenda-directory-plus-archives)))
 
 ;;; +org-agenda-custom-commands.el ends here
