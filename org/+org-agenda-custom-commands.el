@@ -33,6 +33,14 @@ If CHECK-FUNC is provided, will check using that too."
         (or (outline-next-heading)
             (goto-char (point-max)))))))
 
+(defvar zwei/org-agenda-directory-plus-archives
+  (org-agenda-files
+   (directory-files
+    zwei/org-agenda-directory
+    t
+    "\\(\.org\\)\\|\\(.org_archive\\)$" t))
+  "zwei/org-agenda-directory plus the addition of the archive files.")
+
 ;; Custom commands and their mappings
 (setq org-agenda-custom-commands nil)
 
@@ -114,11 +122,7 @@ If CHECK-FUNC is provided, will check using that too."
                            (clocked 7))
                        (not (tags ,@(hash-table-keys zwei/org-tag-goal-table))))
                  ((org-ql-block-header "OTHER"))))
-               ((org-agenda-files
-                 (directory-files
-                  zwei/org-agenda-directory
-                  t
-                  "\\(\.org\\)\\|\\(.org_archive\\)$" t)))))
+               (zwei/org-agenda-directory-plus-archives)))
 
 (add-to-list 'org-agenda-custom-commands
              `("x2" "daily review"
@@ -135,10 +139,31 @@ If CHECK-FUNC is provided, will check using that too."
                            (clocked 1))
                        (not (tags ,@(hash-table-keys zwei/org-tag-goal-table))))
                  ((org-ql-block-header "OTHER"))))
-               ((org-agenda-files
-                 (directory-files
-                  zwei/org-agenda-directory
-                  t
-                  "\\(\.org\\)\\|\\(.org_archive\\)$" t)))))
+               (zwei/org-agenda-directory-plus-archives)))
+
+(add-to-list 'org-agenda-custom-commands
+             `("xw" . "weekly views"))
+(maphash
+ (lambda (tag v)
+   (let ((numkey (plist-get v 'numkey)))
+     (print numkey)
+     (add-to-list 'org-agenda-custom-commands
+                  `(,(concat "xw" (char-to-string numkey))
+                    ,(concat tag " weekly recap")
+                    ((org-ql-block
+                      '(and (or (clocked 7)
+                                (closed 7))
+                            (tags ,tag))))
+                    (zwei/org-agenda-directory-plus-archives)))))
+ zwei/org-tag-goal-table)
+
+(add-to-list 'org-agenda-custom-commands
+             `("xw0" "Other"
+               ((org-ql-block
+                 '(and (or (clocked 7)
+                            (closed 7))
+                       (not (tags
+                             ,@(hash-table-keys zwei/org-tag-goal-table))))))
+               (zwei/org-agenda-directory-plus-archives)))
 
 ;;; +org-agenda-custom-commands.el ends here
