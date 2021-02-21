@@ -35,24 +35,4 @@
          :jump-to-captured t
          :immediate-finish nil)))
 
-(defun zwei/org-capture-goal-extract (goal)
-  "Return GOAL todo in the format:
-todo text by yyyy-mm-dd
-Will return \"\" if goal is \"OTHER\"."
-  (if (string= goal "OTHER") ""
-    (let* ((headline
-            (plist-get
-             (car
-              (org-ql-query
-                :from zwei/org-agenda-goals-file
-                :where `(and (todo "TODO")
-                             (parent ,goal))))
-             'headline))
-           (raw (plist-get headline ':raw-value))
-           (scheduled (plist-get headline ':scheduled)))
-      (if scheduled
-          (concat raw " by " (org-timestamp-format scheduled "%Y-%m-%d"))
-        raw))))
-
-
 ;;; +org-capture.el ends here

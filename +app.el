@@ -43,6 +43,26 @@
         (setq windows (cdr windows))))))
 
 
+;; ===========
+;;  Debugging
+;; ===========
+
+(defmacro zwei/measure-time (&rest body)
+  "Measure the time it takes to evaluate BODY."
+  `(let ((time (current-time)))
+     ,@body
+     (message "%.06f" (float-time (time-since time)))))
+
+(defmacro zwei/measure-n-invocations (times &rest body)
+  "Measure the average time it takes to evaluate BODY n TIMES."
+  `(let ((results '()))
+    (dotimes (i ,times)
+      (let ((time (current-time)))
+        ,@body
+        (push (float-time (time-since time)) results)))
+    (message "%.06f" (/ (apply '+ results) (length results)))))
+
+
 ;; ==========
 ;;  Flycheck
 ;; =========
