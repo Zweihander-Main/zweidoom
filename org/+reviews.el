@@ -37,7 +37,7 @@ Will return non-goal todo num if goal is \"OTHER\"."
            `(tags ,goal))))
     (length
      (org-ql-query
-       :from (zwei/org-agenda-directory-plus-archives)
+       :from (org-agenda-files t t)
        :where `(and (closed ,num-days)
                     ,match)))))
 

@@ -114,7 +114,7 @@ If CHECK-FUNC is provided, will check using that too."
                            (clocked 7))
                        (not (tags ,@(hash-table-keys zwei/org-tag-goal-table))))
                  ((org-ql-block-header "OTHER"))))
-               (zwei/org-agenda-directory-plus-archives)))
+               ((org-agenda-files ',(org-agenda-files t t)))))
 
 (add-to-list 'org-agenda-custom-commands
              `("x2" "daily review"
@@ -131,7 +131,7 @@ If CHECK-FUNC is provided, will check using that too."
                            (clocked 1))
                        (not (tags ,@(hash-table-keys zwei/org-tag-goal-table))))
                  ((org-ql-block-header "OTHER"))))
-               (zwei/org-agenda-directory-plus-archives)))
+               ((org-agenda-files ',(org-agenda-files t t)))))
 
 (add-to-list 'org-agenda-custom-commands
              `("xw" . "weekly views"))
@@ -147,7 +147,7 @@ If CHECK-FUNC is provided, will check using that too."
                                 (closed 7))
                             (tags ,tag))
                       ((org-ql-block-header (concat ,tag)))))
-                    (zwei/org-agenda-directory-plus-archives)))))
+                    ((org-agenda-files ',(org-agenda-files t t)))))))
  zwei/org-tag-goal-table)
 
 (add-to-list 'org-agenda-custom-commands
@@ -158,6 +158,6 @@ If CHECK-FUNC is provided, will check using that too."
                        (not (tags
                              ,@(hash-table-keys zwei/org-tag-goal-table))))
                  ((org-ql-block-header (concat ,"OTHER")))))
-               (zwei/org-agenda-directory-plus-archives)))
+               ((org-agenda-files ',(org-agenda-files t t)))))
 
 ;;; +org-agenda-custom-commands.el ends here
