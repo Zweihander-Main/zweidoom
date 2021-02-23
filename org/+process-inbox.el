@@ -1,4 +1,4 @@
-;;; +org-agenda-process-inbox.el -- ~/.doom.d/org/+org-agenda-process-inbox.el
+;;; +process-inbox.el -- ~/.doom.d/org/+process-inbox.el
 ;;;
 ;;; Commentary:
 ;;; -*- lexical-binding: t; -*-
@@ -147,4 +147,4 @@
       :desc "Process marked items" "P" #'zwei/org-agenda-bulk-process-entries
       :desc "Process current item" "i" #'zwei/org-agenda-process-inbox-item)
 
-;;; +org-agenda-process-inbox.el ends here
+;;; +process-inbox.el ends here

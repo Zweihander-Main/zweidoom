@@ -1,4 +1,4 @@
-;;; +mu4e-memo-to-inbox.el -- ~/.doom.d/mu4e/+mu4e-memo-to-inbox.el
+;;; +memo-to-inbox.el -- ~/.doom.d/mu4e/+memo-to-inbox.el
 ;;;
 ;;; Commentary:
 ;;; -*- lexical-binding: t; -*-
@@ -109,4 +109,4 @@ Will setup the mu4e-view which is then hooked into the process function."
 
 (zwei/mu4e-script-mode t)
 
-;;; +mu4e-memo-to-inbox.el ends here
+;;; +memo-to-inbox.el ends here

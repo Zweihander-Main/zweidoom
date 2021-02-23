@@ -42,7 +42,6 @@ Will return non-goal todo num if goal is \"OTHER\"."
        :where `(and (closed ,@orgql-date-predicate)
                     ,match)))))
 
-
 (defun zwei/reviews-daily ()
   "Return the daily review agenda string."
   (save-window-excursion

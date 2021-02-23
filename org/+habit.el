@@ -1,4 +1,4 @@
-;;; +org-habit.el -- ~/.doom.d/org/+org-habit.el
+;;; +habit.el -- ~/.doom.d/org/+habit.el
 ;;;
 ;;; Commentary:
 ;;; -*- lexical-binding: t; -*-
@@ -24,4 +24,4 @@ means of creating calendar-based reminders."
   :package-version '(Org . "9.3")
   :safe (lambda (v) (org (integerp v) (null n))))
 
-;;; +org-habit.el ends here
+;;; +habit.el ends here

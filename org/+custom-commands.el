@@ -1,4 +1,4 @@
-;;; +org-agenda-custom-commands.el -- ~/.doom.d/org/+org-agenda-custom-commands.el
+;;; +custom-commands.el -- ~/.doom.d/org/+custom-commands.el
 ;;;
 ;;; Commentary:
 ;;; -*- lexical-binding: t; -*-
@@ -138,7 +138,6 @@ If CHECK-FUNC is provided, will check using that too."
 (maphash
  (lambda (tag v)
    (let ((numkey (plist-get v 'numkey)))
-     (print numkey)
      (add-to-list 'org-agenda-custom-commands
                   `(,(concat "xw" (char-to-string numkey))
                     ,(concat tag " weekly recap")
@@ -160,4 +159,4 @@ If CHECK-FUNC is provided, will check using that too."
                  ((org-ql-block-header (concat ,"OTHER")))))
                ((org-agenda-files ',(org-agenda-files t t)))))
 
-;;; +org-agenda-custom-commands.el ends here
+;;; +custom-commands.el ends here

@@ -1,4 +1,4 @@
-;;; +org-capture.el -- ~/.doom.d/org/+org-capture.el
+;;; +capture.el -- ~/.doom.d/org/+capture.el
 ;;;
 ;;; Commentary:
 ;;; -*- lexical-binding: t; -*-
@@ -46,4 +46,4 @@
          :jump-to-captured t
          :immediate-finish nil)))
 
-;;; +org-capture.el ends here
+;;; +capture.el ends here

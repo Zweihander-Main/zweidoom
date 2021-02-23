@@ -1,4 +1,4 @@
-;;; +org-agenda.el -- ~/.doom.d/org/+org-agenda.el
+;;; +agenda.el -- ~/.doom.d/org/+agenda.el
 ;;;
 ;;; Commentary:
 ;;; -*- lexical-binding: t; -*-
@@ -188,4 +188,4 @@
       "o" #'org-clock-convenience-fill-gap
       "e" #'org-clock-convenience-fill-gap-both)
 
-;;; +org-agenda.el ends here
+;;; +agenda.el ends here

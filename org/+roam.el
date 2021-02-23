@@ -1,4 +1,4 @@
-;;; +org-roam.el -- ~/.doom.d/+org-agenda.el
+;;; +roam.el -- ~/.doom.d/+roam.el
 ;;;
 ;;; Commentary:
 ;;; -*- lexical-binding: t; -*-
@@ -65,4 +65,4 @@
         (org-export-create-backend :parent 'html
                                    :filters '((:filter-paragraph . filter-out-p)))))
 
-;;; +org-roam.el ends here
+;;; +roam.el ends here
