@@ -107,4 +107,17 @@ Intended for short term usage - not designed to survive restart."
                     (save-mark-and-excursion--restore old-mark)
                     (set (intern var-string) nil))))))
 
+(defun zwei/date-to-time (date)
+  "Takes DATE from calendar-read-date and outputs time string digestible by
+parse-time-string."
+  (let ((year (calendar-extract-year date))
+        (month (calendar-extract-month date))
+        (day (calendar-extract-day date)))
+    (concat
+     (number-to-string day)
+     " "
+     (calendar-month-name month t)
+     " "
+     (number-to-string year))))
+
 ;;; +common.el ends here

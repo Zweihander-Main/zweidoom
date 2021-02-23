@@ -18,8 +18,8 @@
   (load! "./org/+org")
   (load! "./org/+org-habit"))
 (after! org-capture
-  (load! "./org/+org-capture")
-  (load! "./org/+reviews"))
+  (load! "./org/+reviews")
+  (load! "./org/+org-capture"))
 (after! org-agenda
   (load! "./org/+org-agenda")
   (load! "./org/+org-agenda-process-inbox")

@@ -6,6 +6,7 @@
 ;;; Config related to org capture and reviews called from it.
 ;;;
 ;;; Code:
+
 (setq org-capture-templates
       `(("i" "inbox"
          entry
@@ -23,8 +24,8 @@
         ("r" "Review templates")
         ("rm" "Monthly Review"
          entry
-         (file+olp+datetree ,zwei/org-agenda-reviews-file "Monthly Reviews")
-         (file ,zwei/org-agenda-monthly-review-template-file)
+         (function zwei/reviews-position-monthly-template)
+         (function zwei/reviews-generate-monthly-template)
          :jump-to-captured t
          :tree-type 'monthly
          :immediate-finish nil)
@@ -33,6 +34,7 @@
          (file+olp+datetree ,zwei/org-agenda-reviews-file "Weekly Reviews")
          (file ,zwei/org-agenda-weekly-review-template-file)
          :jump-to-captured t
+         :time-prompt t
          :tree-type 'week
          :immediate-finish nil)
         ("rd" "Daily Review"
