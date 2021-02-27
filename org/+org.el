@@ -133,7 +133,7 @@
       org-log-into-drawer t)
 
 
-;; Tagging -- currently used for place and goal
+;; Tagging -- used for place and goal
 
 (defvar zwei/org-tag-goal-table (make-hash-table :test 'equal)
   "Hash table with GOALSTRING as key, plist '(numkey ?# colorstring STRING) as values.")

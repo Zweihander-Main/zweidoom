@@ -102,12 +102,12 @@ If CHECK-FUNC is provided, will check using that too."
 (add-to-list 'org-agenda-custom-commands
              `("x1" "weekly recap"
                (,@(mapcar
-                   #'(lambda (tag)
-                       `(org-ql-block
-                         '(and (or (clocked 7)
-                                   (closed 7))
-                               (tags ,tag))
-                         ((org-ql-block-header (concat ,tag)))))
+                   (lambda (tag)
+                     `(org-ql-block
+                       '(and (or (clocked 7)
+                                 (closed 7))
+                             (tags ,tag))
+                       ((org-ql-block-header ,tag))))
                    (hash-table-keys zwei/org-tag-goal-table))
                 (org-ql-block
                  `(and (or (closed 7)
@@ -119,12 +119,12 @@ If CHECK-FUNC is provided, will check using that too."
 (add-to-list 'org-agenda-custom-commands
              `("x2" "daily review"
                (,@(mapcar
-                   #'(lambda (tag)
-                       `(org-ql-block
-                         '(and (or (clocked 1)
-                                   (closed 1))
-                               (tags ,tag))
-                         ((org-ql-block-header (concat ,tag)))))
+                   (lambda (tag)
+                     `(org-ql-block
+                       '(and (or (clocked 1)
+                                 (closed 1))
+                             (tags ,tag))
+                       ((org-ql-block-header ,tag))))
                    (hash-table-keys zwei/org-tag-goal-table))
                 (org-ql-block
                  `(and (or (closed 1)
@@ -135,6 +135,7 @@ If CHECK-FUNC is provided, will check using that too."
 
 (add-to-list 'org-agenda-custom-commands
              `("xw" . "weekly views"))
+
 (maphash
  (lambda (tag v)
    (let ((numkey (plist-get v 'numkey)))
@@ -145,7 +146,7 @@ If CHECK-FUNC is provided, will check using that too."
                       '(and (or (clocked 7)
                                 (closed 7))
                             (tags ,tag))
-                      ((org-ql-block-header (concat ,tag)))))
+                      ((org-ql-block-header ,tag))))
                     ((org-agenda-files ',(org-agenda-files t t)))))))
  zwei/org-tag-goal-table)
 
@@ -156,7 +157,7 @@ If CHECK-FUNC is provided, will check using that too."
                            (closed 7))
                        (not (tags
                              ,@(hash-table-keys zwei/org-tag-goal-table))))
-                 ((org-ql-block-header (concat ,"OTHER")))))
+                 ((org-ql-block-header "OTHER"))))
                ((org-agenda-files ',(org-agenda-files t t)))))
 
 ;;; +custom-commands.el ends here
