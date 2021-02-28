@@ -107,6 +107,12 @@
 
 
 ;; =====
+;;  Eww
+;; =====
+(setq eww-search-prefix "https://lite.duckduckgo.com/lite/?q=")
+
+
+;; =====
 ;;  Ivy
 ;; =====
                                         ; Set search to ignore archives
