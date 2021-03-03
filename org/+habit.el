@@ -24,4 +24,7 @@ means of creating calendar-based reminders."
   :package-version '(Org . "9.3")
   :safe (lambda (v) (org (integerp v) (null n))))
 
+;; Variables
+(setq org-habit-following-days 1)
+
 ;;; +habit.el ends here
