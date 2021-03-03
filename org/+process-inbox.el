@@ -139,12 +139,31 @@
                          skipped))
                (if (not org-agenda-persistent-marks) "" " (kept marked)")))))
 
+(defun zwei/org-agenda-open-and-archive-all-links ()
+  "Bulk mark links."
+  (interactive)
+  (let ((entries-marked 0)
+        txt-at-point)
+    (save-excursion
+      (goto-char (point-min))
+      (goto-char (next-single-property-change (point) 'org-hd-marker))
+      (let ((ret-msg "")
+            (continue t))
+        (while continue
+          (setq ret-msg (org-agenda-open-link))
+          (unless (and (stringp ret-msg )(string= ret-msg "No link to open here"))
+            (progn
+              (org-agenda-todo "DONE")
+              (org-agenda-archive))) ; TODO DRY with process-inbox-item
+          (unless (org-agenda-next-line)
+            (setq continue nil)))))))
 
 ;; Mappings
 (map! :map org-agenda-mode-map
       :localleader
       :desc "Process inbox items" "p" #'zwei/org-agenda-process-inbox
       :desc "Process marked items" "P" #'zwei/org-agenda-bulk-process-entries
+      :desc "Process all links" "L" #'zwei/org-agenda-open-and-archive-all-links
       :desc "Process current item" "i" #'zwei/org-agenda-process-inbox-item)
 
 ;;; +process-inbox.el ends here
