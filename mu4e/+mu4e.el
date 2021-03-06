@@ -22,7 +22,7 @@
                       (user-mail-address      . "zweihander@fastmail.com")
                       )t)
 (setq +mu4e-backend 'mbsync
-      mu4e-get-mail-command "mbsync --all"
+      mu4e-get-mail-command "mbsync -c '${XDG_CONFIG_HOME}/isync/mbsyncrc' --all"
       mu4e-update-interval 1200
       mu4e-context-policy 'pick-first
       mu4e-compose-context-policy nil)
