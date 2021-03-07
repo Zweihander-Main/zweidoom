@@ -161,9 +161,9 @@
 ;; Mappings
 (map! :map org-agenda-mode-map
       :localleader
-      :desc "Process inbox items" "p" #'zwei/org-agenda-process-inbox
-      :desc "Process marked items" "P" #'zwei/org-agenda-bulk-process-entries
+      :desc "Process inbox items" "i" #'zwei/org-agenda-process-inbox
+      :desc "Process marked items" "I" #'zwei/org-agenda-bulk-process-entries
       :desc "Process all links" "L" #'zwei/org-agenda-open-and-archive-all-links
-      :desc "Process current item" "i" #'zwei/org-agenda-process-inbox-item)
+      :desc "Process current item" "P" #'zwei/org-agenda-process-inbox-item)
 
 ;;; +process-inbox.el ends here
