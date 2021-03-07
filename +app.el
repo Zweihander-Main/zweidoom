@@ -12,8 +12,9 @@
 ;; Fix issues with emacs 27 warnings
 (setq byte-compile-warnings '(cl-functions))
 
-;; Load lisp files for compiled Emacs on Debian/WSL
-(when (string= (zwei/which-linux-distro) "Debian")
+;; Load lisp files for compiled Emacs on Debian/WSL/Arch
+(when (or (string= (zwei/which-linux-distro) "Debian")
+          (string= (zwei/which-linux-distro) "Arch"))
   (add-to-list 'load-path "/usr/share/emacs/site-lisp"))
 
 
