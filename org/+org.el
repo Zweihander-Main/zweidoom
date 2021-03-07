@@ -3,11 +3,7 @@
 ;;; Commentary:
 ;;; -*- lexical-binding: t; -*-
 ;;;
-;;; Contains org related config that's not:
-;;; - agenda related (+org-agenda.el ect.)
-;;; - habit related (+org-habit.el)
-;;; - roam/wiki/kb related (+org-roam.el)
-;;; - capture/reviews related (+org-capture.el)
+;;; Contains org related config that's not listed in other files in /org
 ;;;
 ;;; Code:
 
@@ -182,6 +178,8 @@
 
 ;; Other modules
 (add-to-list 'org-modules 'org-habit-plus)
+(add-to-list 'org-modules 'org-habit)
+; Loading both to make up for age of org-habit plus. ORDER MATTERS.
 
 
 ;; Disable fancy-priorities for now

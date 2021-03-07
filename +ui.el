@@ -3,7 +3,7 @@
 ;;; Commentary:
 ;;; -*- lexical-binding: t; -*-
 ;;;
-;;; Contains all general ui, theme, and view-layer configuration.
+;;; If it themes, it's here.
 ;;;
 ;;; Code:
 
@@ -50,6 +50,10 @@
   '(org-roam-link :inherit org-link
                   :foreground "DarkOrange3")
   '(line-number :family "Iosevka Term SS09")
-  '(line-number-current-line :inherit line-number))
+  '(line-number-current-line :inherit line-number)
+  `(org-habit-ready-face :background "#017105" )
+  `(org-habit-ready-future-face :background "#015505")
+  `(org-habit-alert-face :background "#A09000" )
+  `(org-habit-alert-future-face :background "#807000"))
 
 ;;; +ui.el ends here
