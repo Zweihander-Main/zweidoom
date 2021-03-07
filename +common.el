@@ -14,7 +14,7 @@
 ;; ===============
 
 ;; Load machine specific directories which includes org-directory
-(load! "doom/+machine_var") ;; At doom due to chezmoi config discrepencies
+(load! "+machine_var") ;; At doom due to chezmoi config discrepencies
 
 ;; Set all directories around org
 (setq default-directory org-directory
