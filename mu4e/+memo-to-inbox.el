@@ -1,4 +1,4 @@
-;;; +memo-to-inbox.el -- ~/.doom.d/mu4e/+memo-to-inbox.el
+;;; +memo-to-inbox.el -- doom/mu4e/+memo-to-inbox.el
 ;;;
 ;;; Commentary:
 ;;; -*- lexical-binding: t; -*-

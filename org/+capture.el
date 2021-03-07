@@ -1,4 +1,4 @@
-;;; +capture.el -- ~/.doom.d/org/+capture.el
+;;; +capture.el -- doom/org/+capture.el
 ;;;
 ;;; Commentary:
 ;;; -*- lexical-binding: t; -*-

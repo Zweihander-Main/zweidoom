@@ -1,4 +1,4 @@
-;;; +org.el -- ~/.doom.d/org/+org.el
+;;; +org.el -- doom/org/+org.el
 ;;;
 ;;; Commentary:
 ;;; -*- lexical-binding: t; -*-

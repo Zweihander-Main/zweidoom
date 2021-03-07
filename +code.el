@@ -1,4 +1,4 @@
-;;; +code.el -- ~/.doom.d/+code.el
+;;; +code.el -- doom/+code.el
 ;;;
 ;;; Commentary:
 ;;; -*- lexical-binding: t; -*-

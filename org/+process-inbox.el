@@ -1,4 +1,4 @@
-;;; +process-inbox.el -- ~/.doom.d/org/+process-inbox.el
+;;; +process-inbox.el -- doom/org/+process-inbox.el
 ;;;
 ;;; Commentary:
 ;;; -*- lexical-binding: t; -*-

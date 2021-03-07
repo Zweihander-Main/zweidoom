@@ -1,4 +1,4 @@
-;;; +ui.el -- ~/.doom.d/+ui.el
+;;; +ui.el -- doom/+ui.el
 ;;;
 ;;; Commentary:
 ;;; -*- lexical-binding: t; -*-

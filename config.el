@@ -1,4 +1,4 @@
-;;; config.el -- ~/.doom.d/config.el
+;;; config.el -- doom/config.el
 ;;;
 ;;; Commentary:
 ;;; -*- lexical-binding: t; -*-

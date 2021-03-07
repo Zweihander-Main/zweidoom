@@ -1,4 +1,4 @@
-;;; +reviews.el -- ~/.doom.d/org/+reviews.el
+;;; +reviews.el -- doom/org/+reviews.el
 ;;;
 ;;; Commentary:
 ;;; -*- lexical-binding: t; -*-

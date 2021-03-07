@@ -1,4 +1,4 @@
-;;; +app.el -- ~/.doom.d/+app.el
+;;; +app.el -- doom/+app.el
 ;;;
 ;;; Commentary:
 ;;; -*- lexical-binding: t; -*-

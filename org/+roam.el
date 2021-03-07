@@ -1,4 +1,4 @@
-;;; +roam.el -- ~/.doom.d/+roam.el
+;;; +roam.el -- doom/+roam.el
 ;;;
 ;;; Commentary:
 ;;; -*- lexical-binding: t; -*-

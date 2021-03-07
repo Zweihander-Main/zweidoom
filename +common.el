@@ -1,4 +1,4 @@
-;;; +common.el -- ~/.doom.d/+common.el
+;;; +common.el -- doom/+common.el
 ;;;
 ;;; Commentary:
 ;;; -*- lexical-binding: t; -*-
@@ -14,7 +14,7 @@
 ;; ===============
 
 ;; Load machine specific directories which includes org-directory
-(load! "~/.doom.d/+machine_var") ;; At doom due to chezmoi config discrepencies
+(load! "doom/+machine_var") ;; At doom due to chezmoi config discrepencies
 
 ;; Set all directories around org
 (setq default-directory org-directory

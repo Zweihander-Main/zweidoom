@@ -1,4 +1,4 @@
-;;; +custom-commands.el -- ~/.doom.d/org/+custom-commands.el
+;;; +custom-commands.el -- doom/org/+custom-commands.el
 ;;;
 ;;; Commentary:
 ;;; -*- lexical-binding: t; -*-

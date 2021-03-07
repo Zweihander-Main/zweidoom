@@ -1,4 +1,4 @@
-;;; +mu4e.el -- ~/.doom.d/mu4e/+mu4e.el
+;;; +mu4e.el -- doom/mu4e/+mu4e.el
 ;;;
 ;;; Commentary:
 ;;; -*- lexical-binding: t; -*-
