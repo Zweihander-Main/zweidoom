@@ -13,5 +13,6 @@
   :recipe '(:local-repo "packages/org-variable-pitch"))
 (package! org-habit-plus
   :recipe '(:host github :repo "oddious/org-habit-plus"))
+(package! vimrc-mode)
 
 ;;; packages.el ends here
