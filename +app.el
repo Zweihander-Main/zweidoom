@@ -24,7 +24,7 @@
 (setq delete-old-versions -1
       backup-by-copying t ;; don't clobber symlinks
       kept-new-versions 10 ;;keep 10 versions
-      delete-old-versions t ;; delte old versions silently
+      delete-old-versions t ;; delete old versions silently
       version-control t ;; number backups
       vc-make-backup-files t ;;backup version controlled files
       auto-save-interval 3)
@@ -57,11 +57,11 @@
 (defmacro zwei/measure-n-invocations (times &rest body)
   "Measure the average time it takes to evaluate BODY n TIMES."
   `(let ((results '()))
-    (dotimes (i ,times)
-      (let ((time (current-time)))
-        ,@body
-        (push (float-time (time-since time)) results)))
-    (message "%.06f" (/ (apply '+ results) (length results)))))
+     (dotimes (i ,times)
+       (let ((time (current-time)))
+         ,@body
+         (push (float-time (time-since time)) results)))
+     (message "%.06f" (/ (apply '+ results) (length results)))))
 
 
 ;; ==========
@@ -96,9 +96,11 @@
 ;; ========
 (after! ispell
   :config
-  (setq ispell-dictionary "en"
-        ispell-list-command "--list"
-        ispell-extra-args '("--sug-mode=fast")))
+  (setq ispell-dictionary "en")
+  (setq ispell-program-name "aspell")
+  (setq ispell-extra-args '("--sug-mode=ultra" "--lang=en_US"))
+  (setq spell-fu-directory "~/.config/aspell") ;; Please create this directory manually.
+  (setq ispell-personal-dictionary "~/.config/aspell/en.pws"))
 
 
 ;; ================
