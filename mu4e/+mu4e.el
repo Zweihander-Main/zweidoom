@@ -10,6 +10,8 @@
 ;; Assuming mu4e built from source at the moment
 (when (string= (zwei/which-linux-distro) "Debian")
   (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e"))
+(when (string= (zwei/which-linux-distro) "Arch")
+  (add-to-list 'load-path "/usr/share/emacs/site-lisp/mu4e"))
 
 ;; Config
 
