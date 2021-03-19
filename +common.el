@@ -55,7 +55,8 @@
 (defvar zwei/org-agenda-goals-file (concat zwei/org-agenda-directory "/goals.org")
   "File for overarching goal tracking.")
 
-(setq +org-capture-todo-file zwei/org-agenda-todo-file)
+(setq +org-capture-todo-file zwei/org-agenda-todo-file
+      org-default-notes-file zwei/org-agenda-todo-file)
 
 
 ;; ==================

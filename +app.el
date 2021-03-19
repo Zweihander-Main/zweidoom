@@ -98,8 +98,7 @@
   :config
   (setq ispell-dictionary "en")
   (setq ispell-program-name "aspell")
-  (setq ispell-extra-args '("--sug-mode=ultra" "--lang=en_US"))
-  (setq spell-fu-directory "~/.config/aspell") ;; Please create this directory manually.
+  (setq spell-fu-directory "~/.config/aspell")
   (setq ispell-personal-dictionary "~/.config/aspell/en.pws"))
 
 

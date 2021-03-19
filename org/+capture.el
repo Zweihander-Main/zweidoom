@@ -7,6 +7,22 @@
 ;;;
 ;;; Code:
 
+;; Functions
+
+(defun zwei/org-inbox-capture ()
+  "Shortcut to org-capture->inbox."
+  (interactive)
+  "Capture a an inbox task."
+  (org-capture nil "i"))
+
+;; Mappings
+
+(map! :leader
+      :prefix "n"
+      :desc "Inbox entry" "i" #'zwei/org-inbox-capture)
+
+;; Config
+
 (setq org-capture-templates
       `(("i" "inbox"
          entry

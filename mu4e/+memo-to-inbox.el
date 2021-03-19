@@ -8,6 +8,8 @@
 ;;;
 ;;; Code:
 
+(require 'org-capture)
+
 ;; Variables
 
 (defvar zwei/mu4e-memo-to-inbox-state "mu4e-memo-to-inbox"

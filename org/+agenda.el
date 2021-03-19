@@ -10,8 +10,6 @@
 
 
 (use-package! org-agenda
-  :defer t
-  :after org
   :defer-incrementally mu4e org-roam) ;; get mu4e and roam loading when agenda opened
 
 ;; Variables
@@ -38,12 +36,6 @@
             (call-interactively 'org-agenda-bulk-mark)))))
     (unless entries-marked
       (message "No entry matching this regexp."))))
-
-(defun zwei/org-inbox-capture ()
-  "Shortcut to org-capture->inbox."
-  (interactive)
-  "Capture a an inbox task."
-  (org-capture nil "i"))
 
 (defun zwei/org-agenda-set-effort (effort)
   "Set the EFFORT property for the current headline."
@@ -146,10 +138,6 @@
 
 ;; Mappings -- see custom commands for more
 
-(map! :leader
-      :prefix "n"
-      :desc "Inbox entry" "i" #'zwei/org-inbox-capture)
-
 (map! :map org-agenda-mode-map
       :localleader
       :desc "Edit headline" "e" #'zwei/org-agenda-edit-headline
@@ -163,12 +151,11 @@
 
 ;; Config
 
-(setq org-agenda-files (directory-files zwei/org-agenda-directory t "\.org$" t)
+(setq org-agenda-files (list zwei/org-agenda-directory)
       org-agenda-start-with-log-mode t
       org-agenda-start-day "-1d"
       org-agenda-span 3
       org-agenda-block-separator nil
-      org-agenda-bulk-custom-functions `((?c zwei/org-agenda-process-inbox-item))
       org-agenda-prefix-format
       `((agenda . " %i %-12:c%?-12t% s|%e|")
         (todo . " %i %-12:c|%e|")
@@ -179,6 +166,7 @@
 
 ;; Org-clock-convenience for agenda
 (use-package! org-clock-convenience
+  :defer t
   :after org-clock)
 
 (map! :after org-clock-convenience

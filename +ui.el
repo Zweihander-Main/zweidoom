@@ -26,6 +26,7 @@
 (doom-init-extra-fonts-h)
 
 (use-package! org-variable-pitch
+  :defer t
   :after org
   :config
   ;; Functions

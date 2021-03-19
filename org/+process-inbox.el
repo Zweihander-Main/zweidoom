@@ -166,4 +166,7 @@
       :desc "Process all links" "L" #'zwei/org-agenda-open-and-archive-all-links
       :desc "Process current item" "P" #'zwei/org-agenda-process-inbox-item)
 
+;; Config
+(setq org-agenda-bulk-custom-functions `((?c zwei/org-agenda-process-inbox-item)))
+
 ;;; +process-inbox.el ends here
