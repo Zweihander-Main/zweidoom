@@ -71,93 +71,93 @@ If CHECK-FUNC is provided, will check using that too."
 
 (map! :g "<f2>" (cmd! (org-agenda nil "2") (evil-goto-first-line)))
 
-;; (add-to-list 'org-agenda-custom-commands
-;;              `("3" "Work"
-;;                ((tags "+@work+TODO=\"TODO\"|+@work+TODO=\"NEXT\""
-;;                       ((org-agenda-overriding-header "Work")
-;;                        (org-agenda-skip-function
-;;                         '(zwei/org-agenda-skip-all-siblings-but-first
-;;                           #'(lambda()
-;;                               (org-agenda-skip-entry-if
-;;                                'deadline
-;;                                'scheduled
-;;                                'timestamp))))
-;;                        (org-agenda-files
-;;                         '(,zwei/org-agenda-projects-file
-;;                           ,zwei/org-agenda-next-file)))) ; no tickler
-;;                 (tags "+@work+TODO=\"WAIT\""
-;;                       ((org-agenda-overriding-header "\nWaiting")
-;;                        (org-agenda-skip-function
-;;                         '(org-agenda-skip-entry-if
-;;                           'deadline
-;;                           'scheduled 'timestamp))
-;;                        (org-agenda-files '(,zwei/org-agenda-projects-file
-;;                                            ,zwei/org-agenda-next-file)))))))
+(add-to-list 'org-agenda-custom-commands
+             `("3" "Work"
+               ((tags "+@work+TODO=\"TODO\"|+@work+TODO=\"NEXT\""
+                      ((org-agenda-overriding-header "Work")
+                       (org-agenda-skip-function
+                        '(zwei/org-agenda-skip-all-siblings-but-first
+                          #'(lambda()
+                              (org-agenda-skip-entry-if
+                               'deadline
+                               'scheduled
+                               'timestamp))))
+                       (org-agenda-files
+                        '(,zwei/org-agenda-projects-file
+                          ,zwei/org-agenda-next-file)))) ; no tickler
+                (tags "+@work+TODO=\"WAIT\""
+                      ((org-agenda-overriding-header "\nWaiting")
+                       (org-agenda-skip-function
+                        '(org-agenda-skip-entry-if
+                          'deadline
+                          'scheduled 'timestamp))
+                       (org-agenda-files '(,zwei/org-agenda-projects-file
+                                           ,zwei/org-agenda-next-file)))))))
 
-;; (map! :g "<f3>" (cmd! (org-agenda nil "3") (evil-goto-first-line)))
+(map! :g "<f3>" (cmd! (org-agenda nil "3") (evil-goto-first-line)))
 
-;; (add-to-list 'org-agenda-custom-commands
-;;              `("x" . "utility searches"))
+(add-to-list 'org-agenda-custom-commands
+             `("x" . "utility searches"))
 
-;; (add-to-list 'org-agenda-custom-commands
-;;              `("x1" "weekly recap"
-;;                (,@(mapcar
-;;                    (lambda (tag)
-;;                      `(org-ql-block
-;;                        '(and (or (clocked 7)
-;;                                  (closed 7))
-;;                              (tags ,tag))
-;;                        ((org-ql-block-header ,tag))))
-;;                    (hash-table-keys zwei/org-tag-goal-table))
-;;                 (org-ql-block
-;;                  `(and (or (closed 7)
-;;                            (clocked 7))
-;;                        (not (tags ,@(hash-table-keys zwei/org-tag-goal-table))))
-;;                  ((org-ql-block-header "OTHER"))))
-;;                ((org-agenda-files ',(org-agenda-files t t)))))
+(add-to-list 'org-agenda-custom-commands
+             `("x1" "weekly recap"
+               (,@(mapcar
+                   (lambda (tag)
+                     `(org-ql-block
+                       '(and (or (clocked 7)
+                                 (closed 7))
+                             (tags ,tag))
+                       ((org-ql-block-header ,tag))))
+                   (hash-table-keys zwei/org-tag-goal-table))
+                (org-ql-block
+                 `(and (or (closed 7)
+                           (clocked 7))
+                       (not (tags ,@(hash-table-keys zwei/org-tag-goal-table))))
+                 ((org-ql-block-header "OTHER"))))
+               ((org-agenda-files ',(org-agenda-files t t)))))
 
-;; (add-to-list 'org-agenda-custom-commands
-;;              `("x2" "daily review"
-;;                (,@(mapcar
-;;                    (lambda (tag)
-;;                      `(org-ql-block
-;;                        '(and (or (clocked 1)
-;;                                  (closed 1))
-;;                              (tags ,tag))
-;;                        ((org-ql-block-header ,tag))))
-;;                    (hash-table-keys zwei/org-tag-goal-table))
-;;                 (org-ql-block
-;;                  `(and (or (closed 1)
-;;                            (clocked 1))
-;;                        (not (tags ,@(hash-table-keys zwei/org-tag-goal-table))))
-;;                  ((org-ql-block-header "OTHER"))))
-;;                ((org-agenda-files ',(org-agenda-files t t)))))
+(add-to-list 'org-agenda-custom-commands
+             `("x2" "daily review"
+               (,@(mapcar
+                   (lambda (tag)
+                     `(org-ql-block
+                       '(and (or (clocked 1)
+                                 (closed 1))
+                             (tags ,tag))
+                       ((org-ql-block-header ,tag))))
+                   (hash-table-keys zwei/org-tag-goal-table))
+                (org-ql-block
+                 `(and (or (closed 1)
+                           (clocked 1))
+                       (not (tags ,@(hash-table-keys zwei/org-tag-goal-table))))
+                 ((org-ql-block-header "OTHER"))))
+               ((org-agenda-files ',(org-agenda-files t t)))))
 
-;; (add-to-list 'org-agenda-custom-commands
-;;              `("xw" . "weekly views"))
+(add-to-list 'org-agenda-custom-commands
+             `("xw" . "weekly views"))
 
-;; (maphash
-;;  (lambda (tag v)
-;;    (let ((numkey (plist-get v 'numkey)))
-;;      (add-to-list 'org-agenda-custom-commands
-;;                   `(,(concat "xw" (char-to-string numkey))
-;;                     ,(concat tag " weekly recap")
-;;                     ((org-ql-block
-;;                       '(and (or (clocked 7)
-;;                                 (closed 7))
-;;                             (tags ,tag))
-;;                       ((org-ql-block-header ,tag))))
-;;                     ((org-agenda-files ',(org-agenda-files t t)))))))
-;;  zwei/org-tag-goal-table)
+(maphash
+ (lambda (tag v)
+   (let ((numkey (plist-get v 'numkey)))
+     (add-to-list 'org-agenda-custom-commands
+                  `(,(concat "xw" (char-to-string numkey))
+                    ,(concat tag " weekly recap")
+                    ((org-ql-block
+                      '(and (or (clocked 7)
+                                (closed 7))
+                            (tags ,tag))
+                      ((org-ql-block-header ,tag))))
+                    ((org-agenda-files ',(org-agenda-files t t)))))))
+ zwei/org-tag-goal-table)
 
-;; (add-to-list 'org-agenda-custom-commands
-;;              `("xw0" "Other"
-;;                ((org-ql-block
-;;                  '(and (or (clocked 7)
-;;                            (closed 7))
-;;                        (not (tags
-;;                              ,@(hash-table-keys zwei/org-tag-goal-table))))
-;;                  ((org-ql-block-header "OTHER"))))
-;;                ((org-agenda-files ',(org-agenda-files t t)))))
+(add-to-list 'org-agenda-custom-commands
+             `("xw0" "Other"
+               ((org-ql-block
+                 '(and (or (clocked 7)
+                           (closed 7))
+                       (not (tags
+                             ,@(hash-table-keys zwei/org-tag-goal-table))))
+                 ((org-ql-block-header "OTHER"))))
+               ((org-agenda-files ',(org-agenda-files t t)))))
 
 ;; ;;; +custom-commands.el ends here

@@ -22,7 +22,6 @@
       :desc "Inbox entry" "i" #'zwei/org-inbox-capture)
 
 ;; Config
-
 (setq org-capture-templates
       `(("i" "inbox"
          entry
