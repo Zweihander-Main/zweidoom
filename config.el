@@ -15,18 +15,19 @@
 
 ;; Org
 (after! org
-  (load! "./org/+org"))
-(after! org-habit
-  (load! "./org/+habit"))
-(after! org-capture
-  (load! "./org/+reviews")
-  (load! "./org/+capture"))
-(after! org-agenda
-  (load! "./org/+agenda")
-  (load! "./org/+process-inbox")
-  (load! "./org/+custom-commands"))
-(after! org-roam
-  (load! "./org/+roam"))
+  (load! "./org/+org")
+  (after! org-habit
+    (load! "./org/+habit"))
+  (after! org-capture
+    (load! "./org/+reviews")
+    (load! "./org/+capture"))
+  (after! org-agenda
+    (load! "./org/+agenda")
+    (load! "./org/+process-inbox")
+    (load! "./org/+custom-commands"))
+  (after! org-roam
+    (load! "./org/+roam")))
+
 
 ;; Threadripper, force immediate load
 (use-package! org)
