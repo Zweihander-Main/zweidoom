@@ -9,6 +9,9 @@
 ;;;
 ;;; Code:
 
+(require 'org)
+(require 'org-roam)
+
 
 ;; ==========
 ;;  org-roam

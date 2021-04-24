@@ -8,6 +8,8 @@
 ;;;
 ;;; Code:
 
+(require 'mu4e)
+(require 'org-mu4e)
 (require 'org-capture)
 
 ;; Variables

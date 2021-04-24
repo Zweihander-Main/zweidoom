@@ -7,6 +7,10 @@
 ;;;
 ;;; Code:
 
+(require 'org)
+(require 'org-capture)
+(load! "+reviews")
+
 ;; Functions
 
 (defun zwei/org-inbox-capture ()

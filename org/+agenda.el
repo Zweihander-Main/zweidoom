@@ -12,6 +12,10 @@
 (use-package! org-agenda
   :defer-incrementally mu4e org-roam) ;; get mu4e and roam loading when agenda opened
 
+(require 'org)
+(require 'org-agenda)
+(require 'org-clock)
+
 ;; Variables
 
 (defvar zwei/org-current-effort "1:00"

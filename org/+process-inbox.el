@@ -7,6 +7,10 @@
 ;;;
 ;;; Code:
 
+(require 'org)
+(require 'org-agenda)
+(require 'hl-line)
+
 (defun zwei/org-agenda-process-inbox ()
   "Called in org-agenda-mode, processes all inbox items."
   (interactive)

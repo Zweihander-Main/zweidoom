@@ -13,6 +13,9 @@
 (when (string= (zwei/which-linux-distro) "Arch")
   (add-to-list 'load-path "/usr/share/emacs/site-lisp/mu4e"))
 
+(require 'mu4e)
+(require 'org-mu4e)
+
 ;; Config
 
 (set-email-account! "fastmail"
@@ -28,7 +31,6 @@
       mu4e-update-interval 1200
       mu4e-context-policy 'pick-first
       mu4e-compose-context-policy nil)
-(require 'org-mu4e)
 (setq mu4e-org-link-query-in-headers-mode nil)
 
 ;;; +mu4e.el ends here

@@ -7,6 +7,8 @@
 ;;;
 ;;; Code:
 
+(require 'org)
+
 
 ;; Functions
 ;;; Statistics Cookies related

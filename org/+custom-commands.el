@@ -8,6 +8,9 @@
 ;;;
 ;;; Code:
 
+(require 'org)
+(require 'org-agenda)
+
 (defun zwei/org-agenda-skip-all-siblings-but-first (&optional check-func)
   "Skip all but the first non-done entry.
 If CHECK-FUNC is provided, will check using that too."

@@ -8,6 +8,8 @@
 ;;;
 ;;; Code:
 
+(require 'org-habit)
+
 ;; To fix Emacs 27 and org-habit-plus compat issues:
 (defcustom org-habit-scheduled-past-days nil
   "Value to use instead of `org-scheduled-past-days', for habits only.
