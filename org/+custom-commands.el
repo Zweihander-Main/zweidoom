@@ -63,16 +63,12 @@ If CHECK-FUNC is provided, will check using that too."
                       ((org-agenda-overriding-header "Projects")
                        (org-agenda-files '(,zwei/org-agenda-projects-file)))))))
 
-(map! :g "<f1>" (cmd! (org-agenda nil "1") (evil-goto-first-line)))
-
 (add-to-list 'org-agenda-custom-commands
              `("2" "Inbox"
                ((todo "TODO"
                       ((org-agenda-overriding-header "To Refile")
                        (org-agenda-prefix-format " |%e|")
                        (org-agenda-files '(,zwei/org-agenda-todo-file)))))))
-
-(map! :g "<f2>" (cmd! (org-agenda nil "2") (evil-goto-first-line)))
 
 (add-to-list 'org-agenda-custom-commands
              `("3" "Work"
@@ -96,8 +92,6 @@ If CHECK-FUNC is provided, will check using that too."
                           'scheduled 'timestamp))
                        (org-agenda-files '(,zwei/org-agenda-projects-file
                                            ,zwei/org-agenda-next-file)))))))
-
-(map! :g "<f3>" (cmd! (org-agenda nil "3") (evil-goto-first-line)))
 
 (add-to-list 'org-agenda-custom-commands
              `("x" . "utility searches"))

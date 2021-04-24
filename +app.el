@@ -175,6 +175,26 @@
        ))))
 
 
+;; ==================
+;;  Global shortcuts
+;; ==================
+
+(defun zwei/org-agenda-force-load ()
+  "Force agenda to load. Used for global agenda-access keys."
+  (require 'org)
+  (require 'org-agenda))
+
+(map! :g "<f1>" (cmd! (zwei/org-agenda-force-load)
+                      (org-agenda nil "1")
+                      (evil-goto-first-line)))
+(map! :g "<f2>" (cmd! (zwei/org-agenda-force-load)
+                      (org-agenda nil "2")
+                      (evil-goto-first-line)))
+(map! :g "<f3>" (cmd! (zwei/org-agenda-force-load)
+                      (org-agenda nil "3")
+                      (evil-goto-first-line)))
+
+
 ;; =============
 ;;  OS Specific
 ;; =============

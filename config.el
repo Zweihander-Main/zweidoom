@@ -28,11 +28,6 @@
   (after! org-roam
     (load! "./org/+roam")))
 
-;; Threadripper, force immediate load
-;; Better idea: hotkeys for agenda broken out, tied to require calls
-(use-package! org
-  :demand)
-
 ;; Other apps
 (after! mu4e
   (load! "./mu4e/+mu4e")
