@@ -9,7 +9,6 @@
 
 (require 'org)
 (require 'org-capture)
-(load! "+reviews")
 
 ;; Functions
 
