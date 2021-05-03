@@ -71,8 +71,8 @@
 (defun zwei/org-archive-done-tasks ()
   "Archive all done tasks."
   (interactive)
-  (org-map-entries 'org-archive-subtree "/DONE" 'file)
-  (org-map-entries 'org-archive-subtree "/KILL" 'file))
+  (org-map-entries 'org-archive-subtree "/+DONE" 'file)
+  (org-map-entries 'org-archive-subtree "/+KILL" 'file))
 
 (defun zwei/set-todo-state-next ()
   "Change todo to NEXT."
