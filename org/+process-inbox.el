@@ -158,7 +158,8 @@
           (unless (and (stringp ret-msg )(string= ret-msg "No link to open here"))
             (progn
               (org-agenda-todo "DONE")
-              (org-agenda-archive))) ; TODO DRY with process-inbox-item
+              (org-agenda-archive) ; TODO DRY with process-inbox-item
+              (org-agenda-previous-line))) ;; Line was deleted and on next item
           (unless (org-agenda-next-line)
             (setq continue nil)))))))
 
