@@ -14,5 +14,7 @@
 (package! org-habit-plus
   :recipe '(:host github :repo "oddious/org-habit-plus"))
 (package! vimrc-mode)
+(package! kindle-highlights-to-org
+  :recipe '(:host github :repo "Zweihander-Main/kindle-highlights-to-org"))
 
 ;;; packages.el ends here
