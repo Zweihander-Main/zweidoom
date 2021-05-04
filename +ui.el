@@ -29,19 +29,9 @@
   :defer t
   :after org
   :config
-  ;; Functions
-
-  ;; Fix issues with jit-lock in org-capture buffer when variable-pitch fonts are used:
-  (defun zwei/disable-org-variable-pitch-minor-mode ()
-    "Disable variable pitch mode."
-    (org-variable-pitch-minor-mode -1))
-
-  ;; Hooks
-  (add-hook! 'org-mode-hook #'(+org-pretty-mode org-variable-pitch-minor-mode))
-  (add-hook! 'org-capture-mode-hook #'(zwei/disable-org-variable-pitch-minor-mode))
-
-  ;; Vars
-  (setq org-variable-pitch-fixed-font "Iosevka SS09 Extended"))
+  (set-face-attribute 'org-variable-pitch-fixed-face nil
+                      :family "Iosevka SS09 Extended")
+  (add-hook 'org-mode-hook 'org-variable-pitch--enable))
 
 
 (add-hook! 'org-agenda-mode-hook #'(solaire-mode hl-line-mode))
