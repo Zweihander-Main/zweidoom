@@ -1,6 +1,11 @@
-## zweidoom
+# zweidoom
 
 > My Doom Emacs configuration. [See here for my other dotfiles](https://github.com/Zweihander-Main/zweidotfiles)
+
+## Notes:
+
+- Packages are managed using Doom's package manager. 
+- Cask is used purely for development of the config. 
 
 ## Available for Hire
 
