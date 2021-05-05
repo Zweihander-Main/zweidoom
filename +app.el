@@ -199,6 +199,16 @@
                       (evil-goto-first-line)))
 
 
+;; ===========================
+;;  Global evil modifications
+;; ===========================
+
+(use-package! evil-motion-trainer
+  :defer t
+  :config
+  (global-evil-motion-trainer-mode 1))
+
+
 ;; =============
 ;;  OS Specific
 ;; =============

@@ -21,5 +21,7 @@
 (package! kindle-highlights-to-org
   :recipe '(:host github :repo "Zweihander-Main/kindle-highlights-to-org"))
 (package! flycheck-elsa)
+(package! evil-motion-trainer
+  :recipe '(:host github :repo "martinbaillie/evil-motion-trainer"))
 
 ;;; packages.el ends here

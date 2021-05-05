@@ -5,7 +5,8 @@
 ## Notes:
 
 - Packages are managed using Doom's package manager. 
-- Cask is used purely for development of the config. 
+- Cask is used purely for development of the config -- test running, linting, ect.
+- Elsa is available but doesn't do well in private configs so is disabled by default
 
 ## Available for Hire
 
