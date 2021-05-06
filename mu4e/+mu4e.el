@@ -1,7 +1,6 @@
-;;; +mu4e.el -- doom/mu4e/+mu4e.el
+;;; +mu4e.el -- doom/mu4e/+mu4e.el-*-lexical-binding:t-*-
 ;;;
 ;;; Commentary:
-;;; -*- lexical-binding: t; -*-
 ;;;
 ;;; Mu4e related functions and config
 ;;;

@@ -1,7 +1,6 @@
-;;; +app.el -- doom/+app.el
+;;; +app.el -- doom/+app.el-*-lexical-binding:t-*-
 ;;;
 ;;; Commentary:
-;;; -*- lexical-binding: t; -*-
 ;;; Configuration for the general usage of Emacs.
 ;;;
 ;;; Code:

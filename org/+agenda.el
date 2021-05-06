@@ -1,7 +1,6 @@
-;;; +agenda.el -- doom/org/+agenda.el
+;;; +agenda.el -- doom/org/+agenda.el-*-lexical-binding:t-*-
 ;;;
 ;;; Commentary:
-;;; -*- lexical-binding: t; -*-
 ;;;
 ;;; Contains all org-agenda config EXCEPT for custom commands and inbox
 ;;; processing.

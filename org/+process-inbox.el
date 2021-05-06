@@ -1,7 +1,6 @@
-;;; +process-inbox.el -- doom/org/+process-inbox.el
+;;; +process-inbox.el -- doom/org/+process-inbox.el-*-lexical-binding:t-*-
 ;;;
 ;;; Commentary:
-;;; -*- lexical-binding: t; -*-
 ;;;
 ;;; Contains org-agenda code related to inbox processing.
 ;;;

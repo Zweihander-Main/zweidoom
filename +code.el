@@ -1,7 +1,6 @@
-;;; +code.el -- doom/+code.el
+;;; +code.el -- doom/+code.el-*-lexical-binding:t-*-
 ;;;
 ;;; Commentary:
-;;; -*- lexical-binding: t; -*-
 ;;;
 ;;; Code:
 

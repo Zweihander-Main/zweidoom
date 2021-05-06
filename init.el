@@ -1,6 +1,5 @@
-;;; init.el --- located at $DOOMDIR/init.el
+;;; init.el --- located at $DOOMDIR/init.el-*-lexical-binding:t-*-
 ;;; Commentary:
-;;; -*- lexical-binding: t; -*-
 
 ;;; Code:
 (doom! :input

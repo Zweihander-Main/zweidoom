@@ -1,7 +1,6 @@
-;;; +reviews.el -- doom/org/+reviews.el
+;;; +reviews.el -- doom/org/+reviews.el-*-lexical-binding:t-*-
 ;;;
 ;;; Commentary:
-;;; -*- lexical-binding: t; -*-
 ;;;
 ;;; Functions directly used in interval reviews.
 ;;;

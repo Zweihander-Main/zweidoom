@@ -1,7 +1,6 @@
-;;; +ui.el -- doom/+ui.el
+;;; +ui.el -- doom/+ui.el-*-lexical-binding:t-*-
 ;;;
 ;;; Commentary:
-;;; -*- lexical-binding: t; -*-
 ;;;
 ;;; If it themes, it's here.
 ;;;

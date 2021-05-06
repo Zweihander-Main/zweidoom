@@ -1,7 +1,6 @@
-;;; +org.el -- doom/org/+org.el
+;;; +org.el -- doom/org/+org.el-*-lexical-binding:t-*-
 ;;;
 ;;; Commentary:
-;;; -*- lexical-binding: t; -*-
 ;;;
 ;;; Contains org related config that's not listed in other files in /org
 ;;;

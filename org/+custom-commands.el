@@ -1,7 +1,6 @@
-;;; +custom-commands.el -- doom/org/+custom-commands.el
+;;; +custom-commands.el -- doom/org/+custom-commands.el-*-lexical-binding:t-*-
 ;;;
 ;;; Commentary:
-;;; -*- lexical-binding: t; -*-
 ;;;
 ;;; Contains custom commands. Functions related (ie skip functions) are
 ;;; included too.

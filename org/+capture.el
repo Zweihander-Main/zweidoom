@@ -1,7 +1,6 @@
-;;; +capture.el -- doom/org/+capture.el
+;;; +capture.el -- doom/org/+capture.el-*-lexical-binding:t-*-
 ;;;
 ;;; Commentary:
-;;; -*- lexical-binding: t; -*-
 ;;;
 ;;; Config related to org capture and reviews called from it.
 ;;;

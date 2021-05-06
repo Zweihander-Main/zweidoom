@@ -1,7 +1,6 @@
-;;; +memo-to-inbox.el -- doom/mu4e/+memo-to-inbox.el
+;;; +memo-to-inbox.el -- doom/mu4e/+memo-to-inbox.el-*-lexical-binding:t-*-
 ;;;
 ;;; Commentary:
-;;; -*- lexical-binding: t; -*-
 ;;;
 ;;; Mu4e function to get the memo folder and add it to the inbox for the
 ;;; agenda to later process.

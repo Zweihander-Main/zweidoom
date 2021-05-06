@@ -1,7 +1,6 @@
-;;; +habit.el -- doom/org/+habit.el
+;;; +habit.el -- doom/org/+habit.el-*-lexical-binding:t-*-
 ;;;
 ;;; Commentary:
-;;; -*- lexical-binding: t; -*-
 ;;;
 ;;; Contains configuration for org-habit or in this case, org-habit-plus.
 ;;; Using org-habit-plus for the ability to have habits appear on Mon-Sat.

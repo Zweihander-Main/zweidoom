@@ -1,7 +1,6 @@
-;;; +roam.el -- doom/+roam.el
+;;; +roam.el -- doom/+roam.el-*-lexical-binding:t-*-
 ;;;
 ;;; Commentary:
-;;; -*- lexical-binding: t; -*-
 ;;;
 ;;; Contains all org-roam related config (roam, anki, ect.).
 ;;; Anything that has to do with knowledge management should

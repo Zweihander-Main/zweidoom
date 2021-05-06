@@ -1,7 +1,5 @@
-;; packages.el --- Located at $DOOMDIR/packages.el
+;; packages.el --- Located at $DOOMDIR/packages.el-*-lexical-binding:t-*-
 ;;; Commentary:
-;; -*- no-byte-compile: t; -*-
-;; -*- lexical-binding: t; -*-
 
 ;;; Code:
 (package! org-roam-server)
@@ -23,5 +21,9 @@
 (package! flycheck-elsa)
 (package! evil-motion-trainer
   :recipe '(:host github :repo "martinbaillie/evil-motion-trainer"))
+
+;; Local Variables:
+;; no-byte-compile: t
+;; End:
 
 ;;; packages.el ends here

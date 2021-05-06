@@ -1,7 +1,6 @@
-;;; +common.el -- doom/+common.el
+;;; +common.el -- doom/+common.el-*-lexical-binding:t-*-
 ;;;
 ;;; Commentary:
-;;; -*- lexical-binding: t; -*-
 ;;;
 ;;; Contains common variables and functions used repeatedly throughout the
 ;;; config.

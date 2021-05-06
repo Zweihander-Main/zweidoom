@@ -1,7 +1,6 @@
-;;; config.el -- doom/config.el
+;;; config.el -- doom/config.el-*-lexical-binding:t-*-
 ;;;
 ;;; Commentary:
-;;; -*- lexical-binding: t; -*-
 ;;;
 ;;; Loading files after package init mostly to reduce a layer of paran in code.
 ;;;
