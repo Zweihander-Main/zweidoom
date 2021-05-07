@@ -67,4 +67,13 @@
         (org-export-create-backend :parent 'html
                                    :filters '((:filter-paragraph . filter-out-p)))))
 
+
+;; ===========================
+;;   kindle-highlights-to-org
+;; ===========================
+(use-package! kindle-highlights-to-org
+  :after org-roam
+  :defer t)
+
+
 ;;; +roam.el ends here
