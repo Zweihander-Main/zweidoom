@@ -45,13 +45,13 @@ If CHECK-FUNC is provided, will check using that too."
                          (org-agenda-start-day "+0d")
                          (org-deadline-warning-days 365)))
                 (todo "NEXT"
-                      ((org-agenda-overriding-header "In Progress")
+                      ((org-agenda-overriding-header "=== In Progress")
                        (org-agenda-files '(,zwei/org-agenda-projects-file
                                            ,zwei/org-agenda-goals-file
                                            ,zwei/org-agenda-tickler-file
                                            ,zwei/org-agenda-next-file))))
                 (tags-todo "+TODO=\"TODO\"+PRIORITY=\"A\""
-                      ((org-agenda-overriding-header "Important, Urgent")
+                      ((org-agenda-overriding-header "=== Important & Urgent")
                        (org-agenda-files '(,zwei/org-agenda-projects-file))
                        (org-agenda-skip-function
                         '(org-agenda-skip-entry-if
@@ -59,7 +59,7 @@ If CHECK-FUNC is provided, will check using that too."
                           'scheduled
                           'timestamp))))
                 (tags-todo "+TODO=\"TODO\"+PRIORITY=\"A\""
-                      ((org-agenda-overriding-header "Non-important, Urgent")
+                      ((org-agenda-overriding-header "=== Pointless & Urgent")
                        (org-agenda-files '(,zwei/org-agenda-next-file))
                        (org-agenda-skip-function
                         '(org-agenda-skip-entry-if
@@ -70,14 +70,14 @@ If CHECK-FUNC is provided, will check using that too."
 (add-to-list 'org-agenda-custom-commands
              `("2" "Inbox"
                ((todo "TODO"
-                      ((org-agenda-overriding-header "To Refile")
+                      ((org-agenda-overriding-header "=== To Refile")
                        (org-agenda-prefix-format " |%e|")
                        (org-agenda-files '(,zwei/org-agenda-todo-file)))))))
 
 (add-to-list 'org-agenda-custom-commands
              `("3" "Work"
                ((tags "+@work+TODO=\"TODO\"|+@work+TODO=\"NEXT\""
-                      ((org-agenda-overriding-header "Work")
+                      ((org-agenda-overriding-header "=== Work")
                        (org-agenda-skip-function
                         '(zwei/org-agenda-skip-all-siblings-but-first
                           #'(lambda()
@@ -89,7 +89,7 @@ If CHECK-FUNC is provided, will check using that too."
                         '(,zwei/org-agenda-projects-file
                           ,zwei/org-agenda-next-file)))) ; no tickler
                 (tags "+@work+TODO=\"WAIT\""
-                      ((org-agenda-overriding-header "\nWaiting")
+                      ((org-agenda-overriding-header "\n=== Waiting")
                        (org-agenda-skip-function
                         '(org-agenda-skip-entry-if
                           'deadline
@@ -100,13 +100,13 @@ If CHECK-FUNC is provided, will check using that too."
 (add-to-list 'org-agenda-custom-commands
              `("4" "Not sure yet"
                ((todo "NEXT"
-                      ((org-agenda-overriding-header "In Progress")
+                      ((org-agenda-overriding-header "=== In Progress")
                        (org-agenda-files '(,zwei/org-agenda-projects-file
                                            ,zwei/org-agenda-goals-file
                                            ,zwei/org-agenda-tickler-file
                                            ,zwei/org-agenda-next-file))))
                 (tags-todo "+TODO=\"TODO\"+PRIORITY=\"A\""
-                      ((org-agenda-overriding-header "Important, Urgent")
+                      ((org-agenda-overriding-header "=== Important & Urgent")
                        (org-agenda-files '(,zwei/org-agenda-projects-file))
                        (org-agenda-skip-function
                         '(org-agenda-skip-entry-if
@@ -114,7 +114,7 @@ If CHECK-FUNC is provided, will check using that too."
                           'scheduled
                           'timestamp))))
                 (tags-todo "+TODO=\"TODO\"+PRIORITY=\"A\""
-                      ((org-agenda-overriding-header "Non-important, Urgent")
+                      ((org-agenda-overriding-header "=== Pointless & Urgent")
                        (org-agenda-files '(,zwei/org-agenda-next-file))
                        (org-agenda-skip-function
                         '(org-agenda-skip-entry-if
@@ -122,7 +122,7 @@ If CHECK-FUNC is provided, will check using that too."
                           'scheduled
                           'timestamp))))
                 (tags-todo "+TODO=\"TODO\"+PRIORITY=\"B\"|+TODO=\"TODO\"+PRIORITY=\"C\""
-                      ((org-agenda-overriding-header "Important, Non-Urgent")
+                      ((org-agenda-overriding-header "=== Important & Can Wait")
                        (org-agenda-files '(,zwei/org-agenda-projects-file))
                        (org-agenda-skip-function
                         '(org-agenda-skip-entry-if
@@ -130,7 +130,7 @@ If CHECK-FUNC is provided, will check using that too."
                           'scheduled
                           'timestamp))))
                 (tags-todo "+TODO=\"TODO\"+PRIORITY=\"B\"|+TODO=\"TODO\"+PRIORITY=\"C\""
-                      ((org-agenda-overriding-header "Non-important, Non-Urgent")
+                      ((org-agenda-overriding-header "=== Frivolous")
                        (org-agenda-files '(,zwei/org-agenda-next-file))
                        (org-agenda-skip-function
                         '(org-agenda-skip-entry-if
