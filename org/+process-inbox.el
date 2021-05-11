@@ -145,22 +145,20 @@
 (defun zwei/org-agenda-open-and-archive-all-links ()
   "Bulk mark links."
   (interactive)
-  (let ((entries-marked 0)
-        txt-at-point)
-    (save-excursion
-      (goto-char (point-min))
-      (goto-char (next-single-property-change (point) 'org-hd-marker))
-      (let ((ret-msg "")
-            (continue t))
-        (while continue
-          (setq ret-msg (org-agenda-open-link))
-          (unless (and (stringp ret-msg )(string= ret-msg "No link to open here"))
-            (progn
-              (org-agenda-todo "DONE")
-              (org-agenda-archive) ; TODO DRY with process-inbox-item
-              (org-agenda-previous-line))) ;; Line was deleted and on next item
-          (unless (org-agenda-next-line)
-            (setq continue nil)))))))
+  (save-excursion
+    (goto-char (point-min))
+    (goto-char (next-single-property-change (point) 'org-hd-marker))
+    (let ((ret-msg "")
+          (continue t))
+      (while continue
+        (setq ret-msg (org-agenda-open-link))
+        (unless (and (stringp ret-msg )(string= ret-msg "No link to open here"))
+          (progn
+            (org-agenda-todo "DONE")
+            (org-agenda-archive) ; TODO DRY with process-inbox-item
+            (org-agenda-previous-line))) ;; Line was deleted and on next item
+        (unless (org-agenda-next-line)
+          (setq continue nil))))))
 
 ;; Mappings
 (map! :map org-agenda-mode-map
