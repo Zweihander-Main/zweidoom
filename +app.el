@@ -196,7 +196,9 @@
 (map! :g "<f3>" (cmd! (zwei/org-agenda-force-load)
                       (org-agenda nil "3")
                       (evil-goto-first-line)))
-
+(map! :g "<f4>" (cmd! (zwei/org-agenda-force-load)
+                      (org-agenda nil "4")
+                      (evil-goto-first-line)))
 
 ;; ===========================
 ;;  Global evil modifications

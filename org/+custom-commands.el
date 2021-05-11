@@ -50,17 +50,22 @@ If CHECK-FUNC is provided, will check using that too."
                                            ,zwei/org-agenda-goals-file
                                            ,zwei/org-agenda-tickler-file
                                            ,zwei/org-agenda-next-file))))
-                (todo "TODO"
-                      ((org-agenda-overriding-header "One-offs")
-                       (org-agenda-files '(,zwei/org-agenda-next-file))
+                (tags-todo "+TODO=\"TODO\"+PRIORITY=\"A\""
+                      ((org-agenda-overriding-header "Important, Urgent")
+                       (org-agenda-files '(,zwei/org-agenda-projects-file))
                        (org-agenda-skip-function
                         '(org-agenda-skip-entry-if
                           'deadline
                           'scheduled
                           'timestamp))))
-                (todo "TODO"
-                      ((org-agenda-overriding-header "Projects")
-                       (org-agenda-files '(,zwei/org-agenda-projects-file)))))))
+                (tags-todo "+TODO=\"TODO\"+PRIORITY=\"A\""
+                      ((org-agenda-overriding-header "Non-important, Urgent")
+                       (org-agenda-files '(,zwei/org-agenda-next-file))
+                       (org-agenda-skip-function
+                        '(org-agenda-skip-entry-if
+                          'deadline
+                          'scheduled
+                          'timestamp)))))))
 
 (add-to-list 'org-agenda-custom-commands
              `("2" "Inbox"
@@ -91,6 +96,47 @@ If CHECK-FUNC is provided, will check using that too."
                           'scheduled 'timestamp))
                        (org-agenda-files '(,zwei/org-agenda-projects-file
                                            ,zwei/org-agenda-next-file)))))))
+
+(add-to-list 'org-agenda-custom-commands
+             `("4" "Not sure yet"
+               ((todo "NEXT"
+                      ((org-agenda-overriding-header "In Progress")
+                       (org-agenda-files '(,zwei/org-agenda-projects-file
+                                           ,zwei/org-agenda-goals-file
+                                           ,zwei/org-agenda-tickler-file
+                                           ,zwei/org-agenda-next-file))))
+                (tags-todo "+TODO=\"TODO\"+PRIORITY=\"A\""
+                      ((org-agenda-overriding-header "Important, Urgent")
+                       (org-agenda-files '(,zwei/org-agenda-projects-file))
+                       (org-agenda-skip-function
+                        '(org-agenda-skip-entry-if
+                          'deadline
+                          'scheduled
+                          'timestamp))))
+                (tags-todo "+TODO=\"TODO\"+PRIORITY=\"A\""
+                      ((org-agenda-overriding-header "Non-important, Urgent")
+                       (org-agenda-files '(,zwei/org-agenda-next-file))
+                       (org-agenda-skip-function
+                        '(org-agenda-skip-entry-if
+                          'deadline
+                          'scheduled
+                          'timestamp))))
+                (tags-todo "+TODO=\"TODO\"+PRIORITY=\"B\"|+TODO=\"TODO\"+PRIORITY=\"C\""
+                      ((org-agenda-overriding-header "Important, Non-Urgent")
+                       (org-agenda-files '(,zwei/org-agenda-projects-file))
+                       (org-agenda-skip-function
+                        '(org-agenda-skip-entry-if
+                          'deadline
+                          'scheduled
+                          'timestamp))))
+                (tags-todo "+TODO=\"TODO\"+PRIORITY=\"B\"|+TODO=\"TODO\"+PRIORITY=\"C\""
+                      ((org-agenda-overriding-header "Non-important, Non-Urgent")
+                       (org-agenda-files '(,zwei/org-agenda-next-file))
+                       (org-agenda-skip-function
+                        '(org-agenda-skip-entry-if
+                          'deadline
+                          'scheduled
+                          'timestamp)))))))
 
 (add-to-list 'org-agenda-custom-commands
              `("x" . "utility searches"))
