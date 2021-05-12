@@ -22,7 +22,6 @@
     (load! "./org/+capture"))
   (after! org-agenda
     (load! "./org/+agenda")
-    (load! "./org/+process-inbox")
     (load! "./org/+custom-commands"))
   (after! org-roam
     (load! "./org/+roam")))
