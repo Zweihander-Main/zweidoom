@@ -22,7 +22,6 @@
       window-min-height 1)
 
 (doom-themes-org-config)
-(doom-init-extra-fonts-h)
 
 (use-package! org-variable-pitch
   :defer t
