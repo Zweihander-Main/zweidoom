@@ -1,4 +1,5 @@
-;;; +agenda.el -- doom/org/+agenda.el
+;;; +agenda.el -- doom/org/+agenda.el-*-lexical-binding:t-*-
+
 ;;;
 ;;; Commentary:
 ;;;
@@ -21,24 +22,6 @@
   "Current effort for agenda items.")
 
 ;; Functions
-
-(defun zwei/org-agenda-bulk-mark-regexp-category (regexp)
-  "Mark entries whose category matches REGEXP for future agenda bulk action."
-  (interactive "sMark entries with category matching regexp: ")
-  (let ((entries-marked 0) txt-at-point)
-    (save-excursion
-      (goto-char (point-min))
-      (goto-char (next-single-property-change (point) 'org-hd-marker))
-      (while (and (re-search-forward regexp nil t)
-                  (setq category-at-point
-                        (get-text-property (match-beginning 0) 'org-category)))
-        (if (get-char-property (point) 'invisible)
-            (beginning-of-line 2)
-          (when (string-match-p regexp category-at-point)
-            (setq entries-marked (1+ entries-marked))
-            (call-interactively 'org-agenda-bulk-mark)))))
-    (unless entries-marked
-      (message "No entry matching this regexp."))))
 
 (defun zwei/org-agenda-set-effort (effort)
   "Set the EFFORT property for the current headline."
@@ -101,7 +84,7 @@
          (buffer (marker-buffer hdmarker))
          (pos (marker-position hdmarker))
          (inhibit-read-only t)
-         cur-tags cur-line cur-priority cur-stats-cookies txt-at-point)
+         cur-tags cur-line cur-priority cur-stats-cookies)
     (org-with-remote-undo buffer
       (with-current-buffer buffer
         (widen)
@@ -124,16 +107,17 @@
         (end-of-line 1))
       (beginning-of-line 1)))
   (zwei/org-agenda-redo-all-buffers)
-  (save-excursion
-    (goto-char (point-min))
-    (goto-char (next-single-property-change (point) 'org-hd-marker))
-    (and (search-forward child nil t)
-         (setq txt-at-point
-               (get-text-property (match-beginning 0) 'txt)))
-    (if (get-char-property (point) 'invisible)
-        (beginning-of-line 2)
-      (when (string-match-p child txt-at-point)
-        (call-interactively 'zwei/org-agenda-set-effort)))))
+  (let (txt-at-point)
+    (save-excursion
+      (goto-char (point-min))
+      (goto-char (next-single-property-change (point) 'org-hd-marker))
+      (and (search-forward child nil t)
+           (setq txt-at-point
+                 (get-text-property (match-beginning 0) 'txt)))
+      (if (get-char-property (point) 'invisible)
+          (beginning-of-line 2)
+        (when (string-match-p child txt-at-point)
+          (call-interactively 'zwei/org-agenda-set-effort))))))
 
 ;; Hooks
 
