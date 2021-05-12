@@ -1,4 +1,4 @@
-;;; +agenda.el -- doom/org/+agenda.el-*-lexical-binding:t-*-
+;;; +agenda.el -- doom/org/+agenda.el
 ;;;
 ;;; Commentary:
 ;;;

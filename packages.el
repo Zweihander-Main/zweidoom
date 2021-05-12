@@ -7,20 +7,22 @@
 (package! anki-editor)
 (package! format-all)
 (package! org-clock-convenience)
-;; (package! org-variable-pitch
-;;   :recipe '(:local-repo "packages/org-variable-pitch"))
+(package! vimrc-mode)
+(package! flycheck-elsa)
 (package! org-variable-pitch
   :recipe '(:host github
             :repo "cadadr/elisp"
             :files ("org-variable-pitch.el")))
 (package! org-habit-plus
   :recipe '(:host github :repo "oddious/org-habit-plus"))
-(package! vimrc-mode)
-(package! kindle-highlights-to-org
-  :recipe '(:host github :repo "Zweihander-Main/kindle-highlights-to-org"))
-(package! flycheck-elsa)
 (package! evil-motion-trainer
   :recipe '(:host github :repo "martinbaillie/evil-motion-trainer"))
+
+;; Own code:
+(package! kindle-highlights-to-org
+  :recipe '(:host github :repo "Zweihander-Main/kindle-highlights-to-org"))
+(package! process-org-agenda-inbox
+  :recipe '(:host github :repo "Zweihander-Main/process-org-agenda-inbox"))
 
 ;; Local Variables:
 ;; no-byte-compile: t
