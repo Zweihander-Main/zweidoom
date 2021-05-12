@@ -175,10 +175,10 @@
   (setq org-agenda-bulk-custom-functions `((?c process-org-agenda-inbox-single-item)))
 
   ;; Mappings
-(map! :map org-agenda-mode-map
-      :localleader
-      :desc "Process inbox items" "i" #'process-org-agenda-inbox-all-items
-      :desc "Process all links" "L" #'process-org-agenda-inbox-open-and-archive-all-links
-      :desc "Process current item" "P" #'process-org-agenda-inbox-single-item))
+  (map! :map org-agenda-mode-map
+        :localleader
+        :desc "Process inbox items" "i" #'process-org-agenda-inbox-all-items
+        :desc "Process all links" "L" #'process-org-agenda-inbox-open-and-archive-all-links
+        :desc "Process current item" "P" #'process-org-agenda-inbox-single-item))
 
 ;;; +agenda.el ends here
