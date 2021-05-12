@@ -33,8 +33,8 @@
 (defun zwei/org-insert-statistics-cookies (&optional type)
   "Insert statistics cookie of optional TYPE % (default) or /."
   (save-excursion
-    (let (cur-tags-string (org-get-tags-string))
-      (if (not(eq cur-tags-string ""))
+    (let ((cur-tags-string (org-get-tags-string)))
+      (if (not (eq cur-tags-string ""))
           (when (org-back-to-heading t)
             (re-search-forward org-tag-line-re)
             (goto-char (-(match-beginning 1) 1)))
