@@ -23,6 +23,8 @@
   :recipe '(:host github :repo "Zweihander-Main/kindle-highlights-to-org"))
 (package! process-org-agenda-inbox
   :recipe '(:host github :repo "Zweihander-Main/process-org-agenda-inbox"))
+(package! org-statistics-cookie-helpers
+  :recipe '(:host github :repo "Zweihander-Main/org-statistics-cookie-helpers"))
 
 ;; Local Variables:
 ;; no-byte-compile: t

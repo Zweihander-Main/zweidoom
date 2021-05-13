@@ -8,57 +8,6 @@
 
 (require 'org)
 
-
-;; Functions
-;;; Statistics Cookies related
-
-(defun zwei/org-toggle-statistics-cookies ()
-  "Toggle between [/] and [%] type statistics cookies on line."
-  (interactive)
-  (let ((type (plist-get (zwei/org-find-statistics-cookies) :type)))
-    (zwei/org-delete-statistics-cookies)
-    (cond ((eq type '%) (zwei/org-insert-statistics-cookies '/))
-          ((eq type '/) (zwei/org-insert-statistics-cookies '%)))))
-
-(defun zwei/org-delete-statistics-cookies ()
-  "Delete statistics cookies on line."
-  (let ((cookie (zwei/org-find-statistics-cookies)))
-    (when cookie
-      (delete-region (plist-get cookie :begin) (plist-get cookie :end))
-      (save-excursion
-        (end-of-line)
-        (when (eq (char-before) ? )
-          (delete-char -1))))))
-
-(defun zwei/org-insert-statistics-cookies (&optional type)
-  "Insert statistics cookie of optional TYPE % (default) or /."
-  (save-excursion
-    (let ((cur-tags-string (org-get-tags-string)))
-      (if (not (eq cur-tags-string ""))
-          (when (org-back-to-heading t)
-            (re-search-forward org-tag-line-re)
-            (goto-char (-(match-beginning 1) 1)))
-        (end-of-line))
-      (insert (concat " " (if (eq type '/) "[/]" "[%]")))
-      (org-update-statistics-cookies nil))))
-
-(defun zwei/org-find-statistics-cookies ()
-  "Find statistics cookies on line and return as plist."
-  (save-excursion
-    (beginning-of-line)
-    (let ((end-point (save-excursion (end-of-line) (point)))
-          (search-point (point))
-          (cookie nil))
-      (while (and (not cookie) search-point)
-        (setq search-point (re-search-forward "\\[" end-point t))
-        (when search-point
-          (forward-char -1)
-          (setq cookie (cadr (org-element-statistics-cookie-parser)))
-          (forward-char 1)))
-      (if cookie
-          (plist-put cookie :type (if (eq (string-match-p "%" (plist-get cookie :value)) nil) '/ '%))
-        cookie))))
-
 ;;; Misc functions
 
 (defun zwei/find-gtd-file ()
@@ -197,5 +146,8 @@
         org-journal-file-format "%Y-%m-%d.org"
         org-journal-date-format "%A, %d %B %Y"
         org-journal-enable-agenda-integration t))
+
+
+(use-package! org-statistics-cookie-helpers)
 
 ;;; +org.el ends here
