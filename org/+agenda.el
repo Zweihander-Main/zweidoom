@@ -16,108 +16,7 @@
 (require 'org-agenda)
 (require 'org-clock)
 
-;; Variables
-
-(defvar zwei/org-current-effort "1:00"
-  "Current effort for agenda items.")
-
-;; Functions
-
-(defun zwei/org-agenda-set-effort (effort)
-  "Set the EFFORT property for the current headline."
-  (interactive
-   (list (read-string (format "Effort [%s]: " zwei/org-current-effort) nil nil zwei/org-current-effort)))
-  (setq zwei/org-current-effort effort)
-  (org-agenda-check-no-diary)
-  (let* ((hdmarker (or (org-get-at-bol 'org-hd-marker)
-                       (org-agenda-error)))
-         (buffer (marker-buffer hdmarker))
-         (pos (marker-position hdmarker))
-         (inhibit-read-only t)
-         newhead)
-    (org-with-remote-undo buffer
-      (with-current-buffer buffer
-        (widen)
-        (goto-char pos)
-        (org-show-context 'agenda)
-        (funcall-interactively 'org-set-effort nil zwei/org-current-effort)
-        (end-of-line 1)
-        (setq newhead (org-get-heading)))
-      (org-agenda-change-all-lines newhead hdmarker))))
-
-(defun zwei/org-agenda-redo-all-buffers ()
-  "Refresh/redo all org-agenda buffers."
-  (interactive)
-  (dolist (buffer (doom-visible-buffers))
-    (with-current-buffer buffer
-      (when (derived-mode-p 'org-agenda-mode)
-        (org-agenda-redo)))))
-
-(defun zwei/org-agenda-edit-headline ()
-  "Perform org-edit-headline on current agenda item."
-  (interactive)
-  (org-agenda-check-no-diary)
-  (let* ((hdmarker (or (org-get-at-bol 'org-hd-marker)
-                       (org-agenda-error)))
-         (buffer (marker-buffer hdmarker))
-         (pos (marker-position hdmarker))
-         (inhibit-read-only t)
-         newhead)
-    (org-with-remote-undo buffer
-      (with-current-buffer buffer
-        (widen)
-        (goto-char pos)
-        (org-show-context 'agenda)
-        (call-interactively #'org-edit-headline)
-        (end-of-line 1)
-        (setq newhead (org-get-heading)))
-      (org-agenda-change-all-lines newhead hdmarker)
-      (beginning-of-line 1))))
-
-(defun zwei/org-agenda-break-into-child (child)
-  "Create CHILD heading under current heading with the same properties and custom effort."
-  (interactive
-   (list (read-string "Child task: " nil nil nil)))
-  (org-agenda-check-no-diary)
-  (let* ((hdmarker (or (org-get-at-bol 'org-hd-marker)
-                       (org-agenda-error)))
-         (buffer (marker-buffer hdmarker))
-         (pos (marker-position hdmarker))
-         (inhibit-read-only t)
-         cur-tags cur-line cur-priority cur-stats-cookies)
-    (org-with-remote-undo buffer
-      (with-current-buffer buffer
-        (widen)
-        (goto-char pos)
-        (org-show-context 'agenda)
-        (setq cur-line (thing-at-point 'line t))
-        (if (string-match org-priority-regexp cur-line)
-            (setq cur-priority (match-string 2 cur-line)))
-        (setq cur-tags (org-get-tags-string))
-        (setq cur-stats-cookies (org-statistics-cookie-helpers-find-cookies))
-        (if (eq cur-stats-cookies 'nil)
-            (org-statistics-cookie-helpers-insert-cookies))
-        (call-interactively #'+org/insert-item-below)
-        (call-interactively #'org-demote-subtree)
-        (funcall-interactively 'org-edit-headline child)
-        (funcall-interactively 'org-set-tags-to cur-tags)
-        (if cur-priority
-            (funcall-interactively 'org-priority (string-to-char cur-priority)))
-        (org-update-parent-todo-statistics)
-        (end-of-line 1))
-      (beginning-of-line 1)))
-  (zwei/org-agenda-redo-all-buffers)
-  (let (txt-at-point)
-    (save-excursion
-      (goto-char (point-min))
-      (goto-char (next-single-property-change (point) 'org-hd-marker))
-      (and (search-forward child nil t)
-           (setq txt-at-point
-                 (get-text-property (match-beginning 0) 'txt)))
-      (if (get-char-property (point) 'invisible)
-          (beginning-of-line 2)
-        (when (string-match-p child txt-at-point)
-          (call-interactively 'zwei/org-agenda-set-effort))))))
+(use-package! org-agenda-heading-functions)
 
 ;; Hooks
 
@@ -127,9 +26,9 @@
 
 (map! :map org-agenda-mode-map
       :localleader
-      :desc "Edit headline" "e" #'zwei/org-agenda-edit-headline
+      :desc "Edit headline" "e" #'org-agenda-heading-functions-edit-headline
       :desc "Toggle entry text mode" "E" #'org-agenda-entry-text-mode
-      :desc "Break into child tasks" "b" #'zwei/org-agenda-break-into-child)
+      :desc "Break into child tasks" "b" #'org-agenda-heading-functions-break-into-child)
 
   ;;; Enable easymotion in agenda
 (after! evil-easymotion

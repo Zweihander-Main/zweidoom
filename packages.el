@@ -25,6 +25,8 @@
   :recipe '(:host github :repo "Zweihander-Main/process-org-agenda-inbox"))
 (package! org-statistics-cookie-helpers
   :recipe '(:host github :repo "Zweihander-Main/org-statistics-cookie-helpers"))
+(package! org-agenda-heading-functions
+  :recipe '(:host github :repo "Zweihander-Main/org-agenda-heading-functions"))
 
 ;; Local Variables:
 ;; no-byte-compile: t
