@@ -32,4 +32,13 @@
       mu4e-compose-context-policy nil)
 (setq mu4e-org-link-query-in-headers-mode nil)
 
+(use-package! mu4e-search-to-org
+  :config
+  (setq mu4e-search-to-org-file-for-output zwei/org-agenda-todo-file
+        mu4e-search-to-org-context "fastmail"
+        mu4e-search-to-org-search-bookmark
+        "flag:unread AND NOT flag:trashed AND maildir:/fastmail/memo")
+
+  (mu4e-search-to-org-script-mode t))
+
 ;;; +mu4e.el ends here

@@ -27,6 +27,8 @@
   :recipe '(:host github :repo "Zweihander-Main/org-statistics-cookie-helpers"))
 (package! org-agenda-heading-functions
   :recipe '(:host github :repo "Zweihander-Main/org-agenda-heading-functions"))
+(package! mu4e-search-to-org
+  :recipe '(:host github :repo "Zweihander-Main/mu4e-search-to-org"))
 
 ;; Local Variables:
 ;; no-byte-compile: t
