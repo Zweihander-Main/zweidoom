@@ -9,6 +9,11 @@
 (require 'org)
 (require 'org-capture)
 
+(use-package! zweigtd-reviews
+  :config
+  (setq zweigtd-reviews-goals-file zwei/org-agenda-goals-file
+        zweigtd-reviews-goals-list (hash-table-keys zwei/org-tag-goal-table)))
+
 ;; Functions
 
 (defun zwei/org-inbox-capture ()
