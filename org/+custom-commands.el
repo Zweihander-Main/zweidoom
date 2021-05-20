@@ -150,11 +150,11 @@ If CHECK-FUNC is provided, will check using that too."
                                  (closed 7))
                              (tags ,tag))
                        ((org-ql-block-header ,tag))))
-                   (hash-table-keys zwei/org-tag-goal-table))
+                   (zweigtd-goals-get-goals))
                 (org-ql-block
                  `(and (or (closed 7)
                            (clocked 7))
-                       (not (tags ,@(hash-table-keys zwei/org-tag-goal-table))))
+                       (not (tags ,@(zweigtd-goals-get-goals))))
                  ((org-ql-block-header "OTHER"))))
                ((org-agenda-files ',(org-agenda-files t t)))))
 
@@ -167,11 +167,11 @@ If CHECK-FUNC is provided, will check using that too."
                                  (closed 1))
                              (tags ,tag))
                        ((org-ql-block-header ,tag))))
-                   (hash-table-keys zwei/org-tag-goal-table))
+                   (zweigtd-goals-get-goals))
                 (org-ql-block
                  `(and (or (closed 1)
                            (clocked 1))
-                       (not (tags ,@(hash-table-keys zwei/org-tag-goal-table))))
+                       (not (tags ,@(zweigtd-goals-get-goals))))
                  ((org-ql-block-header "OTHER"))))
                ((org-agenda-files ',(org-agenda-files t t)))))
 
@@ -180,7 +180,7 @@ If CHECK-FUNC is provided, will check using that too."
 
 (maphash
  (lambda (tag v)
-   (let ((numkey (plist-get v 'numkey)))
+   (let ((numkey (plist-get v 'key)))
      (add-to-list 'org-agenda-custom-commands
                   `(,(concat "xw" (char-to-string numkey))
                     ,(concat tag " weekly recap")
@@ -190,7 +190,7 @@ If CHECK-FUNC is provided, will check using that too."
                             (tags ,tag))
                       ((org-ql-block-header ,tag))))
                     ((org-agenda-files ',(org-agenda-files t t)))))))
- zwei/org-tag-goal-table)
+ zweigtd-goals--hashtable)
 
 (add-to-list 'org-agenda-custom-commands
              `("xw0" "Other"
@@ -198,7 +198,7 @@ If CHECK-FUNC is provided, will check using that too."
                  '(and (or (clocked 7)
                            (closed 7))
                        (not (tags
-                             ,@(hash-table-keys zwei/org-tag-goal-table))))
+                             ,@(zweigtd-goals-get-goals))))
                  ((org-ql-block-header "OTHER"))))
                ((org-agenda-files ',(org-agenda-files t t)))))
 

@@ -12,7 +12,7 @@
 (use-package! zweigtd-reviews
   :config
   (setq zweigtd-reviews-goals-file zwei/org-agenda-goals-file
-        zweigtd-reviews-goals-list (hash-table-keys zwei/org-tag-goal-table)))
+        zweigtd-reviews-goals-list (zweigtd-goals-get-goals))
 
 ;; Functions
 

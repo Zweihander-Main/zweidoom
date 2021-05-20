@@ -27,6 +27,8 @@
   :recipe '(:host github :repo "Zweihander-Main/org-statistics-cookie-helpers"))
 (package! org-agenda-heading-functions
   :recipe '(:host github :repo "Zweihander-Main/org-agenda-heading-functions"))
+(package! zweigtd-goals
+  :recipe '(:host github :repo "Zweihander-Main/zweigtd-goals"))
 (package! zweigtd-reviews
   :recipe '(:host github :repo "Zweihander-Main/zweigtd-reviews"))
 (package! mu4e-search-to-org

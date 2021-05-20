@@ -80,16 +80,15 @@
 
 
 ;; Tagging -- used for place and goal
-
-(defvar zwei/org-tag-goal-table (make-hash-table :test 'equal)
-  "Hash table with GOALSTRING as key, plist '(numkey ?# colorstring STRING) as values.")
-(clrhash zwei/org-tag-goal-table)
-(puthash "1#PHYSICAL" '(numkey ?1 colorstring "#CC2200") zwei/org-tag-goal-table)
-(puthash "2#MENTAL" '(numkey ?2 colorstring "#008F40") zwei/org-tag-goal-table)
-(puthash "3#CODING" '(numkey ?3 colorstring "#42A5F5") zwei/org-tag-goal-table)
-(puthash "4#AUTOMATION" '(numkey ?4 colorstring "#00FF33") zwei/org-tag-goal-table)
-(puthash "5#BUSINESS" '(numkey ?5 colorstring "#F5C400") zwei/org-tag-goal-table)
-(puthash "6#WANKER" '(numkey ?6 colorstring "#6A3B9F") zwei/org-tag-goal-table)
+(use-package! zweigtd-goals
+  :config
+  (zweigtd-goals-init '((:name "1#PHYSICAL"   :key ?1 :color "#CC2200")
+                        (:name "2#MENTAL"     :key ?2 :color "#008F40")
+                        (:name "3#CODING"     :key ?3 :color "#42A5F5")
+                        (:name "4#AUTOMATION" :key ?4 :color "#00FF33")
+                        (:name "5#BUSINESS"   :key ?5 :color "#F5C400")
+                        (:name "6#WANKER"     :key ?6 :color "#6A3B9F")))
+  (setq zweigtd-goals-file zwei/org-agenda-goals-file))
 
 (setq org-tag-persistent-alist `((:startgroup . "place")
                                  ("@work" . ?w)
@@ -102,9 +101,9 @@
                                     (let (result)
                                       (maphash
                                        (lambda (k v)
-                                         (push (cons k (plist-get v 'numkey))
+                                         (push (cons k (plist-get v 'key))
                                                result))
-                                       zwei/org-tag-goal-table)
+                                       zweigtd-goals--hashtable)
                                       result))
                                  (:endgroup "goal"))
       org-fast-tag-selection-single-key nil
@@ -115,9 +114,9 @@
         (maphash
          (lambda (k v)
            (push
-            (cons k (list ':foreground (plist-get v 'colorstring) ':weight 'bold))
+            (cons k (list ':foreground (plist-get v 'color) ':weight 'bold))
             result))
-         zwei/org-tag-goal-table)
+         zweigtd-goals--hashtable)
         result))
 
 ;; Filing
@@ -129,7 +128,7 @@
 ;; Other modules
 (add-to-list 'org-modules 'org-habit-plus)
 (add-to-list 'org-modules 'org-habit)
-; Loading both to make up for age of org-habit plus. ORDER MATTERS.
+                                        ; Loading both to make up for age of org-habit plus. ORDER MATTERS.
 
 
 ;; Disable fancy-priorities for now
