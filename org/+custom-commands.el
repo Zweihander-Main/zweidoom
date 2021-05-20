@@ -190,7 +190,7 @@ If CHECK-FUNC is provided, will check using that too."
                             (tags ,tag))
                       ((org-ql-block-header ,tag))))
                     ((org-agenda-files ',(org-agenda-files t t)))))))
- zweigtd-goals--hashtable)
+ zweigtd-goals--hashtable) ; TODO put into reviews package
 
 (add-to-list 'org-agenda-custom-commands
              `("xw0" "Other"

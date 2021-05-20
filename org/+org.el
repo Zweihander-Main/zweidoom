@@ -7,6 +7,7 @@
 ;;; Code:
 
 (require 'org)
+(require 'dash)
 
 ;;; Misc functions
 
@@ -80,6 +81,17 @@
 
 
 ;; Tagging -- used for place and goal
+
+(setq org-tag-persistent-alist `((:startgroup . "place")
+                                 ("@work" . ?w)
+                                 ("@play" . ?p)
+                                 ("@down" . ?d)
+                                 ("@end" . ?e)
+                                 (:endgroup . "place"))
+      org-fast-tag-selection-single-key nil
+      org-use-tag-inheritance t
+      org-tags-exclude-from-inheritance '("crypt" "@work" "@play" "@down" "@end"))
+
 (use-package! zweigtd-goals
   :config
   (zweigtd-goals-init '((:name "1#PHYSICAL"   :key ?1 :color "#CC2200")
@@ -90,34 +102,6 @@
                         (:name "6#WANKER"     :key ?6 :color "#6A3B9F")))
   (setq zweigtd-goals-file zwei/org-agenda-goals-file))
 
-(setq org-tag-persistent-alist `((:startgroup . "place")
-                                 ("@work" . ?w)
-                                 ("@play" . ?p)
-                                 ("@down" . ?d)
-                                 ("@end" . ?e)
-                                 (:endgroup . "place")
-                                 (:startgroup "goal")
-                                 ,@(reverse
-                                    (let (result)
-                                      (maphash
-                                       (lambda (k v)
-                                         (push (cons k (plist-get v 'key))
-                                               result))
-                                       zweigtd-goals--hashtable)
-                                      result))
-                                 (:endgroup "goal"))
-      org-fast-tag-selection-single-key nil
-      org-use-tag-inheritance t
-      org-tags-exclude-from-inheritance '("crypt" "@work" "@play" "@down" "@end")
-      org-tag-faces
-      (let (result)
-        (maphash
-         (lambda (k v)
-           (push
-            (cons k (list ':foreground (plist-get v 'color) ':weight 'bold))
-            result))
-         zweigtd-goals--hashtable)
-        result))
 
 ;; Filing
 (setq org-refile-allow-creating-parent-nodes 'confirm
@@ -128,7 +112,7 @@
 ;; Other modules
 (add-to-list 'org-modules 'org-habit-plus)
 (add-to-list 'org-modules 'org-habit)
-                                        ; Loading both to make up for age of org-habit plus. ORDER MATTERS.
+;; Loading both to make up for age of org-habit plus. ORDER MATTERS.
 
 
 ;; Disable fancy-priorities for now
