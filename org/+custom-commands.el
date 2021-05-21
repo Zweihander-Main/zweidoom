@@ -180,7 +180,7 @@ If CHECK-FUNC is provided, will check using that too."
 
 (maphash
  (lambda (tag v)
-   (let ((numkey (plist-get v 'key)))
+   (let ((numkey (plist-get v :key)))
      (add-to-list 'org-agenda-custom-commands
                   `(,(concat "xw" (char-to-string numkey))
                     ,(concat tag " weekly recap")
