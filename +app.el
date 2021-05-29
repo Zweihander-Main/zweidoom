@@ -92,6 +92,7 @@
   (setq-default flycheck-disabled-checkers '(proselint)))
 
 (add-hook! 'emacs-lisp-mode-hook #'flycheck-elsa-setup)
+(add-hook! 'emacs-lisp-mode-hook #'flycheck-package-setup)
 
 
 ;; ========

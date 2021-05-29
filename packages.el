@@ -9,6 +9,7 @@
 (package! org-clock-convenience)
 (package! vimrc-mode)
 (package! flycheck-elsa)
+(package! flycheck-package)
 (package! org-variable-pitch
   :recipe '(:host github
             :repo "cadadr/elisp"
