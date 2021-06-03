@@ -42,8 +42,8 @@
 
 (use-package! zweigtd-reviews
   :config
-  (setq zweigtd-reviews-goals-file zwei/org-agenda-goals-file
-        zweigtd-reviews-goals-list (zweigtd-goals-get-goals))
-  (zweigtd-reviews-init))
+  (setq zweigtd-reviews-file zwei/org-agenda-reviews-file)
+  (zweigtd-reviews-default-bootstrap))
+
 
 ;;; +capture.el ends here
