@@ -25,9 +25,6 @@
 
 ;; Other apps
 (after! mu4e
-  (load! "./mu4e/+mu4e"))
-
-;; Code
-(load! "+code")
+  (load! "./+mu4e"))
 
 ;;; config.el ends here
