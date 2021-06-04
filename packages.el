@@ -5,7 +5,6 @@
 (package! org-roam-server)
 (package! org-ql)
 (package! anki-editor)
-(package! format-all)
 (package! org-clock-convenience)
 (package! vimrc-mode)
 (package! flycheck-elsa)
