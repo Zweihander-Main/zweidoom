@@ -2,11 +2,23 @@
 
 > My Doom Emacs configuration. [See here for my other dotfiles](https://github.com/Zweihander-Main/zweidotfiles)
 
+## External packages:
+
+I've broken out some parts of this config as external packages:
+
+- **[ZweiGTD-Goals](https://github.com/Zweihander-Main/zweigtd-goals)** - Track a user-defined set of goals and priorities
+- **[ZweiGTD-Reviews](https://github.com/Zweihander-Main/zweigtd-reviews)** - Create time-span reviews for goals
+- **[Process-Org-Agenda-Inbox](https://github.com/Zweihander-Main/process-org-agenda-inbox)** - Process GTD inbox agenda buffer quickly
+- **[Org-Statistics-Cookie-Helpers](https://github.com/Zweihander-Main/org-statistics-cookie-helpers)** - Library for working with statistics cookies
+- **[Org-Agenda-Heading-Functions](https://github.com/Zweihander-Main/org-agenda-heading-functions)** - Library for working with org-agenda headings
+- **[mu4e-Search-To-Org](https://github.com/Zweihander-Main/mu4e-search-to-org)** - Take an email folder in mu4e and capture the messages to an inbox org file
+- **[Kindle-Highlights-To-Org](https://github.com/Zweihander-Main/kindle-highlights-to-org)** - Take a Kindle notes file and convert it to an org tree
+
 ## Notes:
 
 - Packages are managed using Doom's package manager. 
 - Cask is used purely for development of the config -- test running, linting, ect.
-- Elsa is available but doesn't do well in private configs so is disabled by default
+- Elsa is available but doesn't do well in private configs/with some libraries so is disabled by default
 
 ## Available for Hire
 
