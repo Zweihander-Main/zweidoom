@@ -80,4 +80,9 @@
         :desc "Process all links" "L" #'process-org-agenda-inbox-open-and-archive-all-links
         :desc "Process current item" "P" #'process-org-agenda-inbox-single-item))
 
+;; Org-habit
+(use-package! org-habit
+  :config
+  (setq org-habit-following-days 1))
+
 ;;; +agenda.el ends here

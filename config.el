@@ -15,8 +15,6 @@
 ;; Org
 (after! org
   (load! "./org/+org")
-  (after! org-habit
-    (load! "./org/+habit"))
   (after! org-capture
     (load! "./org/+capture"))
   (after! org-agenda

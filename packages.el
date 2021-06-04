@@ -14,8 +14,6 @@
   :recipe '(:host github
             :repo "cadadr/elisp"
             :files ("org-variable-pitch.el")))
-(package! org-habit-plus
-  :recipe '(:host github :repo "oddious/org-habit-plus"))
 (package! evil-motion-trainer
   :recipe '(:host github :repo "martinbaillie/evil-motion-trainer"))
 

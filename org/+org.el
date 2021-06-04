@@ -111,7 +111,6 @@
 (add-to-list 'org-modules 'org-habit)
 ;; Loading both to make up for age of org-habit plus. ORDER MATTERS.
 
-
 ;; Disable fancy-priorities for now
 (after! org-fancy-priorities
   :config
