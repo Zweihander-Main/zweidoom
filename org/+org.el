@@ -10,7 +10,6 @@
 (require 'dash)
 
 ;;; Misc functions
-
 (defun zwei/find-gtd-file ()
   "Find a file in `zwei/org-agenda-directory'."
   (interactive)
@@ -35,7 +34,6 @@
      (string= "NEXT" state))))
 
 ;; Mappings
-
 (map! :after org
       :map org-mode-map
       :localleader
@@ -48,9 +46,10 @@
       :desc "Find in gtd" "g" #'zwei/find-gtd-file)
 
 ;; General config
-
 (setq org-hide-emphasis-markers t
       org-extend-today-until 4 ;; add some buffer after midnight
+      org-blank-before-new-entry '((heading . nil)
+                                   (plain-list-item . nil))
       org-hierarchical-todo-statistics nil
       org-startup-folded 'overview
       org-todo-keywords
@@ -79,9 +78,7 @@
 (setq org-log-done 'time
       org-log-into-drawer t)
 
-
 ;; Tagging -- used for place and goal
-
 (setq org-tag-persistent-alist `((:startgroup . "place")
                                  ("@work" . ?w)
                                  ("@play" . ?p)
@@ -132,5 +129,4 @@
 
 
 (use-package! org-statistics-cookie-helpers)
-
 ;;; +org.el ends here
