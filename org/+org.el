@@ -73,7 +73,6 @@
         ("[?]"  . +org-todo-onhold)
         ("WAIT" . +org-todo-onhold)
         ("HOLD" . +org-todo-onhold)))
-
 ;; Logging
 (setq org-log-done 'time
       org-log-into-drawer t)
@@ -107,9 +106,7 @@
                            (zwei/org-agenda-next-file :level . 0 )))
 
 ;; Other modules
-(add-to-list 'org-modules 'org-habit-plus)
 (add-to-list 'org-modules 'org-habit)
-;; Loading both to make up for age of org-habit plus. ORDER MATTERS.
 
 ;; Disable fancy-priorities for now
 (after! org-fancy-priorities

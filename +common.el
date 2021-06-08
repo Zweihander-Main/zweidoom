@@ -17,41 +17,32 @@
 
 ;; Set all directories around org
 (setq default-directory org-directory
-      org-roam-directory (concat org-directory "/zettel")
+      org-roam-directory (expand-file-name "zettel" org-directory)
       deft-directory org-roam-directory
-      org-journal-dir (concat org-directory "/dailies"))
+      org-journal-dir (expand-file-name "dailies" org-directory))
 
-(defvar zwei/org-agenda-directory (concat org-directory "/gtd")
+(defvar zwei/org-agenda-directory (expand-file-name "gtd" org-directory)
   "Directory for GTD/work/agenda sytem.")
 
-(defvar zwei/org-agenda-todo-file (concat zwei/org-agenda-directory "/inbox.org")
+(defvar zwei/org-agenda-todo-file (expand-file-name "inbox.org" zwei/org-agenda-directory)
   "Inbox file for quickly capturing ideas/tasks.")
 
-(defvar zwei/org-agenda-reviews-file (concat zwei/org-agenda-directory "/reviews.org")
+(defvar zwei/org-agenda-reviews-file (expand-file-name "reviews.org" zwei/org-agenda-directory)
   "Reviews files for interval reviews.")
 
-(defvar zwei/org-agenda-templates-directory (concat org-directory "/templates")
-  "Directory to store templates for GTD system (weekly review template for example).")
+(defvar zwei/org-agenda-templates-directory (expand-file-name "templates" org-directory)
+  "Directory to store org capture templates.")
 
-(defvar zwei/org-agenda-monthly-review-template-file (concat zwei/org-agenda-templates-directory "/monthly_review.org")
-  "Template file for monthly review.")
-
-(defvar zwei/org-agenda-weekly-review-template-file (concat zwei/org-agenda-templates-directory "/weekly_review.org")
-  "Template file for weekly review.")
-
-(defvar zwei/org-agenda-daily-review-template-file (concat zwei/org-agenda-templates-directory "/daily_review.org")
-  "Template file for daily review.")
-
-(defvar zwei/org-agenda-projects-file (concat zwei/org-agenda-directory "/projects.org")
+(defvar zwei/org-agenda-projects-file (expand-file-name "projects.org" zwei/org-agenda-directory)
   "File for all tasks that can be put into a given active project.")
 
-(defvar zwei/org-agenda-tickler-file (concat zwei/org-agenda-directory "/tickler.org")
+(defvar zwei/org-agenda-tickler-file (expand-file-name "tickler.org" zwei/org-agenda-directory)
   "File for all tickler tasks. Can include projects but only non-active ones.")
 
-(defvar zwei/org-agenda-next-file (concat zwei/org-agenda-directory "/next.org")
+(defvar zwei/org-agenda-next-file (expand-file-name "next.org" zwei/org-agenda-directory)
   "File for one-off tasks that should be done immediately or are currently being worked on.")
 
-(defvar zwei/org-agenda-goals-file (concat zwei/org-agenda-directory "/goals.org")
+(defvar zwei/org-agenda-goals-file (expand-file-name "goals.org" zwei/org-agenda-directory )
   "File for overarching goal tracking.")
 
 (setq +org-capture-todo-file zwei/org-agenda-todo-file
