@@ -41,10 +41,7 @@
 
 (use-package! zweigtd-reviews
   :config
-  (setq zweigtd-reviews-file zwei/org-agenda-reviews-file
-        zweigtd-reviews-daily-review-template zwei/org-agenda-daily-review-template-file
-        zweigtd-reviews-weekly-review-template zwei/org-agenda-weekly-review-template-file
-        zweigtd-reviews-monthly-review-template zwei/org-agenda-monthly-review-template-file)
+  (setq zweigtd-reviews-file zwei/org-agenda-reviews-file)
   (zweigtd-reviews-default-bootstrap))
 
 ;; Override doom popup rules for org-capture, allow fullscreen
