@@ -40,19 +40,30 @@
 
 ;; Org-roam-server
 (use-package! org-roam-server
-  :after org-roam
-  :defer t
+  :after-call org-roam-server-mode
   :config
   (require 'org-roam-protocol)
   (setq org-roam-server-host "127.0.0.1"
-                org-roam-server-port 38080
-                org-roam-server-export-inline-images t
-                org-roam-server-authenticate nil
-                org-roam-server-network-poll t
-                org-roam-server-network-arrows nil
-                org-roam-server-network-label-truncate t
-                org-roam-server-network-label-truncate-length 60
-                org-roam-server-network-label-wrap-length 20))
+        org-roam-server-port 38080
+        org-roam-server-authenticate nil
+        org-roam-server-export-inline-images t
+        org-roam-server-serve-files t
+        org-roam-server-served-file-extensions '("pdf" "mp4" "ogv")
+        org-roam-server-network-poll t
+        org-roam-server-network-arrows nil  ; look into
+        org-roam-server-cite-edge-dashes t
+        org-roam-server-extra-cite-edge-options nil
+        org-roam-server-style nil
+        org-roam-server-network-label-truncate t
+        org-roam-server-network-label-truncate-length 60
+        org-roam-server-network-label-wrap-length 20))
+
+;; Prevent doom error with smartparens and stop multiple instances
+(after! org-roam
+  (smartparens-global-mode -1)
+  (unless org-roam-server-mode
+    (org-roam-server-mode))
+  (smartparens-global-mode 1))
 
 
 ;; =============
