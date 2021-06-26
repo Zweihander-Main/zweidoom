@@ -11,17 +11,12 @@
 (require 'org)
 (require 'org-roam)
 
-
-;; ==========
-;;  org-roam
-;; ==========
-(setq  org-roam--extract-titles '(title alias)
-       org-roam-tag-sources '(prop all-directories)
+(setq  org-roam-tag-sources '(prop all-directories)
        org-roam-index-file (concat org-roam-directory "/20200724000434-index.org")
        org-roam-capture-templates
        '(("d" "default"
           plain
-          (function org-roam--capture-get-point)
+          (function org-roam-capture--get-point)
           "%?"
           :file-name "%<%Y%m%d%H%M%S>-${slug}"
           :head "#+TITLE: ${title}\n#+ROAM_ALIAS: \n#+ROAM_TAGS: \n- related :: \n\n* "
@@ -33,10 +28,10 @@
           "%?"
           :file-name "websites/${slug}"
           :head "#+TITLE: ${title}\n#+ROAM_KEY: ${ref}\n- source :: ${ref}\n- related :: \n\n* "
-          :unnarrowed t)))
-(org-roam-db-build-cache) ;; Seems to be necessary
-(when (string= (zwei/which-linux-distro) "Arch")
-  (setq org-roam-graph-viewer "/usr/bin/chromium"))
+          :unnarrowed t))
+       org-roam-graph-viewer (pcase (zwei/which-linux-distro)
+                               ("Arch" "/usr/bin/chromium")
+                               (_ nil)))
 
 ;; Org-roam-server
 (use-package! org-roam-server
