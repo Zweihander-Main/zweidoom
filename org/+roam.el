@@ -34,13 +34,17 @@
           :file-name "websites/${slug}"
           :head "#+TITLE: ${title}\n#+ROAM_KEY: ${ref}\n- source :: ${ref}\n- related :: \n\n* "
           :unnarrowed t)))
-(org-roam-db-build-cache) ;; Seems to be neccesary
+(org-roam-db-build-cache) ;; Seems to be necessary
+(when (string= (zwei/which-linux-distro) "Arch")
+  (setq org-roam-graph-viewer "/usr/bin/chromium"))
 
 ;; Org-roam-server
 (use-package! org-roam-server
   :after org-roam
   :defer t
-  :config (setq org-roam-server-host "127.0.0.1"
+  :config
+  (require 'org-roam-protocol)
+  (setq org-roam-server-host "127.0.0.1"
                 org-roam-server-port 38080
                 org-roam-server-export-inline-images t
                 org-roam-server-authenticate nil
@@ -59,7 +63,7 @@
   :defer t
   :config
   (setq anki-editor-anki-connect-listening-port 38040)
-  (defun filter-out-p (str backend comm)
+  (defun filter-out-p (str)
     "Filter out <p> tags from STR when exporting Anki notes."
     (replace-regexp-in-string "\n<p>\\|</p>\n\\|<p>\\|</p>"
                               "" str))
