@@ -60,7 +60,8 @@
 ;; Prevent doom error with smartparens and stop multiple instances
 (after! org-roam
   (smartparens-global-mode -1)
-  (unless org-roam-server-mode
+  (unless (or org-roam-server-mode
+              (zwei/port-in-use-by-emacs 38080))
     (org-roam-server-mode))
   (smartparens-global-mode 1))
 

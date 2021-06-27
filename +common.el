@@ -77,4 +77,11 @@
   (when (eq system-type 'gnu/linux)
     (shell-command-to-string "echo -n $(lsb_release -is)")))
 
+(defun zwei/port-in-use-by-emacs (port)
+  "Will return t if PORT has been created by emacs, nil otherwise."
+  (when (and (eq system-type 'gnu/linux)
+             (not (string-empty-p
+                   (shell-command-to-string
+                    (format "lsof -i :%d | grep emacs" port)))))
+    t))
 ;;; +common.el ends here
