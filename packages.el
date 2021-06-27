@@ -2,8 +2,12 @@
 ;;; Commentary:
 
 ;;; Code:
+(unpin! org-roam bibtex-completion helm-bibtex ivy-bibtex)
+
 (package! org-roam-server)
 (package! org-ref)
+(package! org-roam-bibtex
+  :recipe (:host github :repo "org-roam/org-roam-bibtex"))
 (package! org-ql)
 (package! anki-editor)
 (package! org-clock-convenience)

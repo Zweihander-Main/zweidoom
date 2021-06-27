@@ -79,23 +79,19 @@
           org-ref-pdf-directory zwei/org-roam-bib-files-directory
           bibtex-completion-library-path `(,zwei/org-roam-bib-files-directory))))
 
-;; (use-package! org-roam-bibtex
-;;   :hook (org-roam-mode . org-roam-bibtex-mode)
-;;   :config
-;;   (setq orb-templates
-;;         `(("r" "ref" plain #'org-roam-capture--get-point ""
-;;            :file-name "biblio/${slug}"
-;;            :head
-;;            ,(concat "#+TITLE: ${title}\n"
-;;                     "#+ROAM_KEY: ${ref}\n")
-;;            :immediate-finish t
-;;            :unnarrowed t))))
-;; (use-package! ivy-bibtex
-;;   :config
-;;   (defun rasen/ivy-cite ()
-;;     (interactive)
-;;     (let ((ivy-bibtex-default-action #'ivy-bibtex-insert-citation))
-;;       (call-interactively #'ivy-bibtex))))
+(use-package! org-roam-bibtex
+  :after org-roam
+  :hook (org-roam-mode . org-roam-bibtex-mode)
+  :config
+  (require 'org-ref)
+  (setq orb-templates
+        `(("r" "ref" plain #'org-roam-capture--get-point ""
+           :file-name ,(concat zwei/org-roam-bib-directory "/${slug}")
+           :head
+           ,(concat "#+TITLE: ${title}\n"
+                    "#+ROAM_KEY: ${ref}\n")
+           :immediate-finish t
+           :unnarrowed t))))
 
 (use-package! anki-editor
   :after org-roam
