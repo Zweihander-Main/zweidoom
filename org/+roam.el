@@ -10,6 +10,12 @@
 
 (require 'org)
 (require 'org-roam)
+(require 'org-roam-protocol)
+
+(defconst zwei/slip-boxes
+  '(("p" "permanent" "")
+    ("l" "literature" "biblio/"))
+  "Zettelkasten slip boxes in (key name dir) format.")
 
 (setq  org-roam-tag-sources '(prop all-directories)
        org-roam-index-file (concat org-roam-directory "/20200724000434-index.org")
@@ -33,11 +39,9 @@
                                ("Arch" "/usr/bin/chromium")
                                (_ nil)))
 
-;; Org-roam-server
 (use-package! org-roam-server
   :after-call org-roam-server-mode
   :config
-  (require 'org-roam-protocol)
   (setq org-roam-server-host "127.0.0.1"
         org-roam-server-port 38080
         org-roam-server-authenticate nil
@@ -60,10 +64,39 @@
     (org-roam-server-mode))
   (smartparens-global-mode 1))
 
-
-;; =============
-;;  Anki-editor
-;; =============
+(use-package! org-ref
+  :after org-roam
+  :config
+  (let ((bib-files
+         (mapcar (lambda (f)
+                   (expand-file-name f zwei/org-roam-bib-directory))
+                 zwei/org-roam-bib-files)))
+    (setq reftex-default-bibliography bib-files
+          org-ref-default-bibliography bib-files
+          bibtex-completion-bibliography bib-files
+          org-ref-bibliography-notes zwei/org-roam-bib-directory
+          bibtex-completion-notes-path zwei/org-roam-bib-directory
+          org-ref-pdf-directory zwei/org-roam-bib-files-directory
+          bibtex-completion-library-path `(,zwei/org-roam-bib-files-directory))))
+
+;; (use-package! org-roam-bibtex
+;;   :hook (org-roam-mode . org-roam-bibtex-mode)
+;;   :config
+;;   (setq orb-templates
+;;         `(("r" "ref" plain #'org-roam-capture--get-point ""
+;;            :file-name "biblio/${slug}"
+;;            :head
+;;            ,(concat "#+TITLE: ${title}\n"
+;;                     "#+ROAM_KEY: ${ref}\n")
+;;            :immediate-finish t
+;;            :unnarrowed t))))
+;; (use-package! ivy-bibtex
+;;   :config
+;;   (defun rasen/ivy-cite ()
+;;     (interactive)
+;;     (let ((ivy-bibtex-default-action #'ivy-bibtex-insert-citation))
+;;       (call-interactively #'ivy-bibtex))))
+
 (use-package! anki-editor
   :after org-roam
   :defer t
@@ -77,10 +110,6 @@
         (org-export-create-backend :parent 'html
                                    :filters '((:filter-paragraph . filter-out-p)))))
 
-
-;; ===========================
-;;   kindle-highlights-to-org
-;; ===========================
 (use-package! kindle-highlights-to-org
   :after org-roam
   :defer t)

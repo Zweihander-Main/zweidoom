@@ -3,6 +3,7 @@
 
 ;;; Code:
 (package! org-roam-server)
+(package! org-ref)
 (package! org-ql)
 (package! anki-editor)
 (package! org-clock-convenience)

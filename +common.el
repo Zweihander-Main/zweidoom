@@ -30,9 +30,6 @@
 (defvar zwei/org-agenda-reviews-file (expand-file-name "reviews.org" zwei/org-agenda-directory)
   "Reviews files for interval reviews.")
 
-(defvar zwei/org-agenda-templates-directory (expand-file-name "templates" org-directory)
-  "Directory to store org capture templates.")
-
 (defvar zwei/org-agenda-projects-file (expand-file-name "projects.org" zwei/org-agenda-directory)
   "File for all tasks that can be put into a given active project.")
 
@@ -44,6 +41,18 @@
 
 (defvar zwei/org-agenda-goals-file (expand-file-name "goals.org" zwei/org-agenda-directory )
   "File for overarching goal tracking.")
+
+(defvar zwei/org-agenda-templates-directory (expand-file-name "templates" org-directory)
+  "Directory to store org capture templates.")
+
+(defvar zwei/org-roam-bib-directory (expand-file-name "bib" org-roam-directory)
+  "Directory for storing literature notes and bibliographic references.")
+
+(defvar zwei/org-roam-bib-files-directory (expand-file-name "files" zwei/org-roam-bib-directory)
+  "Directory for storing files related to literature notes (ie PDFs).")
+
+(defvar zwei/org-roam-bib-files '("books.bib" "papers.bib" "online.bib")
+  "Filenames in the `org-roam-bib-directory' that correspond to different bibliographies.")
 
 (setq +org-capture-todo-file zwei/org-agenda-todo-file
       org-default-notes-file zwei/org-agenda-todo-file)
