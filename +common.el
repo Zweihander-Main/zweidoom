@@ -7,6 +7,15 @@
 ;;;
 ;;; Code:
 
+(eval-when-compile
+  (defvar default-directory)
+  (defvar org-directory)
+  (defvar deft-directory)
+  (defvar org-roam-directory)
+  (defvar org-journal-dir)
+  (defvar +org-capture-todo-file)
+  (defvar org-default-notes-file))
+
 
 ;; ===============
 ;;   Directories
