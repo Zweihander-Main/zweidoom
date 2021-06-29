@@ -11,6 +11,7 @@
 
 (use-package! org-agenda
   :defer-incrementally mu4e org-roam) ;; get mu4e and roam loading when agenda opened
+;; TODO this is wrong
 
 (require 'org)
 (require 'org-agenda)
@@ -73,7 +74,7 @@
 
   (setq org-agenda-bulk-custom-functions `((?c process-org-agenda-inbox-single-item)))
 
-  ;; Mappings
+  ;; Mappings for process-org-agenda-inbox
   (map! :map org-agenda-mode-map
         :localleader
         :desc "Process inbox items" "i" #'process-org-agenda-inbox-all-items

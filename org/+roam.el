@@ -14,26 +14,48 @@
 
 (defconst zwei/slip-boxes
   '(("p" "permanent" "")
-    ("l" "literature" "biblio/"))
+    ("l" "literature" "bib/"))
   "Zettelkasten slip boxes in (key name dir) format.")
 
 (setq  org-roam-tag-sources '(prop all-directories)
        org-roam-index-file (concat org-roam-directory "/20200724000434-index.org")
        org-roam-capture-templates
-       '(("d" "default"
-          plain
-          (function org-roam-capture--get-point)
-          "%?"
-          :file-name "%<%Y%m%d%H%M%S>-${slug}"
-          :head "#+TITLE: ${title}\n#+ROAM_ALIAS: \n#+ROAM_TAGS: \n- related :: \n\n* "
-          :unnarrowed t))
+       (mapcar (lambda (x)
+                 (let ((key  (nth 0 x))
+                       (name (nth 1 x))
+                       (dir  (nth 2 x)))
+                   `(,key ,name
+                          plain
+                          (function org-roam--capture-get-point)
+                          "%?"
+                          :file-name ,(concat dir "%<%Y%m%d%H%M%S>-${slug}")
+                          :head
+                          ,(concat "#+TITLE: ${title}\n"
+                                   "#+ROAM_ALIAS: \n"
+                                   "#+ROAM_TAGS: \n"
+                                   "\n"
+                                   "- related :: \n"
+                                   "\n"
+                                   "* ")
+                          :immediate-finish t
+                          :unnarrowed t)))
+               zwei/slip-boxes)
        org-roam-capture-ref-templates
        '(("r" "ref"
           plain
           (function org-roam-capture--get-point)
           "%?"
-          :file-name "websites/${slug}"
-          :head "#+TITLE: ${title}\n#+ROAM_KEY: ${ref}\n- source :: ${ref}\n- related :: \n\n* "
+          :file-name "bib/$%<%Y%m%d%H%M%S>-${slug}"
+          :head
+          ,(concat "#+TITLE: ${title}\n"
+                   "#+ROAM_ALIAS: \n"
+                   "#+ROAM_KEY: ${ref}"
+                   "#+ROAM_TAGS: \n"
+                   "\n"
+                   "- related :: \n"
+                   "\n"
+                   "* ")
+          :immediate-finish t
           :unnarrowed t))
        org-roam-graph-viewer (pcase (zwei/which-linux-distro)
                                ("Arch" "/usr/bin/chromium")
@@ -78,21 +100,97 @@
           org-ref-bibliography-notes zwei/org-roam-bib-directory
           bibtex-completion-notes-path zwei/org-roam-bib-directory
           org-ref-pdf-directory zwei/org-roam-bib-files-directory
-          bibtex-completion-library-path `(,zwei/org-roam-bib-files-directory))))
+          bibtex-completion-library-path `(,zwei/org-roam-bib-files-directory)
+          ;; Rules for automatic key gen
+          bibtex-autokey-year-length 4
+          bibtex-autokey-name-year-separator ""
+          bibtex-autokey-year-title-separator "-"
+          bibtex-autokey-titleword-separator "-"
+          bibtex-autokey-titlewords 5
+          bibtex-autokey-titlewords-stretch 1
+          bibtex-autokey-titleword-length 5))
+
+  (require 'org-ref-url-utils)
+  (require 'org-ref-isbn)
+
+  ;; Mappings for org-ref
+  (map! :map bibtex-mode-map
+        :localleader
+        ;; Nav
+        :desc "Next entry" "j" #'org-ref-bibtex-next-entry
+        :desc "Prev entry" "k" #'org-ref-bibtex-previous-entry
+        ;; Open
+        :desc "Open browser" "b" #'org-ref-open-in-browser
+        :desc "Open notes" "n" #'org-ref-open-bibtex-notes
+        :desc "Open PDF" "p" #'org-ref-open-bibtex-pdf
+        ;; Attach
+        :desc "Attach pdf" "a" #'org-ref-bibtex-assoc-pdf-with-entry
+        ;; Insert
+        :desc "Insert new entry" "i" #'org-ref-bibtex-hydra/org-ref-bibtex-file/body-and-exit
+        :desc "Insert citation" "c" #'org-ref-insert-link
+        :desc "Book ISBN -> entry" "b" #'isbn-to-bibtex
+        :desc "URL -> entry" "u" #'org-ref-url-html-to-bibtex
+        ;; Misc
+        :desc "Actions on entry" "h" #'org-ref-bibtex-hydra/body
+        :desc "Clean entry" "C" #'org-ref-clean-bibtex-entry
+        :desc "Sort entry" "s" #'org-ref-sort-bibtex-entry
+        :desc "Sort buffer" "S" #'bibtex-sort-buffer
+        (:prefix ("l" . "lookup")
+         :desc "Lookup ISBN" "i" #'isbn-to-bibtex-lead))
+
+  (map! :map org-mode-map
+        :localleader
+        (:prefix ("m" . "roam")
+         :desc "Insert citation" "c" #'org-ref-insert-link))
+
+  (map! :after markdown
+        :map markdown-mode-map
+        :localleader
+        :desc "Insert citation" "c" #'org-ref-insert-link))
 
 (use-package! org-roam-bibtex
   :after org-roam
   :hook (org-roam-mode . org-roam-bibtex-mode)
   :config
   (require 'org-ref)
-  (setq orb-templates
+  (setq orb-preformat-keywords
+        '("citekey"
+          "entry-type"
+          "date"
+          "pdf?"
+          "note?"
+          "file"
+          "author"
+          "editor"
+          "author-or-editor"
+          "author-abbrev"
+          "editor-abbrev"
+          "author-or-editor-abbrev"
+          "title"
+          "keywords"
+          "url")
+        orb-templates
         `(("r" "ref" plain #'org-roam-capture--get-point ""
-           :file-name ,(concat zwei/org-roam-bib-directory "/${slug}")
+           :file-name ,(concat zwei/org-roam-bib-directory "/$%<%Y%m%d%H%M%S>-{slug}")
            :head
-           ,(concat "#+TITLE: ${title}\n"
-                    "#+ROAM_KEY: ${ref}\n")
+           ,(concat "#+TITLE: ${title} by ${author-or-editor}\n"
+                    "#+ROAM_ALIAS: \n"
+                    "#+ROAM_KEY: ${ref}\n"
+                    "#+ROAM_TAGS: \n"
+                    "\n"
+                    "- related :: \n"
+                    "\n"
+                    "* ${title}\n"
+                    ":PROPERTIES:\n"
+                    ":Custom_ID: ${citekey}\n"
+                    ":URL: ${url}\n"
+                    ":AUTHOR: ${author-or-editor}\n"
+                    ":KEYWORDS: ${keywords}"
+                    ":END:\n"
+                    "* ")
            :immediate-finish t
-           :unnarrowed t))))
+           :unnarrowed t))
+        org-ref-completion-library 'org-ref-ivy-cite))
 
 (use-package! anki-editor
   :after org-roam
