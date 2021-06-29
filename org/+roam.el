@@ -12,11 +12,56 @@
 (require 'org-roam)
 (require 'org-roam-protocol)
 
+;; Variables
 (defconst zwei/slip-boxes
   '(("p" "permanent" "")
     ("l" "literature" "bib/"))
   "Zettelkasten slip boxes in (key name dir) format.")
 
+;; Functions
+(defun zwei/roam-rename (new-name)
+  "Move current file to NEW-NAME. `org-roam' takes care of adjusting all links."
+  (interactive (list (let ((filename (buffer-file-name)))
+                       (read-file-name
+                        (format "Enter new name of file (%s): "
+                                (file-name-nondirectory filename))
+                        nil
+                        (file-name-nondirectory filename)
+                        nil
+                        (file-name-nondirectory filename)))))
+  (let ((filename (buffer-file-name)))
+    (unless filename
+      (error "Buffer '%s' is not visiting file!" (buffer-name)))
+    (rename-file filename new-name)
+    (set-visited-file-name new-name t)
+    (revert-buffer t t t)
+    ;; trigger save-buffer for org-roam to regenerate `org-roam-buffer'.
+    (set-buffer-modified-p t)
+    (save-buffer)))
+
+(defun zwei/roam-delete ()
+  "Trashes current file, `org-roam' takes care of adjusting all links.
+Requires working system trash."
+  (interactive)
+  (let ((filename (buffer-file-name)))
+    (unless filename
+      (error "Buffer '%s' is not visiting file!" (buffer-name)))
+    (delete-file filename t)
+    ;; trigger save-buffer for org-roam to regenerate `org-roam-buffer'.
+    (set-buffer-modified-p t)))
+
+(defun zwei/roam-move-to-slip-box (slip-box)
+  "Move file to specified SLIP-BOX."
+  (interactive (list (completing-read "Move to slip-box: "
+                                      (mapcar (lambda (x)
+                                                (nth 2 x))
+                                              zwei/slip-boxes))))
+  (let* ((fullpath (buffer-file-name))
+         (filename (file-name-nondirectory fullpath))
+         (new-name (f-join org-roam-directory slip-box filename)))
+    (zwei/roam-rename new-name)))
+
+;; Config
 (setq  org-roam-tag-sources '(prop all-directories)
        org-roam-index-file (concat org-roam-directory "/20200724000434-index.org")
        org-roam-capture-templates
@@ -60,6 +105,14 @@
        org-roam-graph-viewer (pcase (zwei/which-linux-distro)
                                ("Arch" "/usr/bin/chromium")
                                (_ nil)))
+
+;; Mappings
+(map! :map org-mode-map
+      :localleader
+      (:prefix ("m" . "roam")
+       :desc "Delete file" "D" #'zwei/roam-delete
+       :desc "Rename file" "R" #'zwei/roam-rename
+       :desc "Move slipbox" "M" #'zwei/move-to-slip-box))
 
 (use-package! org-roam-server
   :after-call org-roam-server-mode
