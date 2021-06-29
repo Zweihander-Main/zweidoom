@@ -9,10 +9,6 @@
 ;;; Code:
 
 
-(use-package! org-agenda
-  :defer-incrementally mu4e org-roam) ;; get mu4e and roam loading when agenda opened
-;; TODO this is wrong
-
 (require 'org)
 (require 'org-agenda)
 (require 'org-clock)
