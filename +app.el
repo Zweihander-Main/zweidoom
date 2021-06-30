@@ -208,10 +208,10 @@ Used for global agenda-access keys."
       (:prefix-map ("n" . "notes")
        (:when (featurep! :lang org)
         :desc "Find in gtd" "g" #'zwei/find-gtd-file
-        :desc "Inbox entry" "i" #'zwei/org-inbox-capture))
-      (:when (featurep! :lang org +roam)
-       (:prefix ("r" . "roam")
-        :desc "Create book bib+roam" "C" #'zwei/bib+ref+roam-book-title)))
+        :desc "Inbox entry" "i" #'zwei/org-inbox-capture)
+       (:when (featurep! :lang org +roam)
+        (:prefix ("r" . "roam")
+         :desc "Create book bib+roam" "C" #'zwei/bib+ref+roam-book-title))))
 
 
 ;; ===========================
