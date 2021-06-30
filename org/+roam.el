@@ -48,7 +48,8 @@ Requires working system trash."
       (error "Buffer '%s' is not visiting file!" (buffer-name)))
     (delete-file filename t)
     ;; trigger save-buffer for org-roam to regenerate `org-roam-buffer'.
-    (set-buffer-modified-p t)))
+    (set-buffer-modified-p t)
+    (kill-current-buffer)))
 
 (defun zwei/roam-move-to-slip-box (slip-box)
   "Move file to specified SLIP-BOX."
