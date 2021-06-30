@@ -188,18 +188,19 @@
   (require 'org)
   (require 'org-agenda))
 
-(map! :g "<f1>" (cmd! (zwei/org-agenda-force-load)
-                      (org-agenda nil "1")
-                      (evil-goto-first-line)))
-(map! :g "<f2>" (cmd! (zwei/org-agenda-force-load)
-                      (org-agenda nil "2")
-                      (evil-goto-first-line)))
-(map! :g "<f3>" (cmd! (zwei/org-agenda-force-load)
-                      (org-agenda nil "3")
-                      (evil-goto-first-line)))
-(map! :g "<f4>" (cmd! (zwei/org-agenda-force-load)
-                      (org-agenda nil "4")
-                      (evil-goto-first-line)))
+(map! :g
+      "<f1>" (cmd! (zwei/org-agenda-force-load)
+                   (org-agenda nil "1")
+                   (evil-goto-first-line))
+      "<f2>" (cmd! (zwei/org-agenda-force-load)
+                   (org-agenda nil "2")
+                   (evil-goto-first-line))
+      "<f3>" (cmd! (zwei/org-agenda-force-load)
+                   (org-agenda nil "3")
+                   (evil-goto-first-line))
+      "<f4>" (cmd! (zwei/org-agenda-force-load)
+                   (org-agenda nil "4")
+                   (evil-goto-first-line)))
 
 ;; ===========================
 ;;  Global evil modifications
