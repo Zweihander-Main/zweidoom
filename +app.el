@@ -183,24 +183,36 @@
 ;;  Global shortcuts
 ;; ==================
 
-(defun zwei/org-agenda-force-load ()
-  "Force agenda to load. Used for global agenda-access keys."
-  (require 'org)
-  (require 'org-agenda))
+(defun zwei/org-agenda-force-load (key)
+  "Go to agenda KEY and stick to the first line.
+Used for global agenda-access keys."
+  (org-agenda nil key)
+  (evil-goto-first-line))
+
+;; Experiment: add command hooks alongside globals
+(use-package! org
+  :commands (zwei/find-gtd-file))
+(use-package! org-agenda
+  :commands (zwei/org-agenda-force-load))
+(use-package! org-capture
+  :commands (zwei/org-inbox-capture))
+(use-package! org-roam-bibtex
+  :commands (zwei/bib+ref+roam-book-title))
 
 (map! :g
-      "<f1>" (cmd! (zwei/org-agenda-force-load)
-                   (org-agenda nil "1")
-                   (evil-goto-first-line))
-      "<f2>" (cmd! (zwei/org-agenda-force-load)
-                   (org-agenda nil "2")
-                   (evil-goto-first-line))
-      "<f3>" (cmd! (zwei/org-agenda-force-load)
-                   (org-agenda nil "3")
-                   (evil-goto-first-line))
-      "<f4>" (cmd! (zwei/org-agenda-force-load)
-                   (org-agenda nil "4")
-                   (evil-goto-first-line)))
+      "<f1>" (cmd! (zwei/org-agenda-force-load "1"))
+      "<f2>" (cmd! (zwei/org-agenda-force-load "2"))
+      "<f3>" (cmd! (zwei/org-agenda-force-load "3"))
+      "<f4>" (cmd! (zwei/org-agenda-force-load "4"))
+      :leader
+      (:prefix-map ("n" . "notes")
+       (:when (featurep! :lang org)
+        :desc "Find in gtd" "g" #'zwei/find-gtd-file
+        :desc "Inbox entry" "i" #'zwei/org-inbox-capture))
+      (:when (featurep! :lang org +roam)
+       (:prefix ("r" . "roam")
+        :desc "Create book bib+roam" "C" #'zwei/bib+ref+roam-book-title)))
+
 
 ;; ===========================
 ;;  Global evil modifications

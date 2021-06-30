@@ -317,13 +317,7 @@ No API key needed for minor use."
         :localleader
         (:prefix ("m" . "roam")
          :desc "ORB note actions" "B" #'orb-note-actions
-         :desc "Create book bib+roam" "C" #'zwei/bib+ref+roam-book-title))
-
-  (map! :leader
-        (:prefix-map ("n" . "notes")
-         (:when (featurep! :lang org +roam)
-          (:prefix ("r" . "roam")
-           :desc "Create book bib+roam" "C" #'zwei/bib+ref+roam-book-title)))))
+         :desc "Create book bib+roam" "C" #'zwei/bib+ref+roam-book-title)))
 
 (use-package! anki-editor
   :after org-roam

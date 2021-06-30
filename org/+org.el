@@ -40,11 +40,6 @@
       :prefix "r"
       :desc "Archive all done tasks" "a" #'zwei/org-archive-done-tasks)
 
-(map! :after org
-      :leader
-      :prefix "n"
-      :desc "Find in gtd" "g" #'zwei/find-gtd-file)
-
 ;; General config
 (setq org-hide-emphasis-markers t
       org-extend-today-until 4 ;; add some buffer after midnight
