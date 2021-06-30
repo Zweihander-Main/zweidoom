@@ -219,18 +219,6 @@ No API key needed for minor use."
     (require 'org-roam-bibtex)
     (orb-edit-notes (bibtex-completion-key-at-point)))
 
-  (defun zwei/bib+ref+roam-book-title (title)
-    "Prompt user for title, ask API for ISBN, create bibtex entry + roam note."
-    (interactive (list (read-string "Enter title/keywords: ")))
-    (let ((isbn (zwei/ref-isbn-from-title title))
-          (book-bib (expand-file-name (car zwei/org-roam-bib-files)
-                                      zwei/org-roam-bib-directory)))
-      (isbn-to-bibtex isbn book-bib)
-      (save-buffer)
-      (zwei/bibtex-open-roam-at-point)
-      (set-buffer-modified-p t)
-      (save-buffer)))
-
   ;; Mappings for org-ref
   (map! :map bibtex-mode-map
         :localleader
@@ -255,7 +243,8 @@ No API key needed for minor use."
         :desc "Sort entry" "s" #'org-ref-sort-bibtex-entry
         :desc "Sort buffer" "S" #'bibtex-sort-buffer
         (:prefix ("l" . "lookup")
-         :desc "Lookup ISBN" "i" #'isbn-to-bibtex-lead))
+         :desc "ISBN: lead.to" "l" #'isbn-to-bibtex-lead
+         :desc "ISBN: google" "g" #'zwei/ref-isbn-from-title))
 
   (map! :map org-mode-map
         :localleader
@@ -310,11 +299,24 @@ No API key needed for minor use."
            :unnarrowed t))
         org-ref-completion-library 'org-ref-ivy-cite)
 
+  (defun zwei/bib+ref+roam-book-title (title)
+    "Prompt user for title, ask API for ISBN, create bibtex entry + roam note."
+    (interactive (list (read-string "Enter title/keywords: ")))
+    (let ((isbn (zwei/ref-isbn-from-title title))
+          (book-bib (expand-file-name (car zwei/org-roam-bib-files)
+                                      zwei/org-roam-bib-directory)))
+      (isbn-to-bibtex isbn book-bib)
+      (save-buffer)
+      (zwei/bibtex-open-roam-at-point)
+      (set-buffer-modified-p t)
+      (save-buffer)))
+
   ;; Mappings
   (map! :map org-mode-map
         :localleader
         (:prefix ("m" . "roam")
-         :desc "ORB note actions" "B" #'orb-note-actions)))
+         :desc "ORB note actions" "B" #'orb-note-actions
+         :desc "Create book" "C" #'zwei/bib+ref+roam-book-title)))
 
 (use-package! anki-editor
   :after org-roam
