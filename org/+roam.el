@@ -101,7 +101,8 @@ Requires working system trash."
                    "\n"
                    "- related :: \n"
                    "\n"
-                   "*  ")
+                   "* Notes\n"
+                   "- ")
           :immediate-finish t
           :unnarrowed t))
        org-roam-graph-viewer (pcase (zwei/which-linux-distro)
@@ -299,7 +300,8 @@ No API key needed for minor use."
                     ":AUTHOR: ${author}\n"
                     ":KEYWORDS: ${keywords}\n"
                     ":END:\n"
-                    "* Notes:")
+                    "* Notes:\n"
+                    "- ")
            :immediate-finish t
            :unnarrowed t))
         org-ref-completion-library 'org-ref-ivy-cite)
