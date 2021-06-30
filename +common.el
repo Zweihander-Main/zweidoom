@@ -61,7 +61,8 @@
   "Directory for storing files related to literature notes (ie PDFs).")
 
 (defvar zwei/org-roam-bib-files '("books.bib" "papers.bib" "online.bib")
-  "Filenames in the `org-roam-bib-directory' that correspond to different bibliographies.")
+  "Filenames in the `org-roam-bib-directory' that correspond to different bibliographies.
+Lead with book bibliography.")
 
 (setq +org-capture-todo-file zwei/org-agenda-todo-file
       org-default-notes-file zwei/org-agenda-todo-file)

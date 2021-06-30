@@ -65,6 +65,7 @@ Requires working system trash."
 ;; Config
 (setq  org-roam-tag-sources '(prop all-directories)
        org-roam-index-file (concat org-roam-directory "/20200724000434-index.org")
+       ;; Regular template for each slip box
        org-roam-capture-templates
        (mapcar (lambda (x)
                  (let ((key  (nth 0 x))
@@ -82,7 +83,7 @@ Requires working system trash."
                                    "\n"
                                    "- related :: \n"
                                    "\n"
-                                   "* ")
+                                   "*  ")
                           :immediate-finish t
                           :unnarrowed t)))
                zwei/slip-boxes)
@@ -100,7 +101,7 @@ Requires working system trash."
                    "\n"
                    "- related :: \n"
                    "\n"
-                   "* ")
+                   "*  ")
           :immediate-finish t
           :unnarrowed t))
        org-roam-graph-viewer (pcase (zwei/which-linux-distro)
@@ -167,6 +168,69 @@ Requires working system trash."
   (require 'org-ref-url-utils)
   (require 'org-ref-isbn)
 
+  ;; Functions
+  (defun zwei/ref-isbn-from-title (title)
+    "Get ISBN-13 of TITLE using Google ISBN lookup.
+No API key needed for minor use."
+    (interactive (list (read-string "Enter title/keywords: ")))
+    (let ((url-request-extra-headers'(("Accept" . "application/json")))
+          json)
+      (with-current-buffer
+          (url-retrieve-synchronously
+           (concat "https://books.googleapis.com/books/v1/volumes?q="
+                   (url-hexify-string title)
+                   "&printType=BOOKS"))
+        (goto-char url-http-end-of-headers)
+        (setq json (json-read))
+        (if (not json)
+            (message "Bad request")
+          (let* ((items (cdr (assoc 'items json)))
+                 (collection
+                  (mapcar
+                   (lambda (item)
+                     (let* ((volInfo (assoc 'volumeInfo item))
+                            (title (cdr (assoc 'title volInfo)))
+                            (author (or (and
+                                         (> (length
+                                             (cdr (assoc 'authors volInfo)))
+                                            0)
+                                         (aref (cdr (assoc 'authors volInfo)) 0))
+                                        "No Author"))
+                            (ident (cdr (assoc 'industryIdentifiers volInfo)))
+                            (isbn
+                             (if (and (> (length ident) 1)
+                                      (string=
+                                       (cdr (assoc 'type (aref ident 1)))
+                                       "ISBN_13"))
+                                 (cdr (assoc 'identifier (aref ident 1)))
+                               (cdr (assoc 'identifier (aref ident 0))))))
+                       (cons (concat title " by " author) isbn)))
+                   items)))
+            (cdr (assoc (completing-read
+                         "Select which book to use: "
+                         collection
+                         nil
+                         t)
+                        collection)))))))
+
+  (defun zwei/bibtex-open-roam-at-point ()
+    "Open roam entry using orb for current point."
+    (interactive)
+    (require 'org-roam-bibtex)
+    (orb-edit-notes (bibtex-completion-key-at-point)))
+
+  (defun zwei/bib+ref+roam-book-title (title)
+    "Prompt user for title, ask API for ISBN, create bibtex entry + roam note."
+    (interactive (list (read-string "Enter title/keywords: ")))
+    (let ((isbn (zwei/ref-isbn-from-title title))
+          (book-bib (expand-file-name (car zwei/org-roam-bib-files)
+                                      zwei/org-roam-bib-directory)))
+      (isbn-to-bibtex isbn book-bib)
+      (save-buffer)
+      (zwei/bibtex-open-roam-at-point)
+      (set-buffer-modified-p t)
+      (save-buffer)))
+
   ;; Mappings for org-ref
   (map! :map bibtex-mode-map
         :localleader
@@ -175,6 +239,7 @@ Requires working system trash."
         :desc "Prev entry" "k" #'org-ref-bibtex-previous-entry
         ;; Open
         :desc "Open browser" "b" #'org-ref-open-in-browser
+        :desc "Open roam entry" "r" #'zwei/bibtex-open-roam-at-point
         :desc "Open notes" "n" #'org-ref-open-bibtex-notes
         :desc "Open PDF" "p" #'org-ref-open-bibtex-pdf
         ;; Attach
@@ -225,9 +290,9 @@ Requires working system trash."
           "url")
         orb-templates
         `(("r" "ref" plain #'org-roam-capture--get-point ""
-           :file-name ,(concat zwei/org-roam-bib-directory "/$%<%Y%m%d%H%M%S>-{slug}")
+           :file-name ,(concat zwei/org-roam-bib-directory "/%<%Y%m%d%H%M%S>-${slug}")
            :head
-           ,(concat "#+TITLE: ${title} by ${author-or-editor}\n"
+           ,(concat "#+TITLE: ${title} by ${author-abbrev}\n"
                     "#+ROAM_ALIAS: \n"
                     "#+ROAM_KEY: ${ref}\n"
                     "#+ROAM_TAGS: \n"
@@ -237,14 +302,19 @@ Requires working system trash."
                     "* ${title}\n"
                     ":PROPERTIES:\n"
                     ":Custom_ID: ${citekey}\n"
-                    ":URL: ${url}\n"
-                    ":AUTHOR: ${author-or-editor}\n"
-                    ":KEYWORDS: ${keywords}"
+                    ":AUTHOR: ${author}\n"
+                    ":KEYWORDS: ${keywords}\n"
                     ":END:\n"
-                    "* ")
+                    "* Notes:")
            :immediate-finish t
            :unnarrowed t))
-        org-ref-completion-library 'org-ref-ivy-cite))
+        org-ref-completion-library 'org-ref-ivy-cite)
+
+  ;; Mappings
+  (map! :map org-mode-map
+        :localleader
+        (:prefix ("m" . "roam")
+         :desc "ORB note actions" "B" #'orb-note-actions)))
 
 (use-package! anki-editor
   :after org-roam
