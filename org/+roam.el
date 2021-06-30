@@ -204,7 +204,8 @@ No API key needed for minor use."
                                        "ISBN_13"))
                                  (cdr (assoc 'identifier (aref ident 1)))
                                (cdr (assoc 'identifier (aref ident 0))))))
-                       (cons (concat title " by " author) isbn)))
+                       (cons (concat title " by " author (format " (%s)" isbn))
+                             isbn)))
                    items)))
             (cdr (assoc (completing-read
                          "Select which book to use: "
@@ -217,7 +218,10 @@ No API key needed for minor use."
     "Open roam entry using orb for current point."
     (interactive)
     (require 'org-roam-bibtex)
-    (orb-edit-notes (bibtex-completion-key-at-point)))
+    (let ((citekey (bibtex-completion-key-at-point)))
+      (if (not citekey)
+          (message "Citekey not found, bib entry likely not created.")
+        (orb-edit-notes citekey))))
 
   ;; Mappings for org-ref
   (map! :map bibtex-mode-map
@@ -307,10 +311,12 @@ No API key needed for minor use."
           (book-bib (expand-file-name (car zwei/org-roam-bib-files)
                                       zwei/org-roam-bib-directory)))
       (isbn-to-bibtex isbn book-bib)
-      (save-buffer)
-      (zwei/bibtex-open-roam-at-point)
-      (set-buffer-modified-p t)
-      (save-buffer)))
+      (if (not (string= (buffer-file-name) book-bib))
+          (message "isbn-to-bibtex wasn't able to find data for that ISBN.")
+        (progn
+          (zwei/bibtex-open-roam-at-point)
+          (set-buffer-modified-p t)
+          (save-buffer)))))
 
   ;; Mappings
   (map! :map org-mode-map
