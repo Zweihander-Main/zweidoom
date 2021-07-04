@@ -14,8 +14,11 @@
 
 ;; Variables
 (defconst zwei/slip-boxes
-  '(("p" "permanent" "")
-    ("l" "literature" "bib/"))
+  '(("d" "[d]efault --permanent" "")
+    ("b" "[b]ib -- literature" "bib/")
+    ("p" "[p]osts" "posts/")
+    ("l" "[l]ife" "life/")
+    ("w" "[w]ork" "work/"))
   "Zettelkasten slip boxes in (key name dir) format.")
 
 ;; Functions
