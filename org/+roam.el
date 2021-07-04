@@ -199,12 +199,10 @@ No API key needed for minor use."
                                         "No Author"))
                             (ident (cdr (assoc 'industryIdentifiers volInfo)))
                             (isbn
-                             (if (and (> (length ident) 1)
-                                      (string=
-                                       (cdr (assoc 'type (aref ident 1)))
-                                       "ISBN_13"))
-                                 (cdr (assoc 'identifier (aref ident 1)))
-                               (cdr (assoc 'identifier (aref ident 0))))))
+                             (pcase (length ident)
+                               (0 "NO ISBN, DO NOT SELECT")
+                               (1 (cdr (assoc 'identifier (aref ident 0))))
+                               (_ (cdr (assoc 'identifier (aref ident 1)))))))
                        (cons (concat title " by " author (format " (%s)" isbn))
                              isbn)))
                    items)))
@@ -222,6 +220,15 @@ No API key needed for minor use."
     (let ((citekey (bibtex-completion-key-at-point)))
       (if (not citekey)
           (message "Citekey not found, bib entry likely not created.")
+        (orb-edit-notes citekey))))
+
+  (defun zwei/org-roam-open-citation-roam-entry ()
+    "Open roam entry related to citation under cursor."
+    (interactive)
+    (require 'org-roam-bibtex)
+    (let ((citekey (org-ref-get-bibtex-key-under-cursor)))
+      (if (not citekey)
+          (message "Citekey not found.")
         (orb-edit-notes citekey))))
 
   ;; Mappings for org-ref
@@ -254,7 +261,8 @@ No API key needed for minor use."
   (map! :map org-mode-map
         :localleader
         (:prefix ("m" . "roam")
-         :desc "Insert citation" "c" #'org-ref-insert-link))
+         :desc "Insert citation" "c" #'org-ref-insert-link
+         :desc "Open citation roam entry" "RET" #'zwei/org-roam-open-citation-roam-entry))
 
   (map! :after markdown
         :map markdown-mode-map
