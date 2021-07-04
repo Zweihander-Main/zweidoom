@@ -118,7 +118,7 @@ Requires working system trash."
       (:prefix ("m" . "roam")
        :desc "Delete file" "D" #'zwei/roam-delete
        :desc "Rename file" "R" #'zwei/roam-rename
-       :desc "Move slipbox" "M" #'zwei/move-to-slip-box))
+       :desc "Move slipbox" "M" #'zwei/roam-move-to-slip-box))
 
 (use-package! org-roam-server
   :after-call org-roam-server-mode
