@@ -196,6 +196,8 @@ Used for global agenda-access keys."
   :commands (zwei/org-agenda-force-load))
 (use-package! org-capture
   :commands (zwei/org-inbox-capture))
+(use-package! org-roam
+  :commands (org-roam-jump-to-index))
 (use-package! org-roam-bibtex
   :commands (zwei/bib+ref+roam-book-title))
 
@@ -211,6 +213,7 @@ Used for global agenda-access keys."
         :desc "Inbox entry" "i" #'zwei/org-inbox-capture)
        (:when (featurep! :lang org +roam)
         (:prefix ("r" . "roam")
+         :desc "Go to index" "x" #'org-roam-jump-to-index
          :desc "Create book bib+roam" "C" #'zwei/bib+ref+roam-book-title))))
 
 
