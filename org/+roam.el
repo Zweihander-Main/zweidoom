@@ -67,7 +67,7 @@ Requires working system trash."
 
 ;; Config
 (setq  org-roam-tag-sources '(prop all-directories)
-       org-roam-index-file (concat org-roam-directory "/20200724000434-index.org")
+       org-roam-index-file (concat org-roam-directory "/index.org")
        ;; Regular template for each slip box
        org-roam-capture-templates
        (mapcar (lambda (x)
