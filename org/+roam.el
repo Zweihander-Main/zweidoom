@@ -136,7 +136,9 @@ Requires working system trash."
         org-roam-server-style nil
         org-roam-server-network-label-truncate t
         org-roam-server-network-label-truncate-length 60
-        org-roam-server-network-label-wrap-length 20))
+        org-roam-server-network-label-wrap-length 20
+        org-roam-server-default-exclude-filters ;; TODO
+        (json-encode (list (list (cons 'parent "bib"))))))
 
 ;; Prevent doom error with smartparens and stop multiple instances
 (after! org-roam
@@ -264,7 +266,7 @@ No API key needed for minor use."
   (map! :map org-mode-map
         :localleader
         (:prefix ("m" . "roam")
-         :desc "Insert citation" "c" #'org-ref-insert-link
+         :desc "Insert citation" "c" #'org-ref-ivy-insert-cite-link
          :desc "Open citation roam entry" "RET" #'zwei/org-roam-open-citation-roam-entry))
 
   (map! :after markdown
