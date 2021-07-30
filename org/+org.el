@@ -36,7 +36,7 @@
 ;; Mappings
 (map! :after org
       :map org-mode-map
-      :desc "Toggle pretty entities" "gS" #'org-toggle-pretty-entities
+      :m "gS" #'org-toggle-pretty-entities
       :localleader
       :prefix "r"
       :desc "Archive all done tasks" "a" #'zwei/org-archive-done-tasks)
