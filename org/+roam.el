@@ -158,10 +158,12 @@ Requires working system trash."
     (setq reftex-default-bibliography bib-files
           org-ref-default-bibliography bib-files
           bibtex-completion-bibliography bib-files
+          org-cite-global-bibliography bib-files
           org-ref-bibliography-notes zwei/org-roam-bib-directory
           bibtex-completion-notes-path zwei/org-roam-bib-directory
           org-ref-pdf-directory zwei/org-roam-bib-files-directory
           bibtex-completion-library-path `(,zwei/org-roam-bib-files-directory)
+          org-ref-completion-library 'org-ref-ivy-cite
           ;; Rules for automatic key gen
           bibtex-autokey-year-length 4
           bibtex-autokey-name-year-separator ""
@@ -170,6 +172,8 @@ Requires working system trash."
           bibtex-autokey-titlewords 5
           bibtex-autokey-titlewords-stretch 1
           bibtex-autokey-titleword-length 5))
+
+  (org-ref-ivy-cite-completion)
 
   (require 'org-ref-url-utils)
   (require 'org-ref-isbn)
@@ -266,13 +270,23 @@ No API key needed for minor use."
   (map! :map org-mode-map
         :localleader
         (:prefix ("m" . "roam")
-         :desc "Insert citation" "c" #'org-ref-ivy-insert-cite-link
+         :desc "Insert citation" "c" #'zwei/bibtex-actions-insert-org-ref-citation
          :desc "Open citation roam entry" "RET" #'zwei/org-roam-open-citation-roam-entry))
 
   (map! :after markdown
         :map markdown-mode-map
         :localleader
         :desc "Insert citation" "c" #'org-ref-insert-link))
+
+(use-package! bibtex-actions
+  :commands (zwei/bibtex-actions-insert-org-ref-citation)
+  :config
+  (defun zwei/bibtex-actions-insert-org-ref-citation ()
+    "Allows org-ref style citations using vertico completion."
+    (interactive)
+    (let ((key (car (bibtex-actions-read :rebuild-cache))))
+      (when key
+        (insert "cite:" key)))))
 
 (use-package! org-roam-bibtex
   :after org-roam
@@ -316,8 +330,8 @@ No API key needed for minor use."
                     "* Notes:\n"
                     "- ")
            :immediate-finish t
-           :unnarrowed t))
-        org-ref-completion-library 'org-ref-ivy-cite)
+           :unnarrowed t)))
+
 
   (defun zwei/bib+ref+roam-book-title (title)
     "Prompt user for title, ask API for ISBN, create bibtex entry + roam note."

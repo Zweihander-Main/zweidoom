@@ -2,8 +2,6 @@
 ;;; Commentary:
 
 ;;; Code:
-(unpin! bibtex-completion helm-bibtex ivy-bibtex)
-
 (package! org-roam-server)
 (package! org-ref)
 (package! org-roam-bibtex
