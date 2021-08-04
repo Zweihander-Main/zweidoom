@@ -228,6 +228,11 @@ Used for global agenda-access keys."
   :config
   (global-evil-motion-trainer-mode 1))
 
+;; =======================
+;;  Fill column indicator
+;; =======================
+(add-hook! '(text-mode-hook prog-mode-hook conf-mode-hook)
+           #'display-fill-column-indicator-mode)
 
 ;; =============
 ;;  OS Specific
