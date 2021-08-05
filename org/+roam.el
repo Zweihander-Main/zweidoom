@@ -65,6 +65,92 @@ Requires working system trash."
          (new-name (f-join org-roam-directory slip-box filename)))
     (zwei/roam-rename new-name)))
 
+(defun zwei/bib+ref+roam-book-title (title)
+  "Prompt user for title, ask API for ISBN, create bibtex entry + roam note."
+  (interactive (list (read-string "Enter title/keywords: ")))
+  (let ((isbn (zwei/ref-isbn-from-title title))
+        (book-bib (expand-file-name (car zwei/org-roam-bib-files)
+                                    zwei/org-roam-bib-directory)))
+    (isbn-to-bibtex isbn book-bib)
+    (if (not (string= (buffer-file-name) book-bib))
+        (message "isbn-to-bibtex wasn't able to find data for that ISBN.")
+      (progn
+        (zwei/bibtex-open-roam-at-point)
+        (set-buffer-modified-p t)
+        (save-buffer)))))
+
+;; Functions
+(defun zwei/ref-isbn-from-title (title)
+  "Get ISBN-13 of TITLE using Google ISBN lookup.
+No API key needed for minor use."
+  (interactive (list (read-string "Enter title/keywords: ")))
+  (let ((url-request-extra-headers'(("Accept" . "application/json")))
+        json)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         (concat "https://books.googleapis.com/books/v1/volumes?q="
+                 (url-hexify-string title)
+                 "&printType=BOOKS"))
+      (goto-char url-http-end-of-headers)
+      (setq json (json-read))
+      (if (not json)
+          (message "Bad request")
+        (let* ((items (cdr (assoc 'items json)))
+               (collection
+                (mapcar
+                 (lambda (item)
+                   (let* ((volInfo (assoc 'volumeInfo item))
+                          (title (cdr (assoc 'title volInfo)))
+                          (author (or (and
+                                       (> (length
+                                           (cdr (assoc 'authors volInfo)))
+                                          0)
+                                       (aref (cdr (assoc 'authors volInfo)) 0))
+                                      "No Author"))
+                          (ident (cdr (assoc 'industryIdentifiers volInfo)))
+                          (isbn
+                           (pcase (length ident)
+                             (0 "NO ISBN, DO NOT SELECT")
+                             (1 (cdr (assoc 'identifier (aref ident 0))))
+                             (_ (cdr (assoc 'identifier (aref ident 1)))))))
+                     (cons (concat title " by " author (format " (%s)" isbn))
+                           isbn)))
+                 items)))
+          (cdr (assoc (completing-read
+                       "Select which book to use: "
+                       collection
+                       nil
+                       t)
+                      collection)))))))
+
+(defun zwei/bibtex-open-roam-at-point ()
+  "Open roam entry using orb for current point."
+  (interactive)
+  (let ((citekey (bibtex-completion-key-at-point)))
+    (if (not citekey)
+        (message "Citekey not found, bib entry likely not created.")
+      (orb-edit-notes citekey))))
+
+(defun zwei/org-roam-open-citation-roam-entry ()
+  "Open roam entry related to citation under cursor."
+  (interactive)
+  (let ((citekey (org-ref-get-bibtex-key-under-cursor)))
+    (if (not citekey)
+        (message "Citekey not found.")
+      (orb-edit-notes citekey))))
+
+(defun zwei/bibtex-actions-insert-org-ref-citation ()
+  "Allows org-ref style citations using vertico completion."
+  (interactive)
+  (let ((key (car (bibtex-actions-read :rebuild-cache))))
+    (when key
+      (insert "cite:" key))))
+
+(defun filter-out-p (str)
+  "Filter out <p> tags from STR when exporting Anki notes."
+  (replace-regexp-in-string "\n<p>\\|</p>\n\\|<p>\\|</p>"
+                            "" str))
+
 ;; Config
 (setq  org-roam-tag-sources '(prop all-directories)
        org-roam-index-file (concat org-roam-directory "/index.org")
@@ -150,6 +236,8 @@ Requires working system trash."
 
 (use-package! org-ref
   :after org-roam
+  :commands (zwei/ref-isbn-from-title
+             zwei/bib+ref+roam-book-title)
   :config
   (let ((bib-files
          (mapcar (lambda (f)
@@ -177,68 +265,6 @@ Requires working system trash."
 
   (require 'org-ref-url-utils)
   (require 'org-ref-isbn)
-
-  ;; Functions
-  (defun zwei/ref-isbn-from-title (title)
-    "Get ISBN-13 of TITLE using Google ISBN lookup.
-No API key needed for minor use."
-    (interactive (list (read-string "Enter title/keywords: ")))
-    (let ((url-request-extra-headers'(("Accept" . "application/json")))
-          json)
-      (with-current-buffer
-          (url-retrieve-synchronously
-           (concat "https://books.googleapis.com/books/v1/volumes?q="
-                   (url-hexify-string title)
-                   "&printType=BOOKS"))
-        (goto-char url-http-end-of-headers)
-        (setq json (json-read))
-        (if (not json)
-            (message "Bad request")
-          (let* ((items (cdr (assoc 'items json)))
-                 (collection
-                  (mapcar
-                   (lambda (item)
-                     (let* ((volInfo (assoc 'volumeInfo item))
-                            (title (cdr (assoc 'title volInfo)))
-                            (author (or (and
-                                         (> (length
-                                             (cdr (assoc 'authors volInfo)))
-                                            0)
-                                         (aref (cdr (assoc 'authors volInfo)) 0))
-                                        "No Author"))
-                            (ident (cdr (assoc 'industryIdentifiers volInfo)))
-                            (isbn
-                             (pcase (length ident)
-                               (0 "NO ISBN, DO NOT SELECT")
-                               (1 (cdr (assoc 'identifier (aref ident 0))))
-                               (_ (cdr (assoc 'identifier (aref ident 1)))))))
-                       (cons (concat title " by " author (format " (%s)" isbn))
-                             isbn)))
-                   items)))
-            (cdr (assoc (completing-read
-                         "Select which book to use: "
-                         collection
-                         nil
-                         t)
-                        collection)))))))
-
-  (defun zwei/bibtex-open-roam-at-point ()
-    "Open roam entry using orb for current point."
-    (interactive)
-    (require 'org-roam-bibtex)
-    (let ((citekey (bibtex-completion-key-at-point)))
-      (if (not citekey)
-          (message "Citekey not found, bib entry likely not created.")
-        (orb-edit-notes citekey))))
-
-  (defun zwei/org-roam-open-citation-roam-entry ()
-    "Open roam entry related to citation under cursor."
-    (interactive)
-    (require 'org-roam-bibtex)
-    (let ((citekey (org-ref-get-bibtex-key-under-cursor)))
-      (if (not citekey)
-          (message "Citekey not found.")
-        (orb-edit-notes citekey))))
 
   ;; Mappings for org-ref
   (map! :map bibtex-mode-map
@@ -279,19 +305,14 @@ No API key needed for minor use."
         :desc "Insert citation" "c" #'org-ref-insert-link))
 
 (use-package! bibtex-actions
-  :commands (zwei/bibtex-actions-insert-org-ref-citation)
-  :config
-  (defun zwei/bibtex-actions-insert-org-ref-citation ()
-    "Allows org-ref style citations using vertico completion."
-    (interactive)
-    (let ((key (car (bibtex-actions-read :rebuild-cache))))
-      (when key
-        (insert "cite:" key)))))
+  :commands (zwei/bibtex-actions-insert-org-ref-citation))
 
 (use-package! org-roam-bibtex
   :after org-roam
   :hook (org-roam-mode . org-roam-bibtex-mode)
-  :commands (zwei/bibtex-open-roam-at-point)
+  :commands (zwei/bibtex-open-roam-at-point
+             zwei/bib+ref+roam-book-title
+             zwei/org-roam-open-citation-roam-entry)
   :config
   (require 'org-ref)
   (setq orb-preformat-keywords
@@ -332,26 +353,11 @@ No API key needed for minor use."
            :immediate-finish t
            :unnarrowed t)))
 
-
-  (defun zwei/bib+ref+roam-book-title (title)
-    "Prompt user for title, ask API for ISBN, create bibtex entry + roam note."
-    (interactive (list (read-string "Enter title/keywords: ")))
-    (let ((isbn (zwei/ref-isbn-from-title title))
-          (book-bib (expand-file-name (car zwei/org-roam-bib-files)
-                                      zwei/org-roam-bib-directory)))
-      (isbn-to-bibtex isbn book-bib)
-      (if (not (string= (buffer-file-name) book-bib))
-          (message "isbn-to-bibtex wasn't able to find data for that ISBN.")
-        (progn
-          (zwei/bibtex-open-roam-at-point)
-          (set-buffer-modified-p t)
-          (save-buffer)))))
-
   ;; Mappings
   (map! :map org-mode-map
         :localleader
         (:prefix ("m" . "roam")
-         :desc "ORB note actions" "B" #'orb-note-actions
+         :desc "Open citation roam entry" "B" #'zwei/org-roam-open-citation-roam-entry
          :desc "Create book bib+roam" "C" #'zwei/bib+ref+roam-book-title)))
 
 (use-package! anki-editor
@@ -359,10 +365,6 @@ No API key needed for minor use."
   :defer t
   :config
   (setq anki-editor-anki-connect-listening-port 38040)
-  (defun filter-out-p (str)
-    "Filter out <p> tags from STR when exporting Anki notes."
-    (replace-regexp-in-string "\n<p>\\|</p>\n\\|<p>\\|</p>"
-                              "" str))
   (setq anki-editor--ox-anki-html-backend
         (org-export-create-backend :parent 'html
                                    :filters '((:filter-paragraph . filter-out-p)))))
