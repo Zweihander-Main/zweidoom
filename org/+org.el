@@ -37,6 +37,7 @@
 (map! :after org
       :map org-mode-map
       :m "gS" #'org-toggle-pretty-entities
+      :m "gP" #'org-latex-preview
       :localleader
       :prefix "r"
       :desc "Archive all done tasks" "a" #'zwei/org-archive-done-tasks)
