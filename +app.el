@@ -119,12 +119,23 @@
 (setq eww-search-prefix "https://lite.duckduckgo.com/lite/?q=")
 
 
-;; =====
-;;  Ivy
-;; =====
-                                        ; Set search to ignore archives
-(after! ivy
-  (setq counsel-find-file-ignore-regexp "\\(?:^[#.]\\)\\|\\(?:[#~]$\\)\\|\\(?:^Icon?\\)\\|\\.org_archive"))
+;; ============
+;;  Completion
+;; ============
+
+;; Set search to ignore archives
+(if (doom-module-p :completion 'ivy)
+    (after! (:and ivy counsel)
+      (setq counsel-find-file-ignore-regexp
+            "\\(?:^[#.]\\)\\|\\(?:[#~]$\\)\\|\\(?:^Icon?\\)\\|\\.org_archive")))
+
+(if (doom-module-p :completion 'vertico)
+    (after! (:and vertico consult)
+      (when doom-projectile-fd-binary
+        (setq consult-find-command
+              (format "%s -i -H -E .git -E *.org_archive --regex %s ARG OPTS"
+                      doom-projectile-fd-binary
+                      (if IS-WINDOWS "--path-separator=/" ""))))))
 
 
 ;; ======
