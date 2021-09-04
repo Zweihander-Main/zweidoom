@@ -236,6 +236,8 @@ No API key needed for minor use."
 
 (use-package! org-ref
   :after org-roam
+  :commands (zwei/ref-isbn-from-title
+             zwei/bib+ref+roam-book-title)
   :config
   (let ((bib-files
          (mapcar (lambda (f)
