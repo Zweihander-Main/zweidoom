@@ -9,6 +9,8 @@
 
 (require 'org)
 (require 'org-agenda)
+(require 'org-ql)
+(require 'org-super-agenda)
 
 (defun zwei/org-agenda-skip-all-siblings-but-first (&optional check-func)
   "Skip all but the first non-done entry.
@@ -139,7 +141,45 @@ If CHECK-FUNC is provided, will check using that too."
                                'timestamp)))))))
 
 (add-to-list 'org-agenda-custom-commands
-             `("5" "QL-Agenda"
+             `("5" "Super-Agenda"
+               ((agenda ""
+                        ((org-agenda-span 1)
+                         (org-agenda-start-day "+0d")
+                         (org-deadline-warning-days 365)
+                         (org-super-agenda-groups
+                          '((:name ""
+                             :time-grid t)
+                            (:name ""
+                             :anything t)))))
+                (todo "NEXT"
+                      ((org-agenda-overriding-header "\n === In Progress")
+                       (org-agenda-files '(,zwei/org-agenda-projects-file
+                                           ,zwei/org-agenda-goals-file
+                                           ,zwei/org-agenda-tickler-file
+                                           ,zwei/org-agenda-next-file))))
+                (todo ""
+                      ((org-agenda-overriding-header "")
+                       (org-agenda-files '(,zwei/org-agenda-projects-file
+                                           ,zwei/org-agenda-next-file))
+                       (org-agenda-skip-function
+                        '(org-agenda-skip-entry-if
+                          'deadline
+                          'scheduled
+                          'timestamp))
+                       (org-super-agenda-groups
+                        '((:name "=== Important & Urgent"
+                           :and (:todo "TODO"
+                                 :priority "A"
+                                 :file-path ("projects")))
+                          (:name "=== Important & Urgent"
+                           :and (:todo "TODO"
+                                 :priority "A"
+                                 :file-path ("next")
+                                 ))
+                          (:discard (:anything t)))))))))
+
+(add-to-list 'org-agenda-custom-commands
+             `("6" "QL-Agenda"
                ((agenda ""
                         ((org-agenda-span 1)
                          (org-agenda-start-day "+0d")
@@ -150,7 +190,6 @@ If CHECK-FUNC is provided, will check using that too."
                                                    ,zwei/org-agenda-goals-file
                                                    ,zwei/org-agenda-tickler-file
                                                    ,zwei/org-agenda-next-file))))
-
                 (org-ql-block '(and (todo "TODO")
                                     (priority "A")
                                     (not (ts-active)))
@@ -161,4 +200,5 @@ If CHECK-FUNC is provided, will check using that too."
                                     (not (ts-active)))
                               ((org-ql-block-header "=== Pointless & Urgent")
                                (org-agenda-files '(,zwei/org-agenda-next-file)))))))
-;; ;;; +custom-commands.el ends here
+
+;; +custom-commands.el ends here

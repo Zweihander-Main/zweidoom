@@ -47,6 +47,14 @@
       org-columns-default-format
       "%40ITEM(Task) %Effort(E Est){:} %CLOCKSUM(Time Spent) %SCHEDULED(Scheduled) %DEADLINE(Deadline)")
 
+
+;; Super agenda
+(use-package! org-super-agenda
+  :after org-agenda
+  :config
+  (org-super-agenda-mode t)
+  (setq org-super-agenda-header-map evil-org-agenda-mode-map)) ; fix keymaps
+
 ;; Org-clock-convenience for agenda
 (use-package! org-clock-convenience
   :defer t
