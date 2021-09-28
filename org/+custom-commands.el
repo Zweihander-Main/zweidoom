@@ -51,28 +51,28 @@ If CHECK-FUNC is provided, will check using that too."
                                            ,zwei/org-agenda-tickler-file
                                            ,zwei/org-agenda-next-file))))
                 (tags-todo "+TODO=\"TODO\"+PRIORITY=\"A\""
-                      ((org-agenda-overriding-header "=== Important & Urgent")
-                       (org-agenda-files '(,zwei/org-agenda-projects-file))
-                       (org-agenda-skip-function
-                        '(org-agenda-skip-entry-if
-                          'deadline
-                          'scheduled
-                          'timestamp))))
+                           ((org-agenda-overriding-header "=== Important & Urgent")
+                            (org-agenda-files '(,zwei/org-agenda-projects-file))
+                            (org-agenda-skip-function
+                             '(org-agenda-skip-entry-if
+                               'deadline
+                               'scheduled
+                               'timestamp))))
                 (tags-todo "+TODO=\"TODO\"+PRIORITY=\"A\""
-                      ((org-agenda-overriding-header "=== Pointless & Urgent")
-                       (org-agenda-files '(,zwei/org-agenda-next-file))
-                       (org-agenda-skip-function
-                        '(org-agenda-skip-entry-if
-                          'deadline
-                          'scheduled
-                          'timestamp)))))))
+                           ((org-agenda-overriding-header "=== Pointless & Urgent")
+                            (org-agenda-files '(,zwei/org-agenda-next-file))
+                            (org-agenda-skip-function
+                             '(org-agenda-skip-entry-if
+                               'deadline
+                               'scheduled
+                               'timestamp)))))))
 
 (add-to-list 'org-agenda-custom-commands
              `("2" "Inbox"
                ((alltodo ""
-                      ((org-agenda-overriding-header "=== To Refile")
-                       (org-agenda-prefix-format " |%e|")
-                       (org-agenda-files '(,zwei/org-agenda-todo-file)))))))
+                         ((org-agenda-overriding-header "=== To Refile")
+                          (org-agenda-prefix-format " |%e|")
+                          (org-agenda-files '(,zwei/org-agenda-todo-file)))))))
 
 (add-to-list 'org-agenda-custom-commands
              `("3" "Work"
@@ -106,36 +106,59 @@ If CHECK-FUNC is provided, will check using that too."
                                            ,zwei/org-agenda-tickler-file
                                            ,zwei/org-agenda-next-file))))
                 (tags-todo "+TODO=\"TODO\"+PRIORITY=\"A\""
-                      ((org-agenda-overriding-header "=== Important & Urgent")
-                       (org-agenda-files '(,zwei/org-agenda-projects-file))
-                       (org-agenda-skip-function
-                        '(org-agenda-skip-entry-if
-                          'deadline
-                          'scheduled
-                          'timestamp))))
+                           ((org-agenda-overriding-header "=== Important & Urgent")
+                            (org-agenda-files '(,zwei/org-agenda-projects-file))
+                            (org-agenda-skip-function
+                             '(org-agenda-skip-entry-if
+                               'deadline
+                               'scheduled
+                               'timestamp))))
                 (tags-todo "+TODO=\"TODO\"+PRIORITY=\"A\""
-                      ((org-agenda-overriding-header "=== Pointless & Urgent")
-                       (org-agenda-files '(,zwei/org-agenda-next-file))
-                       (org-agenda-skip-function
-                        '(org-agenda-skip-entry-if
-                          'deadline
-                          'scheduled
-                          'timestamp))))
+                           ((org-agenda-overriding-header "=== Pointless & Urgent")
+                            (org-agenda-files '(,zwei/org-agenda-next-file))
+                            (org-agenda-skip-function
+                             '(org-agenda-skip-entry-if
+                               'deadline
+                               'scheduled
+                               'timestamp))))
                 (tags-todo "+TODO=\"TODO\"+PRIORITY=\"B\"|+TODO=\"TODO\"+PRIORITY=\"C\""
-                      ((org-agenda-overriding-header "=== Important & Can Wait")
-                       (org-agenda-files '(,zwei/org-agenda-projects-file))
-                       (org-agenda-skip-function
-                        '(org-agenda-skip-entry-if
-                          'deadline
-                          'scheduled
-                          'timestamp))))
+                           ((org-agenda-overriding-header "=== Important & Can Wait")
+                            (org-agenda-files '(,zwei/org-agenda-projects-file))
+                            (org-agenda-skip-function
+                             '(org-agenda-skip-entry-if
+                               'deadline
+                               'scheduled
+                               'timestamp))))
                 (tags-todo "+TODO=\"TODO\"+PRIORITY=\"B\"|+TODO=\"TODO\"+PRIORITY=\"C\""
-                      ((org-agenda-overriding-header "=== Frivolous")
-                       (org-agenda-files '(,zwei/org-agenda-next-file))
-                       (org-agenda-skip-function
-                        '(org-agenda-skip-entry-if
-                          'deadline
-                          'scheduled
-                          'timestamp)))))))
+                           ((org-agenda-overriding-header "=== Frivolous")
+                            (org-agenda-files '(,zwei/org-agenda-next-file))
+                            (org-agenda-skip-function
+                             '(org-agenda-skip-entry-if
+                               'deadline
+                               'scheduled
+                               'timestamp)))))))
 
+(add-to-list 'org-agenda-custom-commands
+             `("5" "QL-Agenda"
+               ((agenda ""
+                        ((org-agenda-span 1)
+                         (org-agenda-start-day "+0d")
+                         (org-deadline-warning-days 365)))
+                (org-ql-block '(todo "NEXT")
+                              ((org-ql-block-header "=== In Progress")
+                               (org-agenda-files '(,zwei/org-agenda-projects-file
+                                                   ,zwei/org-agenda-goals-file
+                                                   ,zwei/org-agenda-tickler-file
+                                                   ,zwei/org-agenda-next-file))))
+
+                (org-ql-block '(and (todo "TODO")
+                                    (priority "A")
+                                    (not (ts-active)))
+                              ((org-ql-block-header "=== Important & Urgent")
+                               (org-agenda-files '(,zwei/org-agenda-projects-file))))
+                (org-ql-block '(and (todo "TODO")
+                                    (priority "A")
+                                    (not (ts-active)))
+                              ((org-ql-block-header "=== Pointless & Urgent")
+                               (org-agenda-files '(,zwei/org-agenda-next-file)))))))
 ;; ;;; +custom-commands.el ends here
