@@ -50,9 +50,9 @@
 
 ;; Super agenda
 (use-package! org-super-agenda
-  :after org-agenda
+  :after evil-org-agenda
+  :hook (evil-org-agenda-mode . org-super-agenda-mode)
   :config
-  (org-super-agenda-mode t)
   (setq org-super-agenda-header-map evil-org-agenda-mode-map)) ; fix keymaps
 
 ;; Org-clock-convenience for agenda
