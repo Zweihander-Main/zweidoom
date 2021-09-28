@@ -217,7 +217,6 @@ Used for global agenda-access keys."
       "<f1>" (cmd! (zwei/org-agenda-force-load "1"))
       "<f2>" (cmd! (zwei/org-agenda-force-load "2"))
       "<f3>" (cmd! (zwei/org-agenda-force-load "3"))
-      "<f4>" (cmd! (zwei/org-agenda-force-load "4"))
       :leader
       (:prefix-map ("n" . "notes")
        (:when (featurep! :lang org)
