@@ -139,13 +139,6 @@ No API key needed for minor use."
         (message "Citekey not found.")
       (orb-edit-notes citekey))))
 
-(defun zwei/bibtex-actions-insert-org-ref-citation ()
-  "Allows org-ref style citations using vertico completion."
-  (interactive)
-  (let ((key (car (bibtex-actions-read :rebuild-cache))))
-    (when key
-      (insert "cite:" key))))
-
 (defun filter-out-p (str)
   "Filter out <p> tags from STR when exporting Anki notes."
   (replace-regexp-in-string "\n<p>\\|</p>\n\\|<p>\\|</p>"
@@ -294,7 +287,7 @@ No API key needed for minor use."
   (map! :map org-mode-map
         :localleader
         (:prefix ("m" . "roam")
-         :desc "Insert citation" "c" #'zwei/bibtex-actions-insert-org-ref-citation
+         :desc "Insert citation" "c" #'bibtex-actions-insert-citation
          :desc "Open citation roam entry" "RET" #'zwei/org-roam-open-citation-roam-entry))
 
   (map! :after markdown
