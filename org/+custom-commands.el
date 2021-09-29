@@ -50,13 +50,18 @@ If CHECK-FUNC is provided, will check using that too."
                           '((:name ""
                              :time-grid t)
                             (:name ""
-                             :anything t)))))
+                             :scheduled past
+                             :scheduled today) ; stop items with upcoming deadlines but not yet scheduled
+                            (:discard (:anything t))))))
                 (todo "NEXT"
                       ((org-agenda-overriding-header "\n === In Progress")
                        (org-agenda-files '(,zwei/org-agenda-projects-file
                                            ,zwei/org-agenda-goals-file
                                            ,zwei/org-agenda-tickler-file
-                                           ,zwei/org-agenda-next-file))))
+                                           ,zwei/org-agenda-next-file))
+                       (org-super-agenda-groups
+                        '((:name ""
+                           :anything t)))))
                 (todo ""
                       ((org-agenda-overriding-header "")
                        (org-agenda-files '(,zwei/org-agenda-projects-file
@@ -100,7 +105,7 @@ If CHECK-FUNC is provided, will check using that too."
 
 (add-to-list 'org-agenda-custom-commands
              `("3" "Work"
-                ((tags "+@work"
+               ((tags "+@work"
                       ((org-agenda-overriding-header " === Work")
                        (org-agenda-skip-function
                         '(zwei/org-agenda-skip-all-siblings-but-first
