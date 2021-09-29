@@ -100,8 +100,8 @@ If CHECK-FUNC is provided, will check using that too."
 
 (add-to-list 'org-agenda-custom-commands
              `("3" "Work"
-               ((tags "+@work+TODO=\"TODO\"|+@work+TODO=\"NEXT\""
-                      ((org-agenda-overriding-header "=== Work")
+                ((tags "+@work"
+                      ((org-agenda-overriding-header " === Work")
                        (org-agenda-skip-function
                         '(zwei/org-agenda-skip-all-siblings-but-first
                           #'(lambda()
@@ -111,14 +111,23 @@ If CHECK-FUNC is provided, will check using that too."
                                'timestamp))))
                        (org-agenda-files
                         '(,zwei/org-agenda-projects-file
-                          ,zwei/org-agenda-next-file)))) ; no tickler
-                (tags "+@work+TODO=\"WAIT\""
-                      ((org-agenda-overriding-header "\n=== Waiting")
+                          ,zwei/org-agenda-next-file)) ; no tickler
+                       (org-super-agenda-groups
+                        '((:name ""
+                           :todo "TODO"
+                           :todo "NEXT")
+                          (:discard (:anything t))))))
+                (tags "+@work"
+                      ((org-agenda-overriding-header "\n === Waiting")
                        (org-agenda-skip-function
                         '(org-agenda-skip-entry-if
                           'deadline
                           'scheduled 'timestamp))
                        (org-agenda-files '(,zwei/org-agenda-projects-file
-                                           ,zwei/org-agenda-next-file)))))))
+                                           ,zwei/org-agenda-next-file))
+                       (org-super-agenda-groups
+                        '((:name ""
+                           :todo "WAIT")
+                          (:discard (:anything t)))))))))
 
 ;; +custom-commands.el ends here
