@@ -88,9 +88,15 @@ If CHECK-FUNC is provided, will check using that too."
 (add-to-list 'org-agenda-custom-commands
              `("2" "Inbox"
                ((alltodo ""
-                         ((org-agenda-overriding-header "=== To Refile")
+                         ((org-agenda-overriding-header " === To Refile")
                           (org-agenda-prefix-format " |%e|")
-                          (org-agenda-files '(,zwei/org-agenda-todo-file)))))))
+                          (org-agenda-files '(,zwei/org-agenda-todo-file))
+                          (org-super-agenda-groups
+                           '((:name ""
+                              :todo "TODO")
+                             (:name "=== To file/fix"
+                              :anything t))))))))
+
 
 (add-to-list 'org-agenda-custom-commands
              `("3" "Work"
