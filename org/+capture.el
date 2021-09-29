@@ -44,6 +44,10 @@
      :size 1.00 ; Allow full screen for reviews
      :quit nil
      :select t
+     :autosave ignore)
+    ("^\\*anki\\*$"
+     :size 0.5
+     :select t
      :autosave ignore)))
 
 ;;; +capture.el ends here

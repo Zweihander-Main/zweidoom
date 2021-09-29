@@ -144,6 +144,15 @@ No API key needed for minor use."
   (replace-regexp-in-string "\n<p>\\|</p>\n\\|<p>\\|</p>"
                             "" str))
 
+(defun zwei/add-anki-note ()
+  "Open temp org buffer to add an anki note."
+  (interactive)
+  (+popup-buffer (get-buffer-create "*anki*") '(:select t))
+  (select-window (get-buffer-window "*anki*"))
+  (org-mode)
+  (insert "* Anki cards to add:\n")
+  (anki-editor-insert-note))
+
 ;; Config
 (setq  org-roam-tag-sources '(prop all-directories)
        org-roam-index-file (concat org-roam-directory "/index.org")
@@ -197,7 +206,9 @@ No API key needed for minor use."
       (:prefix ("m" . "roam")
        :desc "Delete file" "D" #'zwei/roam-delete
        :desc "Rename file" "R" #'zwei/roam-rename
-       :desc "Move slipbox" "M" #'zwei/roam-move-to-slip-box))
+       :desc "Move slipbox" "M" #'zwei/roam-move-to-slip-box
+       (:prefix ("a" . "anki")
+        :desc "Add a note" "a" #'zwei/add-anki-note)))
 
 ;; (use-package! org-roam-server
 ;;   :after-call org-roam-server-mode
@@ -354,11 +365,27 @@ No API key needed for minor use."
 (use-package! anki-editor
   :after org-roam
   :defer t
+  :commands (anki-editor-insert-note
+             anki-editor-push-notes
+             anki-editor-cloze-region
+             anki-editor-convert-region-to-html
+             zwei/add-anki-note)
   :config
-  (setq anki-editor-anki-connect-listening-port 38040)
-  (setq anki-editor--ox-anki-html-backend
+  (anki-editor-mode t)
+  (setq anki-editor-anki-connect-listening-port 38040
+        anki-editor-create-decks nil
+        anki-editor-org-tags-as-anki-tags nil
+        anki-editor--ox-anki-html-backend
         (org-export-create-backend :parent 'html
-                                   :filters '((:filter-paragraph . filter-out-p)))))
+                                   :filters '((:filter-paragraph . filter-out-p))))
+  (map! :map org-mode-map
+        :localleader
+        (:prefix ("m" . "roam")
+         (:prefix ("a" . "anki")
+          :desc "Push notes" "p" #'anki-editor-push-notes
+          :desc "Insert note" "i" #'anki-editor-insert-note
+          :desc "Cloze region" "c" #'anki-editor-cloze-region
+          :desc "Convert region to HTML" "h" #'anki-editor-convert-region-to-html))))
 
 (use-package! kindle-highlights-to-org
   :after org-roam
