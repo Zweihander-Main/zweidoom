@@ -50,8 +50,16 @@ If CHECK-FUNC is provided, will check using that too."
                           '((:name ""
                              :time-grid t)
                             (:name ""
-                             :scheduled past
-                             :scheduled today) ; stop items with upcoming deadlines but not yet scheduled
+                             :deadline past)
+                            (:name ""
+                             :deadline today)
+                            (:name ""
+                             :and (:deadline future
+                                   :scheduled nil))
+                            (:name ""
+                             :scheduled past)
+                            (:name ""
+                             :scheduled today)
                             (:discard (:anything t))))))
                 (todo "NEXT"
                       ((org-agenda-overriding-header "\n === In Progress")
