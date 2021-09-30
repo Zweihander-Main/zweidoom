@@ -69,7 +69,13 @@ If CHECK-FUNC is provided, will check using that too."
                                            ,zwei/org-agenda-next-file))
                        (org-super-agenda-groups
                         '((:name ""
-                           :anything t)))))
+                           :and (:not (:tag ("@play" "@down" "@end"))))
+                          (:name "⤷@play"
+                           :tag "@play")
+                          (:name "⤷@down"
+                           :tag "@down")
+                          (:name "⤷@end"
+                           :tag "@end")))))
                 (todo ""
                       ((org-agenda-overriding-header "")
                        (org-agenda-files '(,zwei/org-agenda-projects-file
