@@ -182,6 +182,7 @@
        (string-prefix-p "*vls" name)
        (string-prefix-p "*Org Agenda" name)
        (string-prefix-p "*Apropos" name)
+       (string-prefix-p "*anki*" name)
        ;; Stop org-roam string from showing up
        (string-match-p (concat "[0-9]\\{14\\}" ".*-.*\\.org") name)
 
@@ -208,8 +209,6 @@ Used for global agenda-access keys."
   :commands (zwei/org-agenda-force-load))
 (use-package! org-capture
   :commands (zwei/org-inbox-capture))
-(use-package! org-roam
-  :commands (org-roam-jump-to-index))
 (use-package! org-roam-bibtex
   :commands (zwei/bib+ref+roam-book-title))
 
@@ -222,9 +221,8 @@ Used for global agenda-access keys."
        (:when (featurep! :lang org)
         :desc "Find in gtd" "g" #'zwei/find-gtd-file
         :desc "Inbox entry" "i" #'zwei/org-inbox-capture)
-       (:when (featurep! :lang org +roam)
+       (:when (featurep! :lang org +roam2)
         (:prefix ("r" . "roam")
-         :desc "Go to index" "x" #'org-roam-jump-to-index
          :desc "Create book bib+roam" "C" #'zwei/bib+ref+roam-book-title))))
 
 

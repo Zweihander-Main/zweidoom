@@ -4,8 +4,7 @@
 ;;; Code:
 (package! org-ref)
 (package! org-roam-bibtex
-  :recipe (:host github :repo "org-roam/org-roam-bibtex")
-  :pin "80a86980801ff233d7c12ae9efef589ffa53df67")
+  :recipe (:host github :repo "org-roam/org-roam-bibtex"))
 (package! org-ql)
 (package! anki-editor)
 (package! org-clock-convenience)

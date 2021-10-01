@@ -36,8 +36,7 @@
 
 (custom-set-faces!
   '(highlight :background "DarkOrange3")
-  '(org-roam-link :inherit org-link
-                  :foreground "DarkOrange3")
+  '(org-link :foreground "DarkOrange3")
   '(line-number :family "Iosevka Term SS09")
   '(line-number-current-line :inherit line-number)
   `(org-habit-ready-face :background "#017105" )
