@@ -121,7 +121,7 @@
        ;;fstar             ; (dependent) types and (monadic) effects and Z3
        ;;gdscript          ; the language you waited for
        ;;(go +lsp)         ; the hipster dialect
-       ;;(haskell +dante)  ; a language that's lazier than I am
+       ;;(haskell +lsp)  ; a language that's lazier than I am
        ;;hy                ; readability of scheme w/ speed of python
        ;;idris             ;
        json              ; At least it ain't XML
@@ -137,7 +137,7 @@
        ;;nim               ; python + lisp at the speed of c
        ;;nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
-       (org +journal +roam +pretty +pomodoro +dragndrop)               ; organize your plain life in plain text
+       (org +journal +roam2 +pretty +pomodoro +dragndrop)               ; organize your plain life in plain text
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
@@ -161,7 +161,7 @@
        ;;zig               ; C, but simpler
 
        :email
-       mu4e ; +gmail
+       mu4e ; (+org +gmail)
        ;;notmuch
        ;;(wanderlust +gmail)
 
