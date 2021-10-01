@@ -231,7 +231,6 @@ Used for global agenda-access keys."
 ;; ===========================
 
 (use-package! evil-motion-trainer
-  :defer t
   :after evil
   :config
   (global-evil-motion-trainer-mode 1))

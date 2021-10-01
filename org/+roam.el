@@ -191,28 +191,24 @@ No API key needed for minor use."
       (list #'org-roam-backlinks-section
             #'org-roam-reflinks-section
             #'org-roam-unlinked-references-section)
-
-      ;; org-roam-capture-templates
-      ;; (mapcar (lambda (x)
-      ;;           (let ((key  (nth 0 x))
-      ;;                 (name (nth 1 x))
-      ;;                 (dir  (nth 2 x)))
-      ;;             `(,key ,name
-      ;;                    plain
-      ;;                    (function org-roam--capture-get-point)
-      ;;                    "%?"
-      ;;                    :file-name ,(concat dir "%<%Y%m%d%H%M%S>-${slug}")
-      ;;                    :head
-      ;;                    ,(concat "#+TITLE: ${title}\n"
-      ;;                             "#+ROAM_ALIAS: \n"
-      ;;                             "#+ROAM_TAGS: \n"
-      ;;                             "\n"
-      ;;                             "- related :: \n"
-      ;;                             "\n"
-      ;;                             "*  ")
-      ;;                    :immediate-finish t
-      ;;                    :unnarrowed t)))
-      ;;         zwei/slip-boxes)
+      org-roam-capture-templates
+      (mapcar (lambda (x)
+                (let ((key  (nth 0 x))
+                      (name (nth 1 x))
+                      (dir  (nth 2 x)))
+                  `(,key ,name
+                         plain
+                         "%?"
+                         :target (file+head
+                                  ,(concat dir "%<%Y%m%d%H%M%S>-${slug}" ".org")
+                                  ,(concat "#+TITLE: ${title}\n"
+                                  "\n"
+                                  "- related :: \n"
+                                  "\n"
+                                  "*  "))
+                         :immediate-finish t
+                         :unnarrowed t)))
+              zwei/slip-boxes)
       ;; org-roam-capture-ref-templates
       ;; '(("r" "ref"
       ;;    plain
