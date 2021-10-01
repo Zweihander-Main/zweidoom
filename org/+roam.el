@@ -185,6 +185,7 @@ No API key needed for minor use."
   (insert "* Anki cards to add:\n")
   (anki-editor-insert-note))
 
+
 ;; Config
 (setq org-roam-node-display-template "${directories:10} ${title:*} ${tags:10}"
       org-roam-mode-section-functions
@@ -202,34 +203,55 @@ No API key needed for minor use."
                          :target (file+head
                                   ,(concat dir "%<%Y%m%d%H%M%S>-${slug}" ".org")
                                   ,(concat "#+TITLE: ${title}\n"
-                                  "\n"
-                                  "- related :: \n"
-                                  "\n"
-                                  "*  "))
+                                           "\n"
+                                           "- related :: \n"
+                                           "\n"
+                                           "*  "))
                          :immediate-finish t
                          :unnarrowed t)))
               zwei/slip-boxes)
-      ;; org-roam-capture-ref-templates
-      ;; '(("r" "ref"
-      ;;    plain
-      ;;    (function org-roam-capture--get-point)
-      ;;    "%?"
-      ;;    :file-name "bib/$%<%Y%m%d%H%M%S>-${slug}"
-      ;;    :head
-      ;;    ,(concat "#+TITLE: ${title}\n"
-      ;;             "#+ROAM_ALIAS: \n"
-      ;;             "#+ROAM_KEY: ${ref}"
-      ;;             "#+ROAM_TAGS: \n"
-      ;;             "\n"
-      ;;             "- related :: \n"
-      ;;             "\n"
-      ;;             "* Notes\n"
-      ;;             "- ")
-      ;;    :immediate-finish t
-      ;;    :unnarrowed t))
+      org-roam-capture-ref-templates
+      '(("r" "ref (capture)"
+         plain
+         "%?"
+         :target (file+head
+                  ,(concat "bib/" "%<%Y%m%d%H%M%S>-${slug}" ".org")
+                  ,(concat ":PROPERTIES\n"
+                           ":ROAM_REFS: %{ref}\n"
+                           ":END:\n"
+                           "#+TITLE: ${title}\n"
+                           "\n"
+                           "- related :: \n"
+                           "\n"
+                           "*  Notes\n"
+                           "- "))
+         :immediate-finish t
+         :unnarrowed t))
       org-roam-graph-viewer (pcase (zwei/which-linux-distro)
                               ("Arch" "/usr/bin/chromium")
                               (_ nil)))
+
+;; ORB capture templates
+(add-to-list 'org-roam-capture-templates
+        `("o" "orb: book-capture"
+         plain
+         "%?"
+         :target (file+head
+                  ,(concat "bib/" "%<%Y%m%d%H%M%S>-${citekey}" ".org")
+                  ,(concat "#+TITLE: ${title} by ${author-abbrev}\n"
+                           "\n"
+                           "- related :: \n"
+                           "* ${title}\n"
+                           ":PROPERTIES:\n"
+                           ":CUSTOM_ID: ${citekey}\n"
+                           ":AUTHOR: ${author}\n"
+                           ":KEYWORDS: ${keywords}\n"
+                           ":END:\n"
+                           "* Notes:\n"
+                           "- "))
+         :immediate-finish t
+         :unnarrowed t)
+        t)
 
 ;; Mappings
 (map! :map org-mode-map
@@ -320,7 +342,6 @@ No API key needed for minor use."
              zwei/bib+ref+roam-book-title
              zwei/org-roam-open-citation-roam-entry)
   :config
-  (require 'org-ref)
   (setq orb-preformat-keywords
         '("citekey"
           "entry-type"
@@ -336,29 +357,7 @@ No API key needed for minor use."
           "author-or-editor-abbrev"
           "title"
           "keywords"
-          "url")
-        ;; orb-templates
-        ;; `(("r" "ref" plain #'org-roam-capture--get-point ""
-        ;;    :file-name ,(concat zwei/org-roam-bib-directory "/%<%y%m%d%h%m%s>-${slug}")
-        ;;    :head
-        ;;    ,(concat "#+title: ${title} by ${author-abbrev}\n"
-        ;;             "#+roam_alias: \n"
-        ;;             "#+roam_key: ${ref}\n"
-        ;;             "#+roam_tags: \n"
-        ;;             "\n"
-        ;;             "- related :: \n"
-        ;;             "\n"
-        ;;             "* ${title}\n"
-        ;;             ":properties:\n"
-        ;;             ":custom_id: ${citekey}\n"
-        ;;             ":author: ${author}\n"
-        ;;             ":keywords: ${keywords}\n"
-        ;;             ":end:\n"
-        ;;             "* notes:\n"
-        ;;             "- ")
-        ;;    :immediate-finish t
-        ;;    :unnarrowed t))
-        )
+          "url"))
 
   ;; mappings
   (map! :map org-mode-map
