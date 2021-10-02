@@ -13,7 +13,10 @@
 (defun zwei/find-gtd-file ()
   "Find a file in `zwei/org-agenda-directory'."
   (interactive)
-  (doom-project-find-file zwei/org-agenda-directory))
+  (let ((+vertico-consult-fd-args
+         (format "%s --color=never -i -H -E .git -e org --regex"
+                 doom-projectile-fd-binary)))
+    (doom-project-find-file zwei/org-agenda-directory)))
   ;;; Archive related
 
 (defun zwei/org-archive-done-tasks ()
