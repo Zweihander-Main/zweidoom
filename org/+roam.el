@@ -53,7 +53,7 @@
       (format "(%s)" (string-join (f-split dirs) "/"))
     ""))
 
-;; ;; Functions
+;; Functions
 (defun zwei/roam-rename (new-name)
   "Move current file to NEW-NAME. `org-roam' takes care of adjusting all links."
   (interactive
@@ -185,7 +185,6 @@ No API key needed for minor use."
   (insert "* Anki cards to add:\n")
   (anki-editor-insert-note))
 
-
 ;; Config
 (setq org-roam-node-display-template "${directories:10} ${title:*} ${tags:10}"
       org-roam-mode-section-functions
@@ -203,7 +202,6 @@ No API key needed for minor use."
                          :target (file+head
                                   ,(concat dir "%<%Y%m%d%H%M%S>-${slug}" ".org")
                                   ,(concat "#+TITLE: ${title}\n"
-                                           "\n"
                                            "- related :: \n"
                                            "\n"
                                            "*  "))
@@ -220,7 +218,6 @@ No API key needed for minor use."
                            ":ROAM_REFS: %{ref}\n"
                            ":END:\n"
                            "#+TITLE: ${title}\n"
-                           "\n"
                            "- related :: \n"
                            "\n"
                            "*  Notes\n"
