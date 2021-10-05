@@ -28,9 +28,9 @@
       :desc "Break into child tasks" "b" #'org-agenda-heading-functions-break-into-child)
 
   ;;; Enable easymotion in agenda
-(after! evil-easymotion
-  (map! :map evil-org-agenda-mode-map
-        :m "gs" evilem-map))
+(require 'evil-easymotion)
+(map! :map evil-org-agenda-mode-map
+      :m "gs" evilem-map)
 
 ;; Config
 
