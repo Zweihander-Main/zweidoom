@@ -58,12 +58,11 @@ Could be slow if it has a lot of overlays."
   "Toggle visibility of property drawers."
   (interactive)
   (if (eq (get 'org-toggle-properties-hide-state 'state) 'hidden)
-      (org-show-properties)
-    (org-hide-properties)))
+      (zwei/org-show-properties)
+    (zwei/org-hide-properties)))
 
 ;; Mappings
-(map! :after org
-      :map org-mode-map
+(map! :map org-mode-map
       :m "gSp" #'zwei/org-toggle-properties
       :m "gSe" #'org-toggle-pretty-entities
       :m "gSl" #'org-latex-preview
