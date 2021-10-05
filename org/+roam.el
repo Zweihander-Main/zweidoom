@@ -31,7 +31,7 @@
 (cl-defmethod org-roam-node-directories ((node org-roam-node))
   (if-let ((dirs (file-name-directory (file-relative-name (org-roam-node-file node) org-roam-directory))))
       (format "(%s)" (string-join (f-split dirs) "/"))
-    ""))
+    " "))
 
 (cl-defmethod org-roam-node-hierarchy ((node org-roam-node))
   "Return the hierarchy for the node."
