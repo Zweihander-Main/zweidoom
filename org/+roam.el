@@ -24,34 +24,34 @@
   "Zettelkasten slip boxes in (key name dir) format.")
 
 ;; Patch in slip box tagging
-;; (cl-defmethod org-roam-node-filetitle ((node org-roam-node))
-;;   "Return the file TITLE for the node."
-;;   (org-roam-get-keyword "TITLE" (org-roam-node-file node)))
-
-;; (cl-defmethod org-roam-node-hierarchy ((node org-roam-node))
-;;   "Return the hierarchy for the node."
-;;   (let ((title (org-roam-node-title node))
-;;         (olp (org-roam-node-olp node))
-;;         (level (org-roam-node-level node))
-;;         (directories (org-roam-node-directories node))
-;;         (filetitle (org-roam-node-filetitle node)))
-;;     (concat
-;;      (if directories (format "(%s) " directories))
-;;      (if (> level 0) (concat filetitle " > "))
-;;      (if (> level 1) (concat (string-join olp " > ") " > "))
-;;      title)))
-
-;; (cl-defmethod org-roam-node-directories ((node org-roam-node))
-;;   (if-let ((dirs (file-name-directory (file-relative-name (org-roam-node-file node) org-roam-directory))))
-;;       (string-join (f-split dirs) "/")
-;;     nil))
-
-;; (setq org-roam-node-display-template "${hierarchy:*} ${tags:10}")
+(cl-defmethod org-roam-node-filetitle ((node org-roam-node))
+  "Return the file TITLE for the node."
+  (org-roam-get-keyword "TITLE" (org-roam-node-file node)))
 
 (cl-defmethod org-roam-node-directories ((node org-roam-node))
   (if-let ((dirs (file-name-directory (file-relative-name (org-roam-node-file node) org-roam-directory))))
       (format "(%s)" (string-join (f-split dirs) "/"))
     ""))
+
+(cl-defmethod org-roam-node-hierarchy ((node org-roam-node))
+  "Return the hierarchy for the node."
+  (let ((title (org-roam-node-title node))
+        (olp (org-roam-node-olp node))
+        (level (org-roam-node-level node))
+        (filetitle (org-roam-node-filetitle node)))
+    (concat
+     (if (> level 0) (concat filetitle " > "))
+     (if (> level 1) (concat (string-join olp " > ") " > "))
+     title)))
+
+(cl-defmethod org-roam-node-backlinkscount ((node org-roam-node))
+  (let* ((count (caar (org-roam-db-query
+                       [:select (funcall count source)
+                                :from links
+                                :where (= dest $s1)
+                                :and (= type "id")]
+                       (org-roam-node-id node)))))
+    (format "[%d]" count)))
 
 ;; Functions
 (defun zwei/roam-rename (new-name)
@@ -185,8 +185,10 @@ No API key needed for minor use."
   (insert "* Anki cards to add:\n")
   (anki-editor-insert-note))
 
+
 ;; Config
-(setq org-roam-node-display-template "${directories:10} ${title:*} ${tags:10}"
+(setq org-roam-node-display-template
+      "${directories:7} ${hierarchy:*} ${tags:10} ${backlinkscount:-3}"
       org-roam-mode-section-functions
       (list #'org-roam-backlinks-section
             #'org-roam-reflinks-section
