@@ -2,7 +2,10 @@
 ;;; Commentary:
 
 ;;; Code:
+(unpin! org-roam)
 (package! org-ref)
+(package! websocket) ;; org-roam-ui related
+(package! org-roam-ui :recipe (:host github :repo "org-roam/org-roam-ui" :files ("*.el" "out")))
 (package! org-roam-bibtex
   :recipe (:host github :repo "org-roam/org-roam-bibtex"))
 (package! org-ql)

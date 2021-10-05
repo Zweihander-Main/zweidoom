@@ -29,7 +29,9 @@
   (org-roam-get-keyword "TITLE" (org-roam-node-file node)))
 
 (cl-defmethod org-roam-node-directories ((node org-roam-node))
-  (if-let ((dirs (file-name-directory (file-relative-name (org-roam-node-file node) org-roam-directory))))
+  (if-let ((dirs (file-name-directory
+                  (file-relative-name (org-roam-node-file node)
+                                      org-roam-directory))))
       (format "(%s)" (string-join (f-split dirs) "/"))
     " "))
 
@@ -47,9 +49,9 @@
 (cl-defmethod org-roam-node-backlinkscount ((node org-roam-node))
   (let* ((count (caar (org-roam-db-query
                        [:select (funcall count source)
-                                :from links
-                                :where (= dest $s1)
-                                :and (= type "id")]
+                        :from links
+                        :where (= dest $s1)
+                        :and (= type "id")]
                        (org-roam-node-id node)))))
     (format "[%d]" count)))
 
@@ -232,25 +234,25 @@ No API key needed for minor use."
 
 ;; ORB capture templates
 (add-to-list 'org-roam-capture-templates
-        `("o" "orb: book-capture"
-         plain
-         "%?"
-         :target (file+head
-                  ,(concat "bib/" "%<%Y%m%d%H%M%S>-${citekey}" ".org")
-                  ,(concat "#+TITLE: ${title} by ${author-abbrev}\n"
-                           "\n"
-                           "- related :: \n"
-                           "* ${title}\n"
-                           ":PROPERTIES:\n"
-                           ":CUSTOM_ID: ${citekey}\n"
-                           ":AUTHOR: ${author}\n"
-                           ":KEYWORDS: ${keywords}\n"
-                           ":END:\n"
-                           "* Notes:\n"
-                           "- "))
-         :immediate-finish t
-         :unnarrowed t)
-        t)
+             `("o" "orb: book-capture"
+               plain
+               "%?"
+               :target (file+head
+                        ,(concat "bib/" "%<%Y%m%d%H%M%S>-${citekey}" ".org")
+                        ,(concat "#+TITLE: ${title} by ${author-abbrev}\n"
+                                 "\n"
+                                 "- related :: \n"
+                                 "* ${title}\n"
+                                 ":PROPERTIES:\n"
+                                 ":CUSTOM_ID: ${citekey}\n"
+                                 ":AUTHOR: ${author}\n"
+                                 ":KEYWORDS: ${keywords}\n"
+                                 ":END:\n"
+                                 "* Notes:\n"
+                                 "- "))
+               :immediate-finish t
+               :unnarrowed t)
+             t)
 
 ;; Mappings
 (map! :map org-mode-map
@@ -364,6 +366,22 @@ No API key needed for minor use."
         (:prefix ("m" . "roam")
          :desc "open citation roam entry" "b" #'zwei/org-roam-open-citation-roam-entry
          :desc "create book bib+roam" "c" #'zwei/bib+ref+roam-book-title)))
+
+(use-package! websocket
+  :commands (org-roam-ui-mode)
+  :after org-roam)
+
+(use-package! org-roam-ui
+  :after org-roam
+  :commands (org-roam-ui-mode)
+  :config
+  (setq org-roam-ui-sync-theme t
+        org-roam-ui-follow t
+        org-roam-ui-update-on-save t
+        org-roam-ui-open-on-start nil
+        org-roam-ui-port 38080
+        org-roam-ui-find-ref-title t
+        org-roam-ui-retitle-ref-nodes t))
 
 (use-package! anki-editor
   :after org-roam
