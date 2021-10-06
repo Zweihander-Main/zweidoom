@@ -60,7 +60,7 @@
   "Add subdirectories as tags to roam nodes. ARGS same as `websocket-send-text'.
 Advise `websocket-send-text' using `:filter-args' combinator to use.
 Will only change the output if using the `oru-ws' websocket and the text arg is
-of type `graphdata'."
+of type `graphdata' (coming from `org-roam-ui--send-graphdata')."
   (let* ((websocket (nth 0 args))
          (raw-json-text (nth 1 args))
          (raw-text (json-read-from-string raw-json-text))
