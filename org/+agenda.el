@@ -27,7 +27,7 @@
       :desc "Toggle entry text mode" "E" #'org-agenda-entry-text-mode
       :desc "Break into child tasks" "b" #'org-agenda-heading-functions-break-into-child)
 
-  ;;; Enable easymotion in agenda
+;;; Enable easymotion in agenda
 (require 'evil-easymotion)
 (map! :map evil-org-agenda-mode-map
       :m "gs" evilem-map)
