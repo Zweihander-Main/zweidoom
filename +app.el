@@ -204,7 +204,8 @@ Used for global agenda-access keys."
 
 ;; Experiment: add command hooks alongside globals
 (use-package! org
-  :commands (zwei/find-gtd-file))
+  :commands (zwei/find-gtd-file
+             zwei/deft-gtd-file))
 (use-package! org-agenda
   :commands (zwei/org-agenda-force-load))
 (use-package! org-capture
@@ -220,6 +221,7 @@ Used for global agenda-access keys."
       (:prefix-map ("n" . "notes")
        (:when (featurep! :lang org)
         :desc "Find in gtd" "g" #'zwei/find-gtd-file
+        :desc "Deft in gtd" "G" #'zwei/deft-gtd-file
         :desc "Inbox entry" "i" #'zwei/org-inbox-capture)
        (:when (featurep! :lang org +roam2)
         (:prefix ("r" . "roam")

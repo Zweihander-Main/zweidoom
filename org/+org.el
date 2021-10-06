@@ -6,6 +6,10 @@
 ;;;
 ;;; Code:
 
+(eval-when-compile
+  (defvar deft-directory)
+  (defvar deft-buffer))
+
 (require 'org)
 (require 'dash)
 
@@ -17,6 +21,13 @@
          (format "%s --color=never -i -H -E .git -e org --regex"
                  doom-projectile-fd-binary)))
     (doom-project-find-file zwei/org-agenda-directory)))
+
+(defun zwei/deft-gtd-file ()
+  "Run deft specifically for `zwei/org-agenda-directory'."
+  (interactive)
+  (let ((deft-directory zwei/org-agenda-directory)
+        (deft-buffer "*Deft GTD*"))
+    (deft)))
 
 (defun zwei/org-archive-done-tasks ()
   "Archive all done tasks."
