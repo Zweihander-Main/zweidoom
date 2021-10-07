@@ -7,8 +7,7 @@
 ;;; Code:
 
 (eval-when-compile
-  (defvar deft-directory)
-  (defvar deft-buffer))
+  (defvar deft-directory))
 
 (require 'org)
 (require 'dash)
@@ -25,9 +24,16 @@
 (defun zwei/deft-gtd-file ()
   "Run deft specifically for `zwei/org-agenda-directory'."
   (interactive)
-  (let ((deft-directory zwei/org-agenda-directory)
-        (deft-buffer "*Deft GTD*"))
+  (let ((deft-directory zwei/org-agenda-directory))
     (deft)))
+
+(defun zwei/deft-advise-file-refresh ()
+  "Advise `deft' to refresh files when buffer already exists."
+  (when (get-buffer deft-buffer)
+    (deft-refresh)))
+
+(when (featurep! :ui deft)
+  (advice-add 'deft :before #'zwei/deft-advise-file-refresh))
 
 (defun zwei/org-archive-done-tasks ()
   "Archive all done tasks."
