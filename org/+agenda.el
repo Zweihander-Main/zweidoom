@@ -29,8 +29,12 @@
 
 ;;; Enable easymotion in agenda
 (require 'evil-easymotion)
-(map! :map evil-org-agenda-mode-map
-      :m "gs" evilem-map)
+(use-package! evil-org-agenda
+  :when (featurep! :editor evil +everywhere)
+  :hook (org-agenda-mode . evil-org-agenda-mode)
+  :config
+  (map! :map evil-org-agenda-mode-map
+        :m "gs" evilem-map))
 
 ;; Config
 
