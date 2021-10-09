@@ -102,6 +102,8 @@ If CHECK-FUNC is provided, will check using that too."
                            :and (:todo "TODO"
                                  :priority ("B" "C")
                                  :file-path ("next")))
+                          (:name "=== To prioritize"
+                           :todo "TODO")
                           (:discard (:anything t)))))))))
 
 (add-to-list 'org-agenda-custom-commands
