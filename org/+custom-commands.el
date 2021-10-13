@@ -131,8 +131,7 @@ If CHECK-FUNC is provided, will check using that too."
                                'scheduled
                                'timestamp))))
                        (org-agenda-files
-                        '(,zwei/org-agenda-projects-file
-                          ,zwei/org-agenda-next-file)) ; no tickler
+                        '(,zwei/org-agenda-projects-file))
                        (org-super-agenda-groups
                         '((:name ""
                            :todo "TODO"
@@ -144,11 +143,12 @@ If CHECK-FUNC is provided, will check using that too."
                         '(org-agenda-skip-entry-if
                           'deadline
                           'scheduled 'timestamp))
-                       (org-agenda-files '(,zwei/org-agenda-projects-file
-                                           ,zwei/org-agenda-next-file))
+                       (org-agenda-files '(,zwei/org-agenda-projects-file))
                        (org-super-agenda-groups
                         '((:name ""
                            :todo "WAIT")
+                          (:name "=== Held"
+                           :todo "HOLD")
                           (:discard (:anything t)))))))))
 
 ;; +custom-commands.el ends here
