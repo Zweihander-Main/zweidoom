@@ -315,12 +315,9 @@ No API key needed for minor use."
                    (expand-file-name f zwei/org-roam-bib-directory))
                  zwei/org-roam-bib-files)))
     (setq reftex-default-bibliography bib-files
-          org-ref-default-bibliography bib-files
           bibtex-completion-bibliography bib-files
           org-cite-global-bibliography bib-files
-          org-ref-bibliography-notes zwei/org-roam-bib-directory
           bibtex-completion-notes-path zwei/org-roam-bib-directory
-          org-ref-pdf-directory zwei/org-roam-bib-files-directory
           bibtex-completion-library-path `(,zwei/org-roam-bib-files-directory)
           org-ref-completion-library 'org-ref-ivy-cite
           ;; Rules for automatic key gen
