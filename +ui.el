@@ -32,11 +32,10 @@
   (add-hook 'org-mode-hook 'org-variable-pitch--enable))
 
 
-(add-hook! 'org-agenda-mode-hook #'(solaire-mode hl-line-mode))
+(add-hook! 'org-agenda-mode-hook #'solaire-mode #'hl-line-mode)
 
 (custom-set-faces!
   '(highlight :background "DarkOrange3")
-  '(org-link :foreground "DarkOrange3")
   '(line-number :family "Iosevka Term SS09")
   '(line-number-current-line :inherit line-number)
   `(org-habit-ready-face :background "#017105" )
@@ -44,4 +43,10 @@
   `(org-habit-alert-face :background "#A09000" )
   `(org-habit-alert-future-face :background "#807000"))
 
+;; Link related improvements
+(after! org
+  (org-link-set-parameters "file" :face `(:inherit org-link :foreground "red2"))
+  (org-link-set-parameters "attachment" :face `(:inherit org-link :foreground "red2"))
+  (org-link-set-parameters "pdf" :face `(:inherit org-link :foreground "red2"))
+  (org-link-set-parameters "id" :face `(:inherit org-link :foreground "DarkOrange2")))
 ;;; +ui.el ends here

@@ -156,15 +156,12 @@ Could be slow if it has a lot of overlays."
   (setq org-fancy-priorities-mode -1))
 
 
-;; ===============
-;;   Org-journal
-;; ===============
+;; Org-journal
 (after! org-journal
   (setq org-journal-date-prefix "#+TITLE: "
         org-journal-file-format "%Y-%m-%d.org"
         org-journal-date-format "%A, %d %B %Y"
         org-journal-enable-agenda-integration t))
-
 
 (use-package! org-statistics-cookie-helpers)
 ;;; +org.el ends here

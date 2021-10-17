@@ -16,7 +16,7 @@ I've broken out some parts of this config as external packages:
 
 ## Notes:
 
-- Packages are managed using Doom's package manager. 
+- Packages are managed using Doom's package manager.
 - Cask is used purely for development of the config -- test running, linting, ect.
 - Elsa is available but doesn't do well in private configs/with some libraries so is disabled by default
 
