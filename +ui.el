@@ -35,7 +35,7 @@
 (add-hook! 'org-agenda-mode-hook #'solaire-mode #'hl-line-mode)
 
 (custom-set-faces!
-  '(highlight :background "DarkOrange3")
+  '(highlight :background "#DE935F")
   '(line-number :family "Iosevka Term SS09")
   '(line-number-current-line :inherit line-number)
   `(org-habit-ready-face :background "#017105" )
@@ -45,8 +45,10 @@
 
 ;; Link related improvements
 (after! org
-  (org-link-set-parameters "file" :face `(:inherit org-link :foreground "red2"))
-  (org-link-set-parameters "attachment" :face `(:inherit org-link :foreground "red2"))
-  (org-link-set-parameters "pdf" :face `(:inherit org-link :foreground "red2"))
-  (org-link-set-parameters "id" :face `(:inherit org-link :foreground "DarkOrange2")))
+  (dolist (type '("ftp" "http" "https" "mailto" "news"))
+    (org-link-set-parameters type :face `(:inherit org-link :slant italic)))
+  (dolist (type '("elisp" "help" "file" "file+sys" "file+emacs" "org" "img" "doi" "bibtex" "attachment" "pdf"))
+    (org-link-set-parameters type :face `(:inherit org-link :foreground "#DE935F")))
+  (dolist (type '("roam" "id"))
+    (org-link-set-parameters type :face `(:inherit org-link :foreground "#B5BD68"))))
 ;;; +ui.el ends here
