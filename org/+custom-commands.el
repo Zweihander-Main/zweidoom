@@ -47,7 +47,10 @@ If CHECK-FUNC is provided, will check using that too."
                          (org-agenda-start-day "+0d")
                          (org-deadline-warning-days 365)
                          (org-super-agenda-groups
-                          '((:name ""
+                          '((:name "⤷Goals"
+                             :file-path("goals")
+                             :order 9)
+                            (:name ""
                              :time-grid t)
                             (:name ""
                              :deadline past)
