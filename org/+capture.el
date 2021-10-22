@@ -26,7 +26,7 @@
         ("n" "next"
          entry
          (file ,zwei/org-agenda-next-file)
-         "* NEXT %? %^g:@work: %^{Effort}p ")
+         "* NEXT [#%^{Priority?|C|A|B|C}] %? %^g:@work: %^{Effort}p ")
         ("c" "org-protocol-capture"
          entry
          (file ,zwei/org-agenda-todo-file)
