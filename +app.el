@@ -122,29 +122,35 @@
 ;; ======
 ;;  Deft
 ;; ======
-;; In use for org-roam
+(defun zwei/deft-in-dir (dir)
+  "Run deft in directory DIR."
+  (setq deft-directory dir)
+  (switch-to-buffer "*Deft*")
+  (kill-this-buffer)
+  (deft))
+
 (after! deft
   (setq deft-use-filter-string-for-filename t
         deft-recursive t
         deft-strip-summary-regexp
         (concat "\\("
-	        "^:.+:.*\n" ; any line with a :SOMETHING:
-	        "\\|^#\\+.*\n" ; anyline starting with a #+
+                "^:.+:.*\n" ; any line with a :SOMETHING:
+                "\\|^#\\+.*\n" ; anyline starting with a #+
                 "\\|[\n\t]" ; blank
                 "\\|- related ::.*$"; related tag
-	        "\\)"))
+                "\\)"))
   ;; Roam V2 fix titles
   (advice-add 'deft-parse-title :override
               (lambda (file contents)
                 (if deft-use-filename-as-title
-	            (deft-base-filename file)
-	          (let* ((case-fold-search 't)
-	                 (begin (string-match "title: " contents))
-	                 (end-of-begin (match-end 0))
-	                 (end (string-match "\n" contents begin)))
-	            (if begin
-	                (substring contents end-of-begin end)
-	              (format "%s" file)))))))
+                    (deft-base-filename file)
+                  (let* ((case-fold-search 't)
+                         (begin (string-match "title: " contents))
+                         (end-of-begin (match-end 0))
+                         (end (string-match "\n" contents begin)))
+                    (if begin
+                        (substring contents end-of-begin end)
+                      (format "%s" file)))))))
 
 
 ;; ==============
@@ -221,9 +227,10 @@ Used for global agenda-access keys."
       (:prefix-map ("n" . "notes")
        (:when (featurep! :lang org)
         :desc "Find in gtd" "g" #'zwei/find-gtd-file
-        :desc "Deft in gtd" "G" #'zwei/deft-gtd-file
+        :desc "Deft in gtd" "G" (cmd! (zwei/deft-in-dir zwei/org-agenda-directory))
         :desc "Inbox entry" "i" #'zwei/org-inbox-capture)
        (:when (featurep! :lang org +roam2)
+        :desc "Deft in roam" "d" (cmd! (zwei/deft-in-dir org-roam-directory))
         (:prefix ("r" . "roam")
          :desc "Create book bib+roam" "C" #'zwei/bib+ref+roam-book-title))))
 
