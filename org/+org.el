@@ -12,7 +12,7 @@
 (require 'org)
 (require 'dash)
 
-;;; Misc functions
+;;; Functions
 (defun zwei/find-gtd-file ()
   "Find a file in `zwei/org-agenda-directory'."
   (interactive)
@@ -63,6 +63,15 @@ Could be slow if it has a lot of overlays."
   (if (eq (get 'org-toggle-properties-hide-state 'state) 'hidden)
       (zwei/org-show-properties)
     (zwei/org-hide-properties)))
+
+(defun zwei/add-date-to-archive-name (args)
+  "Adds _year_month to archive name. ARGS same as `org-archive--compute-location'.
+Designed for use with `:filter-args' combinator."
+  (require 's)
+  (let* ((location (nth 0 args)))
+    `(,(s-replace "::" (concat "_" (format-time-string "%Y-%m") "::") location))))
+
+(advice-add 'org-archive--compute-location :filter-args #'zwei/add-date-to-archive-name)
 
 ;; Mappings
 (map! :map org-mode-map
