@@ -20,6 +20,7 @@
             :files ("org-variable-pitch.el")))
 (package! evil-motion-trainer
   :recipe '(:host github :repo "martinbaillie/evil-motion-trainer"))
+(package! doom-snippets :ignore t) ;; ignore doom's snippets
 
 ;; Own code:
 (package! kindle-highlights-to-org
