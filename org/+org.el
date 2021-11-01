@@ -64,14 +64,41 @@ Could be slow if it has a lot of overlays."
       (zwei/org-show-properties)
     (zwei/org-hide-properties)))
 
+(defun zwei/checklist-find ()
+  "Open a checklist in `zwei/org-checklists-directory'."
+  (interactive)
+  (let ((+snippets-dir zwei/org-checklists-directory))
+    (+snippets/find-private)))
+
+(defun zwei/checklist-new ()
+  "Create a new checklist in `zwei/org-checklists-directory'."
+  (interactive)
+  (let* ((major-mode 'org-mode)
+         (default-directory
+           (expand-file-name (symbol-name major-mode)
+                             zwei/org-checklists-directory)))
+    (+snippet--ensure-dir default-directory)
+    (with-current-buffer (switch-to-buffer "untitled-snippet")
+      (snippet-mode)
+      (erase-buffer)
+      (yas-expand-snippet (concat "# -*- mode: snippet -*-\n"
+                                  "# name: $1\n"
+                                  "# --\n"
+                                  "- [ ] $0"))
+      (when (bound-and-true-p evil-local-mode)
+        (evil-insert-state)))))
+
 ;; Mappings
 (map! :map org-mode-map
       :m "gSp" #'zwei/org-toggle-properties
       :m "gSe" #'org-toggle-pretty-entities
       :m "gSl" #'org-latex-preview
       :localleader
-      :prefix "r"
-      :desc "Archive all done tasks" "a" #'zwei/org-archive-done-tasks)
+      (:prefix ("C" . "Checklists")
+       :desc "New checklist" "n" #'zwei/checklist-new
+       :desc "Find checklist" "f" #'zwei/checklist-find
+      (:prefix "r"
+       :desc "Archive all done tasks" "a" #'zwei/org-archive-done-tasks)))
 
 ;; General config
 (setq org-hide-emphasis-markers t
@@ -101,6 +128,7 @@ Could be slow if it has a lot of overlays."
         ("[?]"  . +org-todo-onhold)
         ("WAIT" . +org-todo-onhold)
         ("HOLD" . +org-todo-onhold)))
+
 ;; Logging
 (setq org-log-done 'time
       org-log-into-drawer t)
@@ -115,6 +143,14 @@ Could be slow if it has a lot of overlays."
       org-fast-tag-selection-single-key nil
       org-use-tag-inheritance t
       org-tags-exclude-from-inheritance '("crypt" "@work" "@play" "@down" "@end"))
+
+;; Checklists
+(use-package! yasnippet
+  :commands (zwei/checklist-edit
+             zwei/checklist-new)
+  :config
+  (add-to-list 'yas-snippet-dirs 'zwei/org-checklists-directory)
+  (yas-reload-all))
 
 (use-package! zweigtd-goals
   :config

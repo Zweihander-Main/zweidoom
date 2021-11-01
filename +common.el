@@ -26,11 +26,11 @@
 
 ;; Set all directories around org
 (setq default-directory org-directory
-      org-roam-directory (expand-file-name "zettel" org-directory)
+      org-roam-directory (file-name-as-directory (expand-file-name "zettel" org-directory))
       deft-directory org-roam-directory
-      org-journal-dir (expand-file-name "dailies" org-directory))
+      org-journal-dir (file-name-as-directory (expand-file-name "dailies" org-directory)))
 
-(defvar zwei/org-agenda-directory (expand-file-name "gtd" org-directory)
+(defvar zwei/org-agenda-directory (file-name-as-directory (expand-file-name "gtd" org-directory))
   "Directory for GTD/work/agenda sytem.")
 
 (defvar zwei/org-agenda-todo-file (expand-file-name "inbox.org" zwei/org-agenda-directory)
@@ -51,13 +51,16 @@
 (defvar zwei/org-agenda-goals-file (expand-file-name "goals.org" zwei/org-agenda-directory )
   "File for overarching goal tracking.")
 
-(defvar zwei/org-agenda-templates-directory (expand-file-name "templates" org-directory)
+(defvar zwei/org-agenda-templates-directory (file-name-as-directory (expand-file-name "templates" org-directory))
   "Directory to store org capture templates.")
 
-(defvar zwei/org-roam-bib-directory (expand-file-name "bib" org-roam-directory)
+(defvar zwei/org-checklists-directory (file-name-as-directory (expand-file-name "checklists" org-directory))
+  "Directory to store private `yasnippet' org mode checklists.")
+
+(defvar zwei/org-roam-bib-directory (file-name-as-directory (expand-file-name "bib" org-roam-directory))
   "Directory for storing literature notes and bibliographic references.")
 
-(defvar zwei/org-roam-bib-files-directory (expand-file-name "files" zwei/org-roam-bib-directory)
+(defvar zwei/org-roam-bib-files-directory (file-name-as-directory (expand-file-name "files" zwei/org-roam-bib-directory))
   "Directory for storing files related to literature notes (ie PDFs).")
 
 (defvar zwei/org-roam-bib-files '("books.bib" "papers.bib" "online.bib")
