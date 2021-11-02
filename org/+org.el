@@ -83,6 +83,7 @@ Could be slow if it has a lot of overlays."
       (erase-buffer)
       (yas-expand-snippet (concat "# -*- mode: snippet -*-\n"
                                   "# name: $1\n"
+                                  "# uuid: $1\n"
                                   "# --\n"
                                   "- [ ] $0"))
       (when (bound-and-true-p evil-local-mode)
