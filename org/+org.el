@@ -97,9 +97,9 @@ Could be slow if it has a lot of overlays."
       :localleader
       (:prefix ("C" . "Checklists")
        :desc "New checklist" "n" #'zwei/checklist-new
-       :desc "Find checklist" "f" #'zwei/checklist-find
+       :desc "Find checklist" "f" #'zwei/checklist-find)
       (:prefix "r"
-       :desc "Archive all done tasks" "a" #'zwei/org-archive-done-tasks)))
+       :desc "Archive all done tasks" "a" #'zwei/org-archive-done-tasks))
 
 ;; General config
 (setq org-hide-emphasis-markers t
