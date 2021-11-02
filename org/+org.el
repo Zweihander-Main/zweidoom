@@ -67,12 +67,14 @@ Could be slow if it has a lot of overlays."
 (defun zwei/checklist-find ()
   "Open a checklist in `zwei/org-checklists-directory'."
   (interactive)
+  (load! "modules/editor/snippets/autoload/snippets" doom-emacs-dir)
   (let ((+snippets-dir zwei/org-checklists-directory))
     (+snippets/find-private)))
 
 (defun zwei/checklist-new ()
   "Create a new checklist in `zwei/org-checklists-directory'."
   (interactive)
+  (load! "modules/editor/snippets/autoload/snippets" doom-emacs-dir)
   (let* ((major-mode 'org-mode)
          (default-directory
            (expand-file-name (symbol-name major-mode)
@@ -95,7 +97,7 @@ Could be slow if it has a lot of overlays."
       :m "gSe" #'org-toggle-pretty-entities
       :m "gSl" #'org-latex-preview
       :localleader
-      (:prefix ("C" . "Checklists")
+      (:prefix ("z" . "zwei checklists")
        :desc "New checklist" "n" #'zwei/checklist-new
        :desc "Find checklist" "f" #'zwei/checklist-find)
       (:prefix "r"
