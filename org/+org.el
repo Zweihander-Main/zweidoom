@@ -93,9 +93,9 @@ Could be slow if it has a lot of overlays."
 
 ;; Mappings
 (map! :map org-mode-map
-      :m "gSp" #'zwei/org-toggle-properties
-      :m "gSe" #'org-toggle-pretty-entities
-      :m "gSl" #'org-latex-preview
+      :m "gMp" #'zwei/org-toggle-properties
+      :m "gMe" #'org-toggle-pretty-entities
+      :m "gMl" #'org-latex-preview
       :localleader
       (:prefix ("z" . "zwei checklists")
        :desc "New checklist" "n" #'zwei/checklist-new
