@@ -8,6 +8,8 @@
 (package! org-roam-ui :recipe (:host github :repo "org-roam/org-roam-ui" :files ("*.el" "out")))
 (package! org-roam-bibtex
   :recipe (:host github :repo "org-roam/org-roam-bibtex"))
+(when (featurep! :completion vertico)
+  (package! citar))
 (package! org-ql)
 (package! anki-editor)
 (package! org-clock-convenience)

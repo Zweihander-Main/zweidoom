@@ -310,16 +310,18 @@ No API key needed for minor use."
 (use-package! org-ref
   :after org-roam
   :config
+  (require 'citar-org)
   (let ((bib-files
          (mapcar (lambda (f)
                    (expand-file-name f zwei/org-roam-bib-directory))
                  zwei/org-roam-bib-files)))
-    (setq reftex-default-bibliography bib-files
-          bibtex-completion-bibliography bib-files
+    (setq bibtex-completion-bibliography bib-files
           org-cite-global-bibliography bib-files
           bibtex-completion-notes-path zwei/org-roam-bib-directory
           bibtex-completion-library-path `(,zwei/org-roam-bib-files-directory)
-          org-ref-completion-library 'org-ref-ivy-cite
+          org-cite-insert-processor 'citar
+          org-cite-follow-processor 'citar
+          org-cite-activate-processor 'citar
           ;; Rules for automatic key gen
           bibtex-autokey-year-length 4
           bibtex-autokey-name-year-separator ""
@@ -328,8 +330,6 @@ No API key needed for minor use."
           bibtex-autokey-titlewords 5
           bibtex-autokey-titlewords-stretch 1
           bibtex-autokey-titleword-length 5))
-
-  (org-ref-ivy-cite-completion)
 
   (require 'org-ref-url-utils)
   (require 'org-ref-isbn)
@@ -364,7 +364,7 @@ No API key needed for minor use."
   (map! :map org-mode-map
         :localleader
         (:prefix ("m" . "roam")
-         :desc "Insert citation" "c" #'bibtex-actions-insert-citation
+         :desc "Insert citation" "c" #'org-cite-insert
          :desc "Open citation roam entry" "RET" #'zwei/org-roam-open-citation-roam-entry))
 
   (map! :after markdown
@@ -372,9 +372,13 @@ No API key needed for minor use."
         :localleader
         :desc "Insert citation" "c" #'org-ref-insert-link))
 
-(use-package! bibtex-actions
-  :after org-roam
-  :defer t)
+(use-package! citar
+  :when (featurep! :completion vertico)
+  :after embark
+  :commands (citar-insert-citation)
+  :defer t
+  :config
+  (add-to-list 'embark-keymap-alist '(bibtex . citar-map)))
 
 (use-package! org-roam-bibtex
   :after org-roam
@@ -397,14 +401,7 @@ No API key needed for minor use."
           "author-or-editor-abbrev"
           "title"
           "keywords"
-          "url"))
-
-  ;; mappings
-  (map! :map org-mode-map
-        :localleader
-        (:prefix ("m" . "roam")
-         :desc "open citation roam entry" "b" #'zwei/org-roam-open-citation-roam-entry
-         :desc "create book bib+roam" "c" #'zwei/bib+ref+roam-book-title)))
+          "url")))
 
 (use-package! websocket
   :commands (org-roam-ui-mode)

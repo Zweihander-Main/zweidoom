@@ -9,6 +9,11 @@
 (require 'org)
 (require 'org-capture)
 
+;; Hacks
+; From https://github.com/hlissner/doom-emacs/issues/4832#issuecomment-822845907
+; Stops weird C-c override bugs
+(defalias '+org--restart-mode-h #'ignore)
+
 ;; Functions
 
 (defun zwei/org-inbox-capture ()
