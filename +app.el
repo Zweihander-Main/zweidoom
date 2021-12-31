@@ -206,7 +206,7 @@
   "Go to agenda KEY and stick to the first line.
 Used for global agenda-access keys."
   (when (and (featurep! :lang org +roam2)
-             (org-roam-buffer--visibility))
+             (eq 'visible (org-roam-buffer--visibility)))
     (org-roam-buffer-toggle))
   (org-agenda nil key)
   (evil-goto-first-line))
