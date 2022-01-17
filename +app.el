@@ -15,9 +15,7 @@
 ;; Load lisp files for compiled Emacs on Debian/WSL/Arch
 (when (or (string= (zwei/which-linux-distro) "Debian")
           (string= (zwei/which-linux-distro) "Arch"))
-  (add-to-list 'load-path "/usr/share/emacs/site-lisp")
-  (require 'cask "/usr/share/emacs/site-lisp/cask/cask.el")
-  (cask-initialize doom-private-dir))
+  (add-to-list 'load-path "/usr/share/emacs/site-lisp"))
 
 
 ;; ===============
