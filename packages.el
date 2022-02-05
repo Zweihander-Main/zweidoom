@@ -2,7 +2,12 @@
 ;;; Commentary:
 
 ;;; Code:
+
+;; Unpin doom's version
 (unpin! org-roam)
+
+;; Load 3rd party packages
+(package! init-loader)
 (package! org-ref)
 (package! websocket) ;; org-roam-ui related
 (package! org-roam-ui)

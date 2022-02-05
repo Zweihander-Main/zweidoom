@@ -7,6 +7,15 @@
 ;;;
 ;; Code:
 
+;; Load lisp dir
+(use-package! init-loader
+  :config
+  (setq init-loader-directory (file-name-as-directory
+                               (expand-file-name "lisp" doom-private-dir))
+        init-loader-show-log-after-init 'error-only
+        init-loader-byte-compile nil)
+  (init-loader-load))
+
 ;; General
 (load! "+common")
 (load! "+app")
