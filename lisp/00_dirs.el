@@ -8,7 +8,13 @@
 
 (eval-when-compile
   (defvar default-directory)
-  (defvar org-default-notes-file))
+  (defvar org-directory)
+  (defvar deft-directory)
+  (defvar org-roam-directory)
+  (defvar org-journal-dir)
+  (defvar +org-capture-todo-file)
+  (defvar org-default-notes-file)
+  (declare-function load! "core-lib" (filename &optional path noerror)))
 
 ;; Load machine specific directories which includes org-directory
 (load! "../+machine_var") ;; At doom due to chezmoi config discrepencies
@@ -59,4 +65,4 @@ Lead with book bibliography.")
 (setq +org-capture-todo-file zwei/org-agenda-todo-file
       org-default-notes-file zwei/org-agenda-todo-file)
 
-;;; 00_dirs.el ends here
+;;; 00_dirs ends here
