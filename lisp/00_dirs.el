@@ -6,7 +6,7 @@
 ;;;
 ;;; Code:
 
-(eval-when-compile
+(eval-and-compile
   (defvar default-directory)
   (defvar org-directory)
   (defvar deft-directory)

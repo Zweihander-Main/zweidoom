@@ -4,10 +4,16 @@
 ;;;
 ;;; Loading files after package init mostly to reduce a layer of paran in code.
 ;;;
-;;;
-;; Code:
+;;; Code:
 
-;; Load lisp dir
+(eval-when-compile
+  (defvar init-loader)
+  (defvar init-loader-directory)
+  (defvar init-loader-show-log-after-init)
+  (defvar init-loader-byte-compile)
+  (defvar doom-private-dir))
+
+;; Load Lisp dir
 (use-package! init-loader
   :config
   (setq init-loader-directory (file-name-as-directory

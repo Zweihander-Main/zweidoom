@@ -19,4 +19,5 @@
                    (shell-command-to-string
                     (format "lsof -i :%d | grep emacs" port)))))
     t))
+
 ;;; 00_emacs-util ends here
