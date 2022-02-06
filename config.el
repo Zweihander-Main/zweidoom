@@ -16,8 +16,10 @@
         init-loader-byte-compile nil)
   (init-loader-load))
 
+
+;; Temporary flycheck fix
+(setq +emacs-lisp-disable-flycheck-in-dirs (list doom-emacs-dir))
 ;; General
-(load! "+common")
 (load! "+app")
 (load! "+ui")
 
