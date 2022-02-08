@@ -1,4 +1,4 @@
-;;; ui --- theming -*-lexical-binding:t-*-
+;;; 20_ui --- theming -*-lexical-binding:t-*-
 ;;;
 ;;; Commentary:
 ;;;
@@ -54,4 +54,4 @@
   (dolist (type '("roam" "id"))
     (org-link-set-parameters type :face `(:inherit org-link :foreground "#B5BD68"))))
 
-;;; ui ends here
+;;; 20_ui ends here
