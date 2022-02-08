@@ -6,6 +6,7 @@
 ;;;
 ;;; Code:
 
+(after! mu4e
 ;; Assuming mu4e built from source at the moment
 (when (string= (zwei/which-linux-distro) "Debian")
   (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e"))
@@ -39,6 +40,6 @@
         mu4e-search-to-org-search-bookmark
         "flag:unread AND NOT flag:trashed AND maildir:/fastmail/memo")
 
-  (mu4e-search-to-org-script-mode t))
+  (mu4e-search-to-org-script-mode t)))
 
 ;;; +mu4e.el ends here

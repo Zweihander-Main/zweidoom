@@ -8,6 +8,7 @@
 ;;;
 ;;; Code:
 
+(after! roam
 (require 'org)
 (require 'org-roam)
 (require 'org-roam-protocol)
@@ -448,6 +449,6 @@ No API key needed for minor use."
 
 (use-package! kindle-highlights-to-org
   :after org-roam
-  :defer t)
+  :defer t))
 
 ;;; +roam.el ends here

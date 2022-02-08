@@ -1,4 +1,4 @@
-;;; 00_emacs-util --- useful util funcs for Emacs -*-lexical-binding:t-*-
+;;; emacs-util --- useful util funcs for Emacs -*-lexical-binding:t-*-
 ;;;
 ;;; Commentary:
 ;;;
@@ -20,4 +20,4 @@
                     (format "lsof -i :%d | grep emacs" port)))))
     t))
 
-;;; 00_emacs-util ends here
+;;; emacs-util ends here

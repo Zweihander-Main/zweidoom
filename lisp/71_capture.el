@@ -6,8 +6,7 @@
 ;;;
 ;;; Code:
 
-(require 'org)
-(require 'org-capture)
+(after! org-capture
 
 ;; Hacks
 ; From https://github.com/hlissner/doom-emacs/issues/4832#issuecomment-822845907
@@ -53,6 +52,6 @@
     ("^\\*anki\\*$"
      :size 0.5
      :select t
-     :autosave ignore)))
+     :autosave ignore))))
 
 ;;; +capture.el ends here

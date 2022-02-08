@@ -1,4 +1,4 @@
-;;; 80_org--- basic org config -*-lexical-binding:t-*-
+;;; org--- basic org config -*-lexical-binding:t-*-
 ;;;
 ;;; Commentary:
 ;;;
@@ -155,4 +155,5 @@ Could be slow if it has a lot of overlays."
           org-journal-enable-agenda-integration t))
 
   (use-package! org-statistics-cookie-helpers))
-;;; 80_org ends here
+
+;;; org ends here

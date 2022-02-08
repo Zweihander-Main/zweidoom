@@ -1,4 +1,4 @@
-;;; 01_keybinds --- global keybindings -*-lexical-binding:t-*-
+;;; keybinds --- global keybindings -*-lexical-binding:t-*-
 ;;;
 ;;; Commentary:
 ;;; Global shortcuts/keybindings.
@@ -39,4 +39,4 @@ Used for global agenda-access keys."
          (:prefix "r"
           :desc "Create book bib+roam" :g "C" #'zwei/bib+ref+roam-book-title)))))
 
-;;; 01_keybinds ends here
+;;; keybinds ends here

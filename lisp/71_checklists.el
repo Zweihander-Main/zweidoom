@@ -1,4 +1,4 @@
-;;; 81_checklists --- yas based checklists -*-lexical-binding:t-*-
+;;; checklists --- yas based checklists -*-lexical-binding:t-*-
 ;;;
 ;;; Commentary:
 ;;;
@@ -59,4 +59,4 @@
     (declare-function yas-reload-all "yassnippet"))
   (yas-reload-all))
 
-;;; 81_checklists ends here
+;;; checklists ends here

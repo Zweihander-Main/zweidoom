@@ -1,4 +1,4 @@
-;;; 00_dirs.el --- common directories -*-lexical-binding:t-*-
+;;; dirs.el --- common directories -*-lexical-binding:t-*-
 ;;;
 ;;; Commentary:
 ;;;
@@ -55,4 +55,4 @@ Lead with book bibliography.")
 (setq +org-capture-todo-file zwei/org-agenda-todo-file
       org-default-notes-file zwei/org-agenda-todo-file)
 
-;;; 00_dirs ends here
+;;; dirs ends here
