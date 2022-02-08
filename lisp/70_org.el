@@ -1,4 +1,4 @@
-;;; org--- basic org config -*-lexical-binding:t-*-
+;;; 70_org --- basic org config -*-lexical-binding:t-*-
 ;;;
 ;;; Commentary:
 ;;;
@@ -14,6 +14,10 @@
       (:prefix "r"
        :desc "Archive all done tasks" "a" #'zwei/org-archive-done-tasks))
 
+(map! :leader
+      (:prefix "n"
+       (:when (featurep! :lang org)
+        :desc "Find in gtd" :g "g" #'zwei/find-gtd-file)))
 ;;;###autoload
 (defun zwei/find-gtd-file ()
   "Find a file in `zwei/org-agenda-directory'."
@@ -37,7 +41,7 @@
 
 ;;;###autoload
 (defun zwei/org-current-is-todo-esque ()
-  "Returns if current heading is a form of todo"
+  "Return if current heading is a form of todo."
   (let ((state (org-get-todo-state)))
     (or
      (string= "TODO" state)
@@ -45,7 +49,7 @@
 
 ;;;###autoload
 (defun zwei/org-hide-properties ()
-  "Hide all org-mode headline property drawers in buffer.
+  "Hide all `org-mode' headline property drawers in buffer.
 Could be slow if it has a lot of overlays."
   (interactive)
   (save-excursion
@@ -59,7 +63,7 @@ Could be slow if it has a lot of overlays."
 
 ;;;###autoload
 (defun zwei/org-show-properties ()
-  "Show all org-mode property drawers hidden by org-hide-properties."
+  "Show all `org-mode' property drawers hidden by org-hide-properties."
   (interactive)
   (remove-overlays (point-min) (point-max) 'hidden-prop-drawer t)
   (put 'org-toggle-properties-hide-state 'state 'shown))
@@ -74,7 +78,6 @@ Could be slow if it has a lot of overlays."
 
 (use-package! org
   :commands (zwei/find-gtd-file)
-  :commands (zwei/deft-gtd-file)
   :config
   ;; General
   (setq org-hide-emphasis-markers t
@@ -156,4 +159,4 @@ Could be slow if it has a lot of overlays."
 
   (use-package! org-statistics-cookie-helpers))
 
-;;; org ends here
+;;; 70_org ends here

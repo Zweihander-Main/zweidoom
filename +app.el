@@ -122,6 +122,10 @@
 ;; ======
 ;;  Deft
 ;; ======
+(map! :leader
+      (:prefix "n"
+        :desc "Deft in gtd" :g "G" (cmd! (zwei/deft-in-dir zwei/org-agenda-directory))))
+
 (defun zwei/deft-in-dir (dir)
   "Run deft in directory DIR."
   (require 'org)
