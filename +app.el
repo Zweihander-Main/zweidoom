@@ -85,6 +85,13 @@
   (add-to-list 'flycheck-checkers 'org-lint)
   (setq-default flycheck-disabled-checkers '(proselint)))
 
+(defun zwei/add-checkdoc-back-in ()
+  "Stop DOOM from removing checkdoc in config but keep the other mods."
+  (setq flycheck-disabled-checkers
+        (delete 'emacs-lisp-checkdoc flycheck-disabled-checkers)))
+(advice-add '+emacs-lisp-reduce-flycheck-errors-in-emacs-config-h
+            :after #'zwei/add-checkdoc-back-in)
+
 (add-hook! 'emacs-lisp-mode-hook #'flycheck-elsa-setup)
 (add-hook! 'emacs-lisp-mode-hook #'flycheck-package-setup)
 
