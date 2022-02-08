@@ -18,18 +18,4 @@
 ;; General
 (load! "+app")
 
-;; Org
-(after! org
-  (after! org-capture
-    (load! "./org/+capture"))
-  (after! org-agenda
-    (load! "./org/+agenda")
-    (load! "./org/+custom-commands"))
-  (after! org-roam
-    (load! "./org/+roam")))
-
-;; Other apps
-(after! mu4e
-  (load! "./+mu4e"))
-
 ;;; config.el ends here
