@@ -10,14 +10,13 @@
       :m "gMp" #'zwei/org-toggle-properties
       :m "gMe" #'org-toggle-pretty-entities
       :m "gMl" #'org-latex-preview
-      :localleader
-      (:prefix "r"
-       :desc "Archive all done tasks" "a" #'zwei/org-archive-done-tasks))
-
-(map! :leader
-      (:prefix "n"
-       (:when (featurep! :lang org)
+      (:localleader
+       (:prefix "r"
+        :desc "Archive all done tasks" "a" #'zwei/org-archive-done-tasks))
+      (:leader
+       (:prefix "n"
         :desc "Find in gtd" :g "g" #'zwei/find-gtd-file)))
+
 ;;;###autoload
 (defun zwei/find-gtd-file ()
   "Find a file in `zwei/org-agenda-directory'."
@@ -123,19 +122,6 @@ Could be slow if it has a lot of overlays."
         org-use-tag-inheritance t
         org-tags-exclude-from-inheritance '("crypt" "@work" "@play" "@down" "@end"))
 
-
-
-  (use-package! zweigtd-goals
-    :config
-    (setq zweigtd-goals-file zwei/org-agenda-goals-file)
-    (zweigtd-goals-init '((:name "1#PHYSICAL"   :key ?1 :color "#CC2200")
-                          (:name "2#MENTAL"     :key ?2 :color "#008F40")
-                          (:name "3#CODING"     :key ?3 :color "#42A5F5")
-                          (:name "4#AUTOMATION" :key ?4 :color "#00FF33")
-                          (:name "5#BUSINESS"   :key ?5 :color "#F5C400")
-                          (:name "6#WANKER"     :key ?6 :color "#6A3B9F"))))
-
-
   ;; Filing
   (setq org-refile-allow-creating-parent-nodes 'confirm
         org-refile-targets '((zwei/org-agenda-projects-file :maxlevel . 1)
@@ -143,20 +129,6 @@ Could be slow if it has a lot of overlays."
                              (zwei/org-agenda-next-file :level . 0 )))
 
   ;; Other modules
-  (add-to-list 'org-modules 'org-habit)
-
-  ;; Disable fancy-priorities for now
-  (after! org-fancy-priorities
-    :config
-    (setq org-fancy-priorities-mode -1))
-
-  ;; Org-journal
-  (after! org-journal
-    (setq org-journal-date-prefix "#+TITLE: "
-          org-journal-file-format "%Y-%m-%d.org"
-          org-journal-date-format "%A, %d %B %Y"
-          org-journal-enable-agenda-integration t))
-
-  (use-package! org-statistics-cookie-helpers))
+  (add-to-list 'org-modules 'org-habit))
 
 ;;; 70_org ends here
