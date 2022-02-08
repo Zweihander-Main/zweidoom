@@ -1,4 +1,4 @@
-;;; +ui.el -- doom/+ui.el-*-lexical-binding:t-*-
+;;; 20_ui --- theming -*-lexical-binding:t-*-
 ;;;
 ;;; Commentary:
 ;;;
@@ -44,11 +44,13 @@
   `(org-habit-alert-future-face :background "#807000"))
 
 ;; Link related improvements
-(after! org
+(after! ol ; org-link
+  (eval-when-compile
+    (declare-function org-link-set-parameters "ol"))
   (dolist (type '("ftp" "http" "https" "mailto" "news"))
     (org-link-set-parameters type :face `(:inherit org-link :slant italic)))
   (dolist (type '("elisp" "help" "file" "file+sys" "file+emacs" "org" "img" "doi" "bibtex" "attachment" "pdf"))
     (org-link-set-parameters type :face `(:inherit org-link :foreground "#DE935F")))
   (dolist (type '("roam" "id"))
     (org-link-set-parameters type :face `(:inherit org-link :foreground "#B5BD68"))))
-;;; +ui.el ends here
+;;; 20_ui ends here
