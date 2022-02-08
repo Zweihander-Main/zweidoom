@@ -6,13 +6,6 @@
 ;;;
 ;;; Code:
 
-(eval-when-compile
-  (defvar init-loader)
-  (defvar init-loader-directory)
-  (defvar init-loader-show-log-after-init)
-  (defvar init-loader-byte-compile)
-  (defvar doom-private-dir))
-
 ;; Load Lisp dir
 (use-package! init-loader
   :config
@@ -22,16 +15,11 @@
         init-loader-byte-compile nil)
   (init-loader-load))
 
-
-;; Temporary flycheck fix
-(setq +emacs-lisp-disable-flycheck-in-dirs (list doom-emacs-dir))
 ;; General
 (load! "+app")
-(load! "+ui")
 
 ;; Org
 (after! org
-  (load! "./org/+org")
   (after! org-capture
     (load! "./org/+capture"))
   (after! org-agenda
