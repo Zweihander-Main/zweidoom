@@ -1,4 +1,4 @@
-;;; agenda --- org-agenda config-*-lexical-binding:t-*-
+;;; 75_agenda --- org-agenda config-*-lexical-binding:t-*-
 ;;;
 ;;; Commentary:
 ;;;
@@ -7,24 +7,38 @@
 ;;;
 ;;; Code:
 
-(after! org-agenda
-  (require 'org)
-  (require 'org-agenda)
+(map! :g "<f1>" (cmd! (zwei/org-agenda-force-load "1"))
+      :g "<f2>" (cmd! (zwei/org-agenda-force-load "2"))
+      :g "<f3>" (cmd! (zwei/org-agenda-force-load "3")))
+
+(map! :map org-agenda-mode-map
+      :localleader
+      :desc "Edit headline" "e" #'org-agenda-heading-functions-edit-headline
+      :desc "Toggle entry text mode" "E" #'org-agenda-entry-text-mode
+      :desc "Break into child tasks" "b" #'org-agenda-heading-functions-break-into-child)
+
+;;;###autoload
+(defun zwei/org-agenda-force-load (key)
+  "Go to agenda KEY and stick to the first line.
+Used for global agenda-access keys."
+  (when (and (featurep! :lang org +roam2)
+             (functionp #'org-roam-buffer--visibility)
+             (eq 'visible (org-roam-buffer--visibility)))
+    (org-roam-buffer-toggle))
+  (org-agenda nil key)
+  (evil-goto-first-line))
+
+(use-package! org-agenda-heading-functions
+  :commands (org-agenda-heading-functions-break-into-child
+             org-agenda-heading-functions-saved-effort))
+
+(use-package! org-agenda
+  :commands (org-agenda org-agenda-entry-text-mode)
+  :config
   (require 'org-clock)
-
-  (use-package! org-agenda-heading-functions)
-
   ;; Hooks
 
   (add-hook! 'org-clock-in-hook :append #'zwei/set-todo-state-next)
-
-  ;; Mappings -- see custom commands for more
-
-  (map! :map org-agenda-mode-map
-        :localleader
-        :desc "Edit headline" "e" #'org-agenda-heading-functions-edit-headline
-        :desc "Toggle entry text mode" "E" #'org-agenda-entry-text-mode
-        :desc "Break into child tasks" "b" #'org-agenda-heading-functions-break-into-child)
 
 ;;; Enable easymotion in agenda
   (require 'evil-easymotion)
@@ -93,4 +107,4 @@
     :config
     (setq org-habit-following-days 1)))
 
-;;; agenda ends here
+;;; 75_agenda ends here
