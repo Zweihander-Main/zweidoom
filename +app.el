@@ -124,6 +124,7 @@
 ;; ======
 (defun zwei/deft-in-dir (dir)
   "Run deft in directory DIR."
+  (require 'org)
   (setq deft-directory dir)
   (switch-to-buffer "*Deft*")
   (kill-this-buffer)
