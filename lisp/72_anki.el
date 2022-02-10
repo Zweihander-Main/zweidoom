@@ -4,8 +4,6 @@
 ;;;
 ;;; Config related to integration with Anki SRS.
 ;;;
-;;; TODO: anki centaur redo
-;;;
 ;;; Code:
 
 ;; Mappings
