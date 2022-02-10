@@ -1,8 +1,8 @@
-;;; config.el -- doom/config.el-*-lexical-binding:t-*-
+;;; config --- main doom config -*-lexical-binding:t-*-
 ;;;
 ;;; Commentary:
 ;;;
-;;; Loading files after package init mostly to reduce a layer of paran in code.
+;;; Init-loader to load all the other Emacs files.
 ;;;
 ;;; Code:
 
@@ -15,7 +15,4 @@
         init-loader-byte-compile nil)
   (init-loader-load))
 
-;; General
-(load! "+app")
-
-;;; config.el ends here
+;;; config ends here
