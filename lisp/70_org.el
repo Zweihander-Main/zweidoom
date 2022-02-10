@@ -34,11 +34,6 @@
   (org-map-entries 'org-archive-subtree "/+KILL" 'file))
 
 ;;;###autoload
-(defun zwei/set-todo-state-next ()
-  "Change todo to NEXT."
-  (org-todo "NEXT"))
-
-;;;###autoload
 (defun zwei/org-current-is-todo-esque ()
   "Return if current heading is a form of todo."
   (let ((state (org-get-todo-state)))
@@ -78,6 +73,9 @@ Could be slow if it has a lot of overlays."
 (use-package! org
   :commands (zwei/find-gtd-file)
   :config
+  (eval-when-compile
+    (declare-function org-map-entries "org")
+    (declare-function org-get-todo-state "org"))
   ;; General
   (setq org-hide-emphasis-markers t
         org-extend-today-until 4 ;; add some buffer after midnight
@@ -126,9 +124,6 @@ Could be slow if it has a lot of overlays."
   (setq org-refile-allow-creating-parent-nodes 'confirm
         org-refile-targets '((zwei/org-agenda-projects-file :maxlevel . 1)
                              (zwei/org-agenda-tickler-file :maxlevel . 1)
-                             (zwei/org-agenda-next-file :level . 0 )))
-
-  ;; Other modules
-  (add-to-list 'org-modules 'org-habit))
+                             (zwei/org-agenda-next-file :level . 0 ))))
 
 ;;; 70_org ends here
