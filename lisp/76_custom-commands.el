@@ -1,4 +1,4 @@
-;;; +custom-commands.el- doom/org/+custom-commands.el-*-lexical-binding:t-*-
+;;; 76_custom-commands --- agenda custom commands -*-lexical-binding:t-*-
 ;;;
 ;;; Commentary:
 ;;;
@@ -7,39 +7,60 @@
 ;;;
 ;;; Code:
 
+(map! :g "<f1>" (cmd! (zwei/org-agenda-force-load "1"))
+      :g "<f2>" (cmd! (zwei/org-agenda-force-load "2"))
+      :g "<f3>" (cmd! (zwei/org-agenda-force-load "3")))
+
+(eval-when-compile
+  (declare-function org-roam-buffer--visibility "org-roam")
+  (declare-function org-roam-buffer-toggle "org-roam")
+  (declare-function evil-org-top "evil-org")
+  (declare-function org-goto-sibling "org")
+  (declare-function outline-forward-same-level "outline")
+  (declare-function outline-next-heading "outline"))
+
+
+;;;###autoload
+(defun zwei/org-agenda-force-load (key)
+  "Go to agenda KEY and stick to the first line.
+Used for global agenda-access keys."
+  (when (and (featurep! :lang org +roam2)
+             (functionp #'org-roam-buffer--visibility)
+             (eq 'visible (org-roam-buffer--visibility)))
+    (org-roam-buffer-toggle))
+  (org-agenda nil key)
+  (evil-goto-first-line))
+
+;;;###autoload
+(defun zwei/org-agenda-skip-all-siblings-but-first (&optional check-func)
+  "Skip all but the first non-done entry.
+If CHECK-FUNC is provided, will check using that too."
+  (let ((should-skip-entry)
+        (all-checks (lambda ()
+                      (let ((pass t))
+                        (when check-func
+                          (save-excursion
+                            (when (funcall check-func)
+                              (setq pass nil))))
+                        (and pass (zwei/org-current-is-todo-esque))))))
+    (unless (funcall all-checks)
+      (setq should-skip-entry t))
+    (save-excursion
+      (while (and (not should-skip-entry) (org-goto-sibling t))
+        (when (funcall all-checks)
+          (setq should-skip-entry t))))
+    (when should-skip-entry
+      (if (funcall all-checks)
+          (condition-case nil
+              (progn (evil-org-top) (outline-forward-same-level 1) (point))
+            (error (goto-char (point-max))))
+        (or (outline-next-heading)
+            (goto-char (point-max)))))))
 
 (after! org-agenda
-  (require 'org)
-  (require 'org-agenda)
-  (require 'org-ql)
-  (require 'org-super-agenda)
+  (eval-when-compile
+    (declare-function rxt--re-builder-switch-pcre-mode "pcre2el"))
 
-  (defun zwei/org-agenda-skip-all-siblings-but-first (&optional check-func)
-    "Skip all but the first non-done entry.
-If CHECK-FUNC is provided, will check using that too."
-    (let ((should-skip-entry)
-          (all-checks (lambda ()
-                        (let ((pass t))
-                          (when check-func
-                            (save-excursion
-                              (when (funcall check-func)
-                                (setq pass nil))))
-                          (and pass (zwei/org-current-is-todo-esque))))))
-      (unless (funcall all-checks)
-        (setq should-skip-entry t))
-      (save-excursion
-        (while (and (not should-skip-entry) (org-goto-sibling t))
-          (when (funcall all-checks)
-            (setq should-skip-entry t))))
-      (when should-skip-entry
-        (if (funcall all-checks)
-            (condition-case nil
-                (progn (evil-org-top) (outline-forward-same-level 1) (point))
-              (error (goto-char (point-max))))
-          (or (outline-next-heading)
-              (goto-char (point-max)))))))
-
-  ;; Custom commands and their mappings
   (setq org-agenda-custom-commands nil)
 
   (add-to-list 'org-agenda-custom-commands
@@ -156,4 +177,4 @@ If CHECK-FUNC is provided, will check using that too."
                              :todo "HOLD")
                             (:discard (:anything t))))))))))
 
-;; +custom-commands.el ends here
+;;; 76_custom-commands ends here

@@ -7,50 +7,15 @@
 ;;;
 ;;; Code:
 
-(map! :g "<f1>" (cmd! (zwei/org-agenda-force-load "1"))
-      :g "<f2>" (cmd! (zwei/org-agenda-force-load "2"))
-      :g "<f3>" (cmd! (zwei/org-agenda-force-load "3")))
-
 (map! :map org-agenda-mode-map
-      :localleader
-      :desc "Edit headline" "e" #'org-agenda-heading-functions-edit-headline
-      :desc "Toggle entry text mode" "E" #'org-agenda-entry-text-mode
-      :desc "Break into child tasks" "b" #'org-agenda-heading-functions-break-into-child)
-
-;;;###autoload
-(defun zwei/org-agenda-force-load (key)
-  "Go to agenda KEY and stick to the first line.
-Used for global agenda-access keys."
-  (when (and (featurep! :lang org +roam2)
-             (functionp #'org-roam-buffer--visibility)
-             (eq 'visible (org-roam-buffer--visibility)))
-    (org-roam-buffer-toggle))
-  (org-agenda nil key)
-  (evil-goto-first-line))
-
-(use-package! org-agenda-heading-functions
-  :commands (org-agenda-heading-functions-break-into-child
-             org-agenda-heading-functions-saved-effort))
+       :localleader
+       :desc "Edit headline" "e" #'org-agenda-heading-functions-edit-headline
+       :desc "Toggle entry text mode" "E" #'org-agenda-entry-text-mode
+       :desc "Break into child tasks" "b" #'org-agenda-heading-functions-break-into-child)
 
 (use-package! org-agenda
   :commands (org-agenda org-agenda-entry-text-mode)
   :config
-  (require 'org-clock)
-  ;; Hooks
-
-  (add-hook! 'org-clock-in-hook :append #'zwei/set-todo-state-next)
-
-;;; Enable easymotion in agenda
-  (require 'evil-easymotion)
-  (use-package! evil-org-agenda
-    :when (featurep! :editor evil +everywhere)
-    :hook (org-agenda-mode . evil-org-agenda-mode)
-    :config
-    (map! :map evil-org-agenda-mode-map
-          :m "gs" evilem-map))
-
-  ;; Config
-
   (setq org-agenda-files (list zwei/org-agenda-directory)
         org-agenda-start-with-log-mode t
         org-agenda-start-day "-1d"
@@ -62,49 +27,6 @@ Used for global agenda-access keys."
           (tags . " %i %-12:c|%e|")
           (search . " %i %-12:c|%e|"))
         org-columns-default-format
-        "%40ITEM(Task) %Effort(E Est){:} %CLOCKSUM(Time Spent) %SCHEDULED(Scheduled) %DEADLINE(Deadline)")
-
-
-  ;; Super agenda
-  (use-package! org-super-agenda
-    :after evil-org-agenda
-    :config
-    (org-super-agenda-mode t)
-    (setq org-super-agenda-header-map evil-org-agenda-mode-map)) ; fix keymaps
-
-  ;; Org-clock-convenience for agenda
-  (use-package! org-clock-convenience
-    :defer t
-    :after org-clock)
-
-  (map! :after org-clock-convenience
-        :map org-agenda-mode-map
-        "<S-up>" #'org-clock-convenience-timestamp-up
-        "<S-down>" #'org-clock-convenience-timestamp-down
-        "o" #'org-clock-convenience-fill-gap
-        "e" #'org-clock-convenience-fill-gap-both)
-
-  (use-package! process-org-agenda-inbox
-    :config
-    (setq process-org-agenda-inbox-category ""
-          process-org-agenda-inbox-next-file zwei/org-agenda-next-file
-          process-org-agenda-inbox-refile-target-info
-          '((zwei/org-agenda-projects-file :maxlevel . 2)
-            (zwei/org-agenda-tickler-file :maxlevel . 2)
-            (zwei/org-agenda-next-file :level . 1 )))
-
-    (setq org-agenda-bulk-custom-functions `((?c process-org-agenda-inbox-single-item)))
-
-    ;; Mappings for process-org-agenda-inbox
-    (map! :map org-agenda-mode-map
-          :localleader
-          :desc "Process inbox items" "i" #'process-org-agenda-inbox-all-items
-          :desc "Process all links" "L" #'process-org-agenda-inbox-open-and-archive-all-links
-          :desc "Process current item" "P" #'process-org-agenda-inbox-single-item))
-
-  ;; Org-habit (note -- loaded in +org as org-modules)
-  (after! org-habit
-    :config
-    (setq org-habit-following-days 1)))
+        "%40ITEM(Task) %Effort(E Est){:} %CLOCKSUM(Time Spent) %SCHEDULED(Scheduled) %DEADLINE(Deadline)"))
 
 ;;; 75_agenda ends here
