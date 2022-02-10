@@ -8,13 +8,10 @@
 
 (use-package! mu4e
   :commands (=mu4e)
-  :init
-  ;; Assuming mu4e built from source at the moment
+  :config
+  ;; Assuming mu4e built from source at the moment on Debian
   (when (string= (zwei/which-linux-distro) "Debian")
     (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e"))
-  (when (string= (zwei/which-linux-distro) "Arch")
-    (add-to-list 'load-path "/usr/share/emacs/site-lisp/mu4e"))
-  :config
   (set-email-account! "fastmail"
                       '((mu4e-sent-folder       . "/fastmail/Sent")
                         (mu4e-drafts-folder     . "/fastmail/Drafts")
