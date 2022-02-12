@@ -7,6 +7,7 @@
 ;;; Code:
 
 (use-package! org-statistics-cookie-helpers
-  :after org)
+  :after org
+  :defer t)
 
 ;;; 71_statistics-cookies ends here

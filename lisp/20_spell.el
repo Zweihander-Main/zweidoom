@@ -7,7 +7,6 @@
 ;;; Code:
 
 (after! ispell
-  :config
   (setq ispell-dictionary "en")
   (setq ispell-program-name "aspell")
   (setq spell-fu-directory "~/.config/aspell")

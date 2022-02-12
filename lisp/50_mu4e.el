@@ -7,7 +7,7 @@
 ;;; Code:
 
 (use-package! mu4e
-  :commands (=mu4e)
+  :commands (=mu4e mu4e mu4e-compose-new)
   :config
   ;; Assuming mu4e built from source at the moment on Debian
   (when (string= (zwei/which-linux-distro) "Debian")

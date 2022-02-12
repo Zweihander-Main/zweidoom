@@ -22,9 +22,7 @@
   "Capture a an inbox task."
   (org-capture nil "i"))
 
-(use-package! org-capture
-  :after org
-  :config
+(after! org-capture
   (setq org-capture-templates
         `(("i" "inbox"
            entry

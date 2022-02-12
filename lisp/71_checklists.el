@@ -51,8 +51,7 @@
         (evil-insert-state)))))
 
 (use-package! yasnippet
-  :commands (zwei/checklist-find)
-  :commands (zwei/checklist-new)
+  :commands (zwei/checklist-find zwei/checklist-new)
   :config
   (add-to-list 'yas-snippet-dirs 'zwei/org-checklists-directory)
   (eval-when-compile

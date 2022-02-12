@@ -11,6 +11,7 @@
 
 (use-package! org-habit
   :defer t
+  :after org-agenda
   :config
   (eval-when-compile
     (declare-function rxt--re-builder-switch-pcre-mode "pcre2el"))

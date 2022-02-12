@@ -71,7 +71,7 @@ Could be slow if it has a lot of overlays."
     (zwei/org-hide-properties)))
 
 (use-package! org
-  :commands (zwei/find-gtd-file)
+  :after-call (zwei/find-gtd-file)
   :config
   (eval-when-compile
     (declare-function org-map-entries "org")

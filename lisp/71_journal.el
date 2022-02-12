@@ -7,6 +7,7 @@
 ;;; Code:
 
 (use-package! org-journal
+  :defer t
   :after org
   :config
   (setq org-journal-date-prefix "#+TITLE: "

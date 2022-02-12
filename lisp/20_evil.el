@@ -8,6 +8,7 @@
 
 (use-package! evil-motion-trainer
   :after evil
+  :defer t
   :config
   (global-evil-motion-trainer-mode 1))
 

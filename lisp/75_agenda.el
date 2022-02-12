@@ -14,7 +14,6 @@
        :desc "Break into child tasks" "b" #'org-agenda-heading-functions-break-into-child)
 
 (use-package! org-agenda
-  :commands (org-agenda org-agenda-entry-text-mode)
   :config
   (setq org-agenda-files (list zwei/org-agenda-directory)
         org-agenda-start-with-log-mode t

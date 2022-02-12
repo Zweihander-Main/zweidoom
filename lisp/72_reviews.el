@@ -7,7 +7,7 @@
 ;;; Code:
 
 (use-package! zweigtd-reviews
-  :commands (org-capture)
+  :after-call (org-capture)
   :config
   (setq zweigtd-reviews-file zwei/org-agenda-reviews-file)
   (eval-when-compile
