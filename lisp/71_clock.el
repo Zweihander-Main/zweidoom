@@ -17,6 +17,10 @@
   (org-todo "NEXT"))
 
 (use-package! org-clock
-  :commands (zwei/set-todo-state-next))
+  :commands (zwei/set-todo-state-next
+             org-clock-in
+             org-clock-out
+             org-agenda-clock-in
+             org-agenda-clock-out))
 
 ;;; 71_clock ends here

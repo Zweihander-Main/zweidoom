@@ -25,7 +25,7 @@
   "Ensure DIR exists and offer to create if not."
   (unless (file-directory-p dir)
     (if (y-or-n-p (concat (format "%S doesn't exist. Create it?"
-                          (abbreviate-file-name dir))))
+                                  (abbreviate-file-name dir))))
         (make-directory dir t)
       (error "%S doesn't exist" (abbreviate-file-name dir)))))
 
@@ -51,7 +51,10 @@
         (evil-insert-state)))))
 
 (use-package! yasnippet
-  :commands (zwei/checklist-find zwei/checklist-new)
+  :commands (zwei/checklist-find
+             zwei/checklist-new
+             yas-insert-snippet
+             yas-new-snippet)
   :config
   (add-to-list 'yas-snippet-dirs 'zwei/org-checklists-directory)
   (eval-when-compile
