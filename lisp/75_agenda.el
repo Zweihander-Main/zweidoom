@@ -13,8 +13,7 @@
        :desc "Toggle entry text mode" "E" #'org-agenda-entry-text-mode
        :desc "Break into child tasks" "b" #'org-agenda-heading-functions-break-into-child)
 
-(use-package! org-agenda
-  :config
+(after! org-agenda
   (setq org-agenda-files (list zwei/org-agenda-directory)
         org-agenda-start-with-log-mode t
         org-agenda-start-day "-1d"

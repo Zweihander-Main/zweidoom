@@ -22,7 +22,8 @@
   "Capture a an inbox task."
   (org-capture nil "i"))
 
-(after! org-capture
+;; Has to be after `org' or `org-capture-templates' will be overridden from DOOM.
+(after! org
   (setq org-capture-templates
         `(("i" "inbox"
            entry

@@ -6,10 +6,7 @@
 ;;;
 ;;; Code:
 
-(use-package! org-journal
-  :defer t
-  :after org
-  :config
+(after! org-journal
   (setq org-journal-date-prefix "#+TITLE: "
         org-journal-file-format "%Y-%m-%d.org"
         org-journal-date-format "%A, %d %B %Y"
