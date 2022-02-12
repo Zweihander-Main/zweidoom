@@ -22,8 +22,6 @@
              process-org-agenda-inbox-open-and-archive-all-links
              process-org-agenda-inbox-single-item)
   :config
-  (eval-when-compile
-    (declare-function rxt--re-builder-switch-pcre-mode "pcre2el"))
   (setq process-org-agenda-inbox-category ""
         process-org-agenda-inbox-next-file zwei/org-agenda-next-file
         process-org-agenda-inbox-refile-target-info

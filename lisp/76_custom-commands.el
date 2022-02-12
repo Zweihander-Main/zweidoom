@@ -58,9 +58,6 @@ If CHECK-FUNC is provided, will check using that too."
             (goto-char (point-max)))))))
 
 (after! org-agenda
-  (eval-when-compile
-    (declare-function rxt--re-builder-switch-pcre-mode "pcre2el"))
-
   (setq org-agenda-custom-commands nil)
 
   (add-to-list 'org-agenda-custom-commands
