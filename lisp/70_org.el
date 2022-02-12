@@ -71,8 +71,14 @@ Could be slow if it has a lot of overlays."
     (zwei/org-hide-properties)))
 
 (use-package! org
-  :after-call (zwei/find-gtd-file)
+  :defer-incrementally
+  calendar find-func format-spec org-macs org-compat org-faces org-entities
+  org-list org-pcomplete org-src org-footnote org-macro ob org org-agenda
+  org-capture
   :config
+  ;; https://github.com/hlissner/doom-emacs/issues/4832
+  ;; Fixes the following flow: agenda -> capture -> broken.
+  (defalias '+org--restart-mode-h #'ignore)
   (eval-when-compile
     (declare-function org-map-entries "org")
     (declare-function org-get-todo-state "org"))
