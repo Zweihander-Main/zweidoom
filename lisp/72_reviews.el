@@ -7,11 +7,9 @@
 ;;; Code:
 
 (use-package! zweigtd-reviews
-  :after-call (org-capture)
+  :after org-capture
   :config
   (setq zweigtd-reviews-file zwei/org-agenda-reviews-file)
-  (eval-when-compile
-    (declare-function zweigtd-reviews-default-bootstrap "zwei-reviews"))
   (zweigtd-reviews-default-bootstrap))
 
 ;; Override doom popup rules for org-capture, allow fullscreen
