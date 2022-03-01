@@ -8,6 +8,7 @@
 
 (use-package! zweigtd-reviews
   :after org-capture
+  :defer t
   :config
   (setq zweigtd-reviews-file zwei/org-agenda-reviews-file)
   (zweigtd-reviews-default-bootstrap))

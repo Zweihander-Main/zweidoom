@@ -7,10 +7,8 @@
 ;;; Code:
 
 (use-package! zweigtd-goals
-  :after-call (org-capture
-               org-agenda
-               org-agenda-set-tags
-               org-set-tags-command)
+  :after org
+  :defer t
   :config
   (setq zweigtd-goals-file zwei/org-agenda-goals-file)
   (zweigtd-goals-init '((:name "1#PHYSICAL"   :key ?1 :color "#CC2200")
