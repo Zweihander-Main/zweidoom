@@ -13,7 +13,8 @@
 
 (map! :leader
       (:prefix "n"
-       :desc "Inbox entry" :g "i" #'zwei/org-inbox-capture))
+       :desc "Inbox entry" :g "i" #'zwei/org-inbox-capture
+       :desc "Capture frame" :g "N" #'+org-capture/open-frame)) ; will override Goto Capture
 
 ;;;###autoload
 (defun zwei/org-inbox-capture ()
