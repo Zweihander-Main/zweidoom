@@ -8,7 +8,6 @@
 
 (use-package! zweigtd-goals
   :after org
-  :defer t
   :config
   (setq zweigtd-goals-file zwei/org-agenda-goals-file)
   (zweigtd-goals-init '((:name "1#PHYSICAL"   :key ?1 :color "#CC2200")

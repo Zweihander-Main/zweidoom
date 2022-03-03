@@ -7,8 +7,7 @@
 ;;; Code:
 
 (use-package! zweigtd-reviews
-  :after org-capture
-  :defer t
+  :after-call org-capture
   :config
   (setq zweigtd-reviews-file zwei/org-agenda-reviews-file)
   (zweigtd-reviews-default-bootstrap))
