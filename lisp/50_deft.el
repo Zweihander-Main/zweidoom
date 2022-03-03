@@ -10,6 +10,7 @@
 
 (map! :leader
       (:prefix "n"
+       :desc "Deft in roam" :g "d" (cmd! (zwei/deft-in-dir org-roam-directory))
        :desc "Deft in gtd" :g "G"
        (cmd! (zwei/deft-in-dir zwei/org-agenda-directory))))
 
