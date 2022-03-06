@@ -28,6 +28,10 @@
             :files ("org-variable-pitch.el")))
 (package! evil-motion-trainer
   :recipe '(:host github :repo "martinbaillie/evil-motion-trainer"))
+(package! emacs-with-nyxt
+  :recipe '(:host github
+            :repo "ag91/emacs-with-nyxt"
+            :files ("emacs-with-nyxt.el")))
 (package! doom-snippets :ignore t) ;; ignore doom's snippets
 
 ;; Own code:
