@@ -33,6 +33,7 @@
             :repo "ag91/emacs-with-nyxt"
             :files ("emacs-with-nyxt.el")))
 (package! doom-snippets :ignore t) ;; ignore doom's snippets
+(package! org-alert)
 
 ;; Own code:
 (package! kindle-highlights-to-org
