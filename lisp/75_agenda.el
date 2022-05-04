@@ -12,10 +12,10 @@
        :desc "consult-org-agenda" "/" #'consult-org-agenda))
 
 (map! :map org-agenda-mode-map
-       :localleader
-       :desc "Edit headline" "e" #'org-agenda-heading-functions-edit-headline
-       :desc "Toggle entry text mode" "E" #'org-agenda-entry-text-mode
-       :desc "Break into child tasks" "b" #'org-agenda-heading-functions-break-into-child)
+      :localleader
+      :desc "Edit headline" "e" #'org-agenda-heading-functions-edit-headline
+      :desc "Toggle entry text mode" "E" #'org-agenda-entry-text-mode
+      :desc "Break into child tasks" "b" #'org-agenda-heading-functions-break-into-child)
 
 (after! org-agenda
   (setq org-agenda-files (list zwei/org-agenda-directory)
