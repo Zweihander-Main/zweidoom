@@ -7,6 +7,10 @@
 ;;;
 ;;; Code:
 
+(map! :leader
+      (:prefix-map ("n" . "notes")
+       :desc "consult-org-agenda" "/" #'consult-org-agenda))
+
 (map! :map org-agenda-mode-map
        :localleader
        :desc "Edit headline" "e" #'org-agenda-heading-functions-edit-headline
