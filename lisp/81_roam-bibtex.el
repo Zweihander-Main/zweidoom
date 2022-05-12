@@ -20,7 +20,9 @@
 
 (eval-when-compile
   (declare-function bibtex-completion-key-at-point "bibtex-completion")
-  (declare-function org-ref-get-bibtex-key-under-cursor "org-ref-citation-links"))
+  (declare-function org-ref-get-bibtex-key-under-cursor "org-ref-citation-links")
+  (declare-function bibtex-fill-entry "bibtex")
+  (declare-function s-trim "s"))
 
 ;;;###autoload
 (defun zwei/bibtex-open-roam-at-point ()
@@ -41,19 +43,45 @@
       (orb-edit-note citekey))))
 
 ;;;###autoload
+(defun zwei/isbn-to-bibtex (isbn bibfile)
+  "Get bibtex entry for ISBN and insert it into BIBFILE.
+Nothing happens if an entry with the generated key already exists
+in the file. Data comes from www.ebook.de."
+  (let* ((url (format "https://www.ebook.de/de/tools/isbn2bibtex?isbn=%s" isbn))
+	 (entry))
+    (with-current-buffer (url-retrieve-synchronously url t t)
+      (goto-char (point-min))
+      (when (re-search-forward "@[a-zA-Z]+{.+\\(\n\s+[^\n]+\\)+}$" nil t)
+	(setq entry (match-string 0))))
+
+    (if (not entry)
+	(message "Nothing found.")
+      (find-file bibfile)
+      (goto-char (point-max))
+      (insert (with-temp-buffer
+		(insert (concat entry "\n}"))
+		(goto-char (point-min))
+                (when (re-search-forward "date" nil t)
+                  (kill-whole-line))
+		(org-ref-isbn-clean-bibtex-entry)
+		(org-ref-clean-bibtex-entry)
+		(bibtex-fill-entry)
+		(s-trim (buffer-string))))
+      (save-buffer))))
+
+;;;###autoload
 (defun zwei/bib+ref+roam-book-title (title)
   "Prompt user for TITLE, ask API for ISBN, create bibtex entry + roam note."
   (interactive (list (read-string "Enter title/keywords: ")))
   (let ((isbn (zwei/ref-isbn-from-title title))
         (book-bib (expand-file-name (car zwei/org-roam-bib-files)
                                     zwei/org-roam-bib-directory)))
-    (isbn-to-bibtex isbn book-bib)
+    (zwei/isbn-to-bibtex isbn book-bib)
     (if (not (string= (buffer-file-name) book-bib))
         (message "isbn-to-bibtex wasn't able to find data for that ISBN.")
-      (progn
-        (zwei/bibtex-open-roam-at-point)
-        (set-buffer-modified-p t)
-        (save-buffer)))))
+      (zwei/bibtex-open-roam-at-point)
+      (set-buffer-modified-p t)
+      (save-buffer))))
 
 (use-package! org-roam-bibtex
   :after org-roam
