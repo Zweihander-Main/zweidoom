@@ -52,6 +52,8 @@
 (package! mu4e-search-to-org
   :recipe '(:host github :repo "Zweihander-Main/mu4e-search-to-org"))
 
+;; Fix broken packages
+;; (straight-use-package '(flymake :type built-in))
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
