@@ -9,6 +9,7 @@
 ;;; Code:
 
 (after! centaur-tabs
+  (centaur-tabs-group-by-projectile-project)
   (defun centaur-tabs-hide-tab (x)
     "Do no to show buffer X in tabs."
     (let ((name (format "%s" x)))
