@@ -20,4 +20,4 @@
                     (format "lsof -i :%d | grep emacs" port)))))
     t))
 
-;;; 02_util ends here
+;;; 02_util.el ends here
