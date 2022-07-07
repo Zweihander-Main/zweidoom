@@ -11,7 +11,6 @@ I've broken out some parts of this config as external packages:
 - **[Process-Org-Agenda-Inbox](https://github.com/Zweihander-Main/process-org-agenda-inbox)** - Process GTD inbox agenda buffer quickly
 - **[Org-Statistics-Cookie-Helpers](https://github.com/Zweihander-Main/org-statistics-cookie-helpers)** - Library for working with statistics cookies
 - **[Org-Agenda-Heading-Functions](https://github.com/Zweihander-Main/org-agenda-heading-functions)** - Library for working with org-agenda headings
-- **[mu4e-Search-To-Org](https://github.com/Zweihander-Main/mu4e-search-to-org)** - Take an email folder in mu4e and capture the messages to an inbox org file
 - **[Kindle-Highlights-To-Org](https://github.com/Zweihander-Main/kindle-highlights-to-org)** - Take a Kindle notes file and convert it to an org tree
 
 ## Notes:
