@@ -49,8 +49,6 @@
 (package! zweigtd-reviews
   :recipe '(:host github :repo "Zweihander-Main/zweigtd-reviews"
             :files ("zweigtd-reviews.el" "templates")))
-(package! mu4e-search-to-org
-  :recipe '(:host github :repo "Zweihander-Main/mu4e-search-to-org"))
 
 ;; Fix broken packages
 ;; (straight-use-package '(flymake :type built-in))
