@@ -89,6 +89,7 @@ Could be slow if it has a lot of overlays."
                                      (plain-list-item . nil))
         org-hierarchical-todo-statistics nil
         org-startup-folded 'overview
+        org-image-actual-width 600
         org-todo-keywords
         '((sequence
            "TODO(t)"  ; A task that needs doing & is ready to do
