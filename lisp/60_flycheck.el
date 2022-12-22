@@ -34,7 +34,6 @@
          'warning (cadr err) :checker checker))
       (org-lint-link-to-local-file (org-element-parse-buffer))))))
 
-(add-hook! 'emacs-lisp-mode-hook #'flycheck-elsa-setup)
 (add-hook! 'emacs-lisp-mode-hook #'flycheck-package-setup)
 
 (after! flycheck
