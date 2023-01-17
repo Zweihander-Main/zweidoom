@@ -17,10 +17,14 @@
   (org-todo "NEXT"))
 
 (use-package! org-clock
-  :commands (zwei/set-todo-state-next
-             org-clock-in
-             org-clock-out
-             org-agenda-clock-in
-             org-agenda-clock-out))
+  :commands
+  (zwei/set-todo-state-next
+   org-clock-in
+   org-clock-out
+   org-agenda-clock-in
+   org-agenda-clock-out)
+  :config
+  (setq org-clock-sound
+        (expand-file-name "starcraft_chat_sound.wav" zwei/assets-dir)))
 
 ;;; 71_clock ends here

@@ -52,6 +52,9 @@
   "Filenames in the `org-roam-bib-directory' that correspond to different bibs.
 Lead with book bibliography.")
 
+(defvar zwei/assets-dir (file-name-as-directory (expand-file-name "assets" doom-user-dir))
+  "Directory to store assets such as media files used in the user config.")
+
 (setq +org-capture-todo-file zwei/org-agenda-todo-file
       org-default-notes-file zwei/org-agenda-todo-file)
 
