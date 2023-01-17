@@ -21,7 +21,6 @@
 (package! org-clock-convenience)
 (package! vimrc-mode)
 (package! flycheck-package)
-(package! relint)
 (package! org-variable-pitch
   :recipe '(:host github
             :repo "cadadr/elisp"
