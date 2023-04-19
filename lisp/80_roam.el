@@ -123,7 +123,7 @@ Requires working system trash."
   ;; Config
   (setq org-roam-node-display-template
         "${directories:7} ${hierarchy:*} ${tags:10} ${backlinkscount:-3}"
-        org-roam-mode-section-functions
+        org-roam-mode-sections
         (list #'org-roam-backlinks-section
               #'org-roam-reflinks-section
               #'org-roam-unlinked-references-section)

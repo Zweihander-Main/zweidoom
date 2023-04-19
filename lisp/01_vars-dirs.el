@@ -31,7 +31,7 @@
   "File for all tickler tasks. Can include projects but only non-active ones.")
 
 (defvar zwei/org-agenda-next-file (expand-file-name "next.org" zwei/org-agenda-directory)
-  "File for one-off tasks that should be done immediately or are currently being worked on.")
+  "File for one-off tasks or low urgency (no project).")
 
 (defvar zwei/org-agenda-goals-file (expand-file-name "goals.org" zwei/org-agenda-directory )
   "File for overarching goal tracking.")
