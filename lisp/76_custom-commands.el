@@ -24,7 +24,7 @@
 (defun zwei/org-agenda-force-load (key)
   "Go to agenda KEY and stick to the first line.
 Used for global agenda-access keys."
-  (when (and (featurep! :lang org +roam2)
+  (when (and (modulep! :lang org +roam2)
              (functionp #'org-roam-buffer--visibility)
              (eq 'visible (org-roam-buffer--visibility)))
     (org-roam-buffer-toggle))

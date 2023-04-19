@@ -10,7 +10,7 @@
   (defvar embark-keymap-alist))
 
 (use-package! citar
-  :when (featurep! :completion vertico)
+  :when (modulep! :completion vertico)
   :after embark
   :commands (citar-insert-citation)
   :defer t

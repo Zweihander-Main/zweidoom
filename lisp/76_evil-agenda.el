@@ -8,7 +8,7 @@
 ;;; Code:
 
 (use-package! evil-org-agenda
-  :when (featurep! :editor evil +everywhere)
+  :when (modulep! :editor evil +everywhere)
   :hook (org-agenda-mode . evil-org-agenda-mode)
   :config
   (require 'evil-easymotion)
