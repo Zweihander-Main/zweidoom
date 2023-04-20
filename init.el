@@ -163,6 +163,7 @@
        web               ; the tubes
        (yaml +lsp)              ; JSON, but readable
        ;;zig               ; C, but simpler
+       zsh                 ; PRIVATE/CUSTOM in modules folder
 
        :email
        ;; mu4e ; (+org +gmail)
