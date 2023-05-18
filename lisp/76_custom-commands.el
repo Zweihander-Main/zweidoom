@@ -9,7 +9,8 @@
 
 (map! :g "<f1>" (cmd! (zwei/org-agenda-force-load "1"))
       :g "<f2>" (cmd! (zwei/org-agenda-force-load "2"))
-      :g "<f3>" (cmd! (zwei/org-agenda-force-load "3")))
+      :g "<f3>" (cmd! (zwei/org-agenda-force-load "3"))
+      :g "<f4>" (cmd! (zwei/org-agenda-force-load "4")))
 
 (eval-when-compile
   (declare-function org-roam-buffer--visibility "org-roam")
@@ -141,7 +142,6 @@ If CHECK-FUNC is provided, will check using that too."
                                (:name "=== To file/fix"
                                 :anything t))))))))
 
-
   (add-to-list 'org-agenda-custom-commands
                `("3" "Work"
                  ((tags "+@work"
@@ -172,6 +172,29 @@ If CHECK-FUNC is provided, will check using that too."
                              :todo "WAIT")
                             (:name "=== Held"
                              :todo "HOLD")
-                            (:discard (:anything t))))))))))
+                            (:discard (:anything t)))))))))
+
+  (add-to-list 'org-agenda-custom-commands
+               `("4" "Commit"
+                 ((tags "+commit"
+                        ((org-agenda-overriding-header " === Commits Working On")
+                         (org-agenda-files
+                          '(,zwei/org-agenda-projects-file
+                            ,zwei/org-agenda-tickler-file
+                            ,zwei/org-agenda-next-file))
+                         (org-super-agenda-groups
+                          '((:name ""
+                             :todo "NEXT")
+                            (:discard (:anything t))))))
+                  (tags "+commit"
+                        ((org-agenda-overriding-header " === Commits Needed")
+                         (org-agenda-files
+                          '(,zwei/org-agenda-projects-file
+                            ,zwei/org-agenda-tickler-file
+                            ,zwei/org-agenda-next-file))
+                         (org-super-agenda-groups
+                          '((:name ""
+                             :todo "TODO")
+                             (:discard (:anything t))))))))))
 
 ;;; 76_custom-commands ends here
