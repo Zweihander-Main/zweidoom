@@ -10,7 +10,8 @@
 (map! :g "<f1>" (cmd! (zwei/org-agenda-force-load "1"))
       :g "<f2>" (cmd! (zwei/org-agenda-force-load "2"))
       :g "<f3>" (cmd! (zwei/org-agenda-force-load "3"))
-      :g "<f4>" (cmd! (zwei/org-agenda-force-load "4")))
+      :g "<f4>" (cmd! (zwei/org-agenda-force-load "4"))
+      :g "<f5>" (cmd! (zwei/org-agenda-force-load "5")))
 
 (eval-when-compile
   (declare-function org-roam-buffer--visibility "org-roam")
@@ -175,7 +176,30 @@ If CHECK-FUNC is provided, will check using that too."
                             (:discard (:anything t)))))))))
 
   (add-to-list 'org-agenda-custom-commands
-               `("4" "Commit"
+               `("4" "Play"
+                 ((tags "@play"
+                        ((org-agenda-overriding-header " === Current on Play Comp")
+                         (org-agenda-files
+                          '(,zwei/org-agenda-projects-file
+                            ,zwei/org-agenda-tickler-file
+                            ,zwei/org-agenda-next-file))
+                         (org-super-agenda-groups
+                          '((:name ""
+                             :todo "NEXT")
+                            (:discard (:anything t))))))
+                  (tags "@play"
+                        ((org-agenda-overriding-header " === Todo on Play Comp")
+                         (org-agenda-files
+                          '(,zwei/org-agenda-projects-file
+                            ,zwei/org-agenda-tickler-file
+                            ,zwei/org-agenda-next-file))
+                         (org-super-agenda-groups
+                          '((:name ""
+                             :todo "TODO")
+                            (:discard (:anything t)))))))))
+
+  (add-to-list 'org-agenda-custom-commands
+               `("5" "Commit"
                  ((tags "+commit"
                         ((org-agenda-overriding-header " === Commits Working On")
                          (org-agenda-files
@@ -195,6 +219,6 @@ If CHECK-FUNC is provided, will check using that too."
                          (org-super-agenda-groups
                           '((:name ""
                              :todo "TODO")
-                             (:discard (:anything t))))))))))
+                            (:discard (:anything t))))))))))
 
 ;;; 76_custom-commands ends here
