@@ -166,7 +166,8 @@ If CHECK-FUNC is provided, will check using that too."
                          (org-agenda-skip-function
                           '(org-agenda-skip-entry-if
                             'deadline
-                            'scheduled 'timestamp))
+                            'scheduled
+                            'timestamp))
                          (org-agenda-files '(,zwei/org-agenda-projects-file))
                          (org-super-agenda-groups
                           '((:name ""
@@ -193,6 +194,11 @@ If CHECK-FUNC is provided, will check using that too."
                           '(,zwei/org-agenda-projects-file
                             ,zwei/org-agenda-tickler-file
                             ,zwei/org-agenda-next-file))
+                         (org-agenda-skip-function
+                          '(org-agenda-skip-entry-if
+                            'deadline
+                            'scheduled
+                            'timestamp))
                          (org-super-agenda-groups
                           '((:name ""
                              :todo "TODO")
