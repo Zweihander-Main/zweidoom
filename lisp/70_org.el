@@ -11,6 +11,8 @@
       :m "gMe" #'org-toggle-pretty-entities
       :m "gMl" #'org-latex-preview
       (:localleader
+        :desc "Edit headline" "E" #'org-edit-headline)
+      (:localleader
        (:prefix "r"
         :desc "Archive all done tasks" "a" #'zwei/org-archive-done-tasks))
       (:leader
