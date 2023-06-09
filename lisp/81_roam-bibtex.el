@@ -8,8 +8,8 @@
 
 (map! (:leader
        (:prefix "n"
-        (:prefix "r"
-         :desc "Create book bib+roam" :g "C" #'zwei/bib+ref+roam-book-title)))
+                (:prefix "r"
+                 :desc "Create book bib+roam" :g "C" #'zwei/bib+ref+roam-book-title)))
       (:map bibtex-mode-map
        :localleader
        :desc "Open roam entry" "r" #'zwei/bibtex-open-roam-at-point)
@@ -46,27 +46,29 @@
 (defun zwei/isbn-to-bibtex (isbn bibfile)
   "Get bibtex entry for ISBN and insert it into BIBFILE.
 Nothing happens if an entry with the generated key already exists
-in the file. Data comes from www.ebook.de."
-  (let* ((url (format "https://www.ebook.de/de/tools/isbn2bibtex?isbn=%s" isbn))
-	 (entry))
-    (with-current-buffer (url-retrieve-synchronously url t t)
-      (goto-char (point-min))
-      (when (re-search-forward "@[a-zA-Z]+{.+\\(\n\s+[^\n]+\\)+}$" nil t)
-	(setq entry (match-string 0))))
-
+in the file. Data comes from lead.to"
+  (let* ((url (format "https://lead.to/amazon/com/dl-bib-com.html?key=%s" isbn))
+         (buffer (url-retrieve-synchronously url t t))
+         (entry))
+    (when buffer
+      (with-current-buffer buffer
+        (goto-char (point-min))
+        (save-excursion
+          (goto-char (point-min))
+          (while (re-search-forward "^\\(url\\|price\\|date\\)" nil t)
+            (delete-region (line-beginning-position) (line-end-position))))
+        (when (search-forward-regexp "@\\(?:book\\|Book\\){" nil t)
+          (setq entry (buffer-substring (match-beginning 0) (point-max)))))
+      (kill-buffer buffer))
     (if (not entry)
-	(message "Nothing found.")
+        (message "Nothing found.")
       (find-file bibfile)
       (goto-char (point-max))
-      (insert (with-temp-buffer
-		(insert (concat entry "\n}"))
-		(goto-char (point-min))
-                (when (re-search-forward "date" nil t)
-                  (kill-whole-line))
-		(org-ref-isbn-clean-bibtex-entry)
-		(org-ref-clean-bibtex-entry)
-		(bibtex-fill-entry)
-		(s-trim (buffer-string))))
+      (insert (concat entry "\n"))
+      (org-ref-isbn-clean-bibtex-entry)
+      (org-ref-clean-bibtex-entry)
+      (bibtex-fill-entry)
+      (s-trim (buffer-string))
       (save-buffer))))
 
 ;;;###autoload
