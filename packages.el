@@ -33,6 +33,8 @@
             :files ("emacs-with-nyxt.el")))
 (package! doom-snippets :ignore t) ;; ignore doom's snippets
 (package! org-wild-notifier)
+(package! copilot
+  :recipe (:host github :repo "zerolfx/copilot.el" :files ("*.el" "dist")))
 
 ;; Own code:
 (package! kindle-highlights-to-org
