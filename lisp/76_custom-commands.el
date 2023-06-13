@@ -125,10 +125,12 @@ If CHECK-FUNC is provided, will check using that too."
                                    :file-path ("projects")))
                             (:name "=== Pointless & Can Wait"
                              :and (:todo "TODO"
+                                   :not (:tag "@play")
                                    :priority ("B" "C")
                                    :file-path ("next")))
                             (:name "=== To prioritize"
-                             :todo "TODO")
+                             :and (:todo "TODO"
+                                   :not (:tag ("@play"))))
                             (:discard (:anything t)))))))))
 
   (add-to-list 'org-agenda-custom-commands
