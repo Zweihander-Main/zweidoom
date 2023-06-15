@@ -22,6 +22,7 @@
 (package! vimrc-mode)
 (package! flycheck-package)
 (package! flycheck-eldev)
+(package! erefactor)
 (package! org-variable-pitch
   :recipe '(:host github
             :repo "cadadr/elisp"
