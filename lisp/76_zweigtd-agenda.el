@@ -11,7 +11,9 @@
       :localleader
       :desc "Process inbox items" "i" #'zweigtd-agenda-process-inbox-all-items
       :desc "Process all links" "L" #'zweigtd-agenda-process-inbox-open-and-archive-all-links
-      :desc "Process current item" "P" #'zweigtd-agenda-process-inbox-single-item)
+      :desc "Process current item" "P" #'zweigtd-agenda-process-inbox-single-item
+      :desc "Edit headline" "e" #'zweigtd-agenda-heading-functions-edit-headline
+      :desc "Break into child tasks" "b" #'zweigtd-agenda-heading-functions-break-into-child)
 
 (after! org-agenda
   (setq org-agenda-bulk-custom-functions
