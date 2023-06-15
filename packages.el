@@ -21,6 +21,7 @@
 (package! org-clock-convenience)
 (package! vimrc-mode)
 (package! flycheck-package)
+(package! flycheck-eldev)
 (package! org-variable-pitch
   :recipe '(:host github
             :repo "cadadr/elisp"
@@ -39,12 +40,9 @@
 ;; Own code:
 (package! kindle-highlights-to-org
   :recipe '(:host github :repo "Zweihander-Main/kindle-highlights-to-org"))
-(package! process-org-agenda-inbox
-  :recipe '(:host github :repo "Zweihander-Main/process-org-agenda-inbox"))
-(package! org-statistics-cookie-helpers
-  :recipe '(:host github :repo "Zweihander-Main/org-statistics-cookie-helpers"))
-(package! org-agenda-heading-functions
-  :recipe '(:host github :repo "Zweihander-Main/org-agenda-heading-functions"))
+(package! zweigtd-agenda
+  :recipe '(:host github :repo "Zweihander-Main/zweigtd-agenda"
+            :files ("*.el")))
 (package! zweigtd-goals
   :recipe '(:host github :repo "Zweihander-Main/zweigtd-goals"))
 (package! zweigtd-reviews

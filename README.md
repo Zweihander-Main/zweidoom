@@ -8,9 +8,7 @@ I've broken out some parts of this config as external packages:
 
 - **[ZweiGTD-Goals](https://github.com/Zweihander-Main/zweigtd-goals)** - Track a user-defined set of goals and priorities
 - **[ZweiGTD-Reviews](https://github.com/Zweihander-Main/zweigtd-reviews)** - Create time-span reviews for goals
-- **[Process-Org-Agenda-Inbox](https://github.com/Zweihander-Main/process-org-agenda-inbox)** - Process GTD inbox agenda buffer quickly
-- **[Org-Statistics-Cookie-Helpers](https://github.com/Zweihander-Main/org-statistics-cookie-helpers)** - Library for working with statistics cookies
-- **[Org-Agenda-Heading-Functions](https://github.com/Zweihander-Main/org-agenda-heading-functions)** - Library for working with org-agenda headings
+- **[ZweiGTD-Agenda](https://github.com/Zweihander-Main/zweigtd-agenda)** - GTD libraries for org-agenda
 - **[Kindle-Highlights-To-Org](https://github.com/Zweihander-Main/kindle-highlights-to-org)** - Take a Kindle notes file and convert it to an org tree
 
 ## Notes:
