@@ -47,6 +47,8 @@
   (setq-default flycheck-disabled-checkers '(proselint))
 
   (advice-add '+emacs-lisp-reduce-flycheck-errors-in-emacs-config-h
-              :after #'zwei/add-checkdoc-back-in))
+              :after #'zwei/add-checkdoc-back-in)
+
+  (setq flycheck-eldev-whitelist '("~/dev/misc/emacs")))
 
 ;;; 60_flycheck ends here
