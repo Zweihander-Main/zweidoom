@@ -20,6 +20,6 @@
        :desc "Flymake display errors" "?" #'erefactor-flymake-display-errors))
 
 (use-package! erefactor
-  :hook (emacs-lis-mode-hook))
+  :hook (emacs-lisp-mode-hook))
 
 ;;; 61_refactor.el ends here
