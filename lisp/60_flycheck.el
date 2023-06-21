@@ -44,11 +44,11 @@
 
   (add-to-list 'flycheck-checkers 'org-lint)
 
-  (setq-default flycheck-disabled-checkers '(proselint))
+  (setq flycheck-disabled-checkers '(proselint))
 
   (advice-add '+emacs-lisp-reduce-flycheck-errors-in-emacs-config-h
               :after #'zwei/add-checkdoc-back-in)
 
   (setq flycheck-eldev-whitelist '("~/dev/misc/emacs")))
 
-;;; 60_flycheck ends here
+;;; 60_flycheck.el ends here
