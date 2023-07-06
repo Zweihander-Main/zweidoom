@@ -58,4 +58,7 @@ Lead with book bibliography.")
 (setq +org-capture-todo-file zwei/org-agenda-todo-file
       org-default-notes-file zwei/org-agenda-todo-file)
 
+;; Override doom
+(setq +snippets-dir (file-name-as-directory (expand-file-name "snippets" doom-user-dir)))
+
 ;;; 01_vars-dirs ends here

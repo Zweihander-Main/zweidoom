@@ -56,7 +56,7 @@
              yas-insert-snippet
              yas-new-snippet)
   :config
-  (add-to-list 'yas-snippet-dirs 'zwei/org-checklists-directory)
+  (add-to-list 'yas-snippet-dirs zwei/org-checklists-directory)
   (eval-when-compile
     (declare-function yas-reload-all "yassnippet"))
   (yas-reload-all))
