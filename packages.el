@@ -14,7 +14,7 @@
 (package! org-roam-ui)
 (package! org-roam-bibtex
   :recipe (:host github :repo "org-roam/org-roam-bibtex"))
-(when (featurep! :completion vertico)
+(when (modulep! :completion vertico)
   (package! citar))
 (package! org-ql)
 (package! anki-editor)
