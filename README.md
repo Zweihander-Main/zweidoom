@@ -10,6 +10,7 @@ I've broken out some parts of this config as external packages:
 - **[ZweiGTD-Reviews](https://github.com/Zweihander-Main/zweigtd-reviews)** - Create time-span reviews for goals
 - **[ZweiGTD-Agenda](https://github.com/Zweihander-Main/zweigtd-agenda)** - GTD libraries for org-agenda
 - **[Kindle-Highlights-To-Org](https://github.com/Zweihander-Main/kindle-highlights-to-org)** - Take a Kindle notes file and convert it to an org tree
+- **[Org-NewTab](https://github.com/Zweihander-Main/org-newtab)** - Org-agenda to browser newtab page
 
 ## Notes:
 
