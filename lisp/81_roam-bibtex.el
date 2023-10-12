@@ -43,42 +43,13 @@
       (orb-edit-note citekey))))
 
 ;;;###autoload
-(defun zwei/isbn-to-bibtex (isbn bibfile)
-  "Get bibtex entry for ISBN and insert it into BIBFILE.
-Nothing happens if an entry with the generated key already exists
-in the file. Data comes from lead.to"
-  (let* ((url (format "https://lead.to/amazon/com/dl-bib-com.html?key=%s" isbn))
-         (buffer (url-retrieve-synchronously url t t))
-         (entry))
-    (when buffer
-      (with-current-buffer buffer
-        (goto-char (point-min))
-        (save-excursion
-          (goto-char (point-min))
-          (while (re-search-forward "^\\(url\\|price\\|date\\)" nil t)
-            (delete-region (line-beginning-position) (line-end-position))))
-        (when (search-forward-regexp "@\\(?:book\\|Book\\){" nil t)
-          (setq entry (buffer-substring (match-beginning 0) (point-max)))))
-      (kill-buffer buffer))
-    (if (not entry)
-        (message "Nothing found.")
-      (find-file bibfile)
-      (goto-char (point-max))
-      (insert (concat entry "\n"))
-      (org-ref-isbn-clean-bibtex-entry)
-      (org-ref-clean-bibtex-entry)
-      (bibtex-fill-entry)
-      (s-trim (buffer-string))
-      (save-buffer))))
-
-;;;###autoload
 (defun zwei/bib+ref+roam-book-title (title)
   "Prompt user for TITLE, ask API for ISBN, create bibtex entry + roam note."
   (interactive (list (read-string "Enter title/keywords: ")))
   (let ((isbn (zwei/ref-isbn-from-title title))
         (book-bib (expand-file-name (car zwei/org-roam-bib-files)
                                     zwei/org-roam-bib-directory)))
-    (zwei/isbn-to-bibtex isbn book-bib)
+    (isbn-to-bibtex-open-library isbn book-bib)
     (if (not (string= (buffer-file-name) book-bib))
         (message "isbn-to-bibtex wasn't able to find data for that ISBN.")
       (zwei/bibtex-open-roam-at-point)
