@@ -49,6 +49,7 @@
   (let ((isbn (zwei/ref-isbn-from-title title))
         (book-bib (expand-file-name (car zwei/org-roam-bib-files)
                                     zwei/org-roam-bib-directory)))
+    (require 'org-ref)
     (isbn-to-bibtex-open-library isbn book-bib)
     (if (not (string= (buffer-file-name) book-bib))
         (message "isbn-to-bibtex wasn't able to find data for that ISBN.")
