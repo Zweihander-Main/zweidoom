@@ -75,6 +75,7 @@
        :tools
        ansible
        biblio
+       ;;collab            ; buffers with friends
        debugger          ; FIXME stepping through code, to help you add bugs
        ;;direnv
        (docker +lsp)
