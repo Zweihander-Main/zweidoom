@@ -51,6 +51,10 @@
 (package! zweigtd-reviews
   :recipe '(:host github :repo "Zweihander-Main/zweigtd-reviews"
             :files ("zweigtd-reviews.el" "templates")))
+(package! org-newtab
+  :recipe (:local-repo "~/dev/misc/emacs/org-newtab"
+           :files (:defaults )
+           :build (:not compile)))
 
 ;; Fix broken packages
 ;; (straight-use-package '(flymake :type built-in))
