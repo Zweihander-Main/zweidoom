@@ -11,7 +11,8 @@
       :g "<f2>" (cmd! (zwei/org-agenda-force-load "2"))
       :g "<f3>" (cmd! (zwei/org-agenda-force-load "3"))
       :g "<f4>" (cmd! (zwei/org-agenda-force-load "4"))
-      :g "<f5>" (cmd! (zwei/org-agenda-force-load "5")))
+      :g "<f5>" (cmd! (zwei/org-agenda-force-load "5"))
+      :g "<f6>" (cmd! (zwei/org-agenda-force-load "6")))
 
 (eval-when-compile
   (declare-function org-roam-buffer--visibility "org-roam")
@@ -131,6 +132,14 @@ If CHECK-FUNC is provided, will check using that too."
                             (:name "=== To prioritize"
                              :and (:todo "TODO"
                                    :not (:tag ("@play"))))
+                            (:discard (:anything t))))))
+                  (todo "WAIT"
+                        ((org-agenda-overriding-header "\n === Waiting")
+                         (org-agenda-files '(,zwei/org-agenda-projects-file
+                                             ,zwei/org-agenda-next-file))
+                         (org-super-agenda-groups
+                          '((:name ""
+                             :and (:not (:tag ("@play" "@down" "@end"))))
                             (:discard (:anything t)))))))))
 
   (add-to-list 'org-agenda-custom-commands
@@ -147,35 +156,31 @@ If CHECK-FUNC is provided, will check using that too."
 
   (add-to-list 'org-agenda-custom-commands
                `("3" "Work"
-                 ((tags "+@work"
-                        ((org-agenda-overriding-header " === Work")
-                         (org-agenda-skip-function
-                          '(zwei/org-agenda-skip-all-siblings-but-first
-                            #'(lambda()
-                                (org-agenda-skip-entry-if
-                                 'deadline
-                                 'scheduled
-                                 'timestamp))))
-                         (org-agenda-files
-                          '(,zwei/org-agenda-projects-file))
+                 ((todo "NEXT"
+                        ((org-agenda-overriding-header " === In Progress")
+                         (org-agenda-files '(,zwei/org-agenda-projects-file
+                                             ,zwei/org-agenda-goals-file
+                                             ,zwei/org-agenda-tickler-file
+                                             ,zwei/org-agenda-next-file))
                          (org-super-agenda-groups
                           '((:name ""
-                             :todo "TODO"
-                             :todo "NEXT")
+                             :and (:not (:tag ("@play" "@down" "@end"))))
                             (:discard (:anything t))))))
-                  (tags "+@work"
-                        ((org-agenda-overriding-header "\n === Waiting")
+                  (todo ""
+                        ((org-agenda-overriding-header "")
+                         (org-agenda-files '(,zwei/org-agenda-projects-file
+                                             ,zwei/org-agenda-next-file))
                          (org-agenda-skip-function
                           '(org-agenda-skip-entry-if
                             'deadline
                             'scheduled
                             'timestamp))
-                         (org-agenda-files '(,zwei/org-agenda-projects-file))
                          (org-super-agenda-groups
-                          '((:name ""
-                             :todo "WAIT")
-                            (:name "=== Held"
-                             :todo "HOLD")
+                          '((:name "=== Important & Urgent"
+                             :and (:todo "TODO"
+                                   :not (:tag ("@play" "@down" "@end"))
+                                   :priority "A"
+                                   :file-path ("projects")))
                             (:discard (:anything t)))))))))
 
   (add-to-list 'org-agenda-custom-commands
@@ -191,7 +196,7 @@ If CHECK-FUNC is provided, will check using that too."
                              :todo "NEXT")
                             (:discard (:anything t))))))
                   (tags "@play"
-                        ((org-agenda-overriding-header " === Todo on Play Comp")
+                        ((org-agenda-overriding-header "\n === Todo on Play Comp")
                          (org-agenda-files
                           '(,zwei/org-agenda-projects-file
                             ,zwei/org-agenda-tickler-file
@@ -227,6 +232,74 @@ If CHECK-FUNC is provided, will check using that too."
                          (org-super-agenda-groups
                           '((:name ""
                              :todo "TODO")
+                            (:discard (:anything t)))))))))
+
+  (add-to-list 'org-agenda-custom-commands
+               `("6" "Review"
+                 ((todo ""
+                        ((org-agenda-overriding-header "=== Important & Urgent")
+                         (org-agenda-files '(,zwei/org-agenda-projects-file
+                                             ,zwei/org-agenda-next-file
+                                             ,zwei/org-agenda-tickler-file))
+                         (org-super-agenda-groups
+                          '((:name ""
+                             :and (:todo ("WAIT" "HOLD")
+                                   :priority "A"
+                                   :file-path ("projects")))
+                            (:name "=== Pointless & Urgent"
+                             :and (:todo ("WAIT" "HOLD")
+                                   :priority "A"
+                                   :file-path ("next")))
+                            (:name "=== Important & Can Wait"
+                             :and (:todo ("WAIT" "HOLD")
+                                   :priority ("B" "C")
+                                   :file-path ("projects")))
+                            (:name "=== Pointless & Can Wait"
+                             :and (:todo ("WAIT" "HOLD")
+                                   :priority ("B" "C")
+                                   :file-path ("next")))
+                            (:name "=== Tickler"
+                             :and (:todo ("WAIT" "HOLD")
+                                   :file-path ("tickler")
+                                   :priority ("A" "B" "C")))
+                            (:name "=== To prioritize"
+                             :and (:todo ("WAIT" "HOLD")
+                                   :not (:priority ("A" "B" "C"))))
+                            (:discard (:anything t))))))
+                  )))
+
+  (add-to-list 'org-agenda-custom-commands
+               `("9" "OLD Work"
+                 ((tags "+@work"
+                        ((org-agenda-overriding-header " === Work")
+                         (org-agenda-skip-function
+                          '(zwei/org-agenda-skip-all-siblings-but-first
+                            #'(lambda()
+                                (org-agenda-skip-entry-if
+                                 'deadline
+                                 'scheduled
+                                 'timestamp))))
+                         (org-agenda-files
+                          '(,zwei/org-agenda-projects-file))
+                         (org-super-agenda-groups
+                          '((:name ""
+                             :todo "TODO"
+                             :todo "NEXT")
+                            (:discard (:anything t))))))
+                  (tags "+@work"
+                        ((org-agenda-overriding-header "\n === Waiting")
+                         (org-agenda-skip-function
+                          '(org-agenda-skip-entry-if
+                            'deadline
+                            'scheduled
+                            'timestamp))
+                         (org-agenda-files '(,zwei/org-agenda-projects-file))
+                         (org-super-agenda-groups
+                          '((:name ""
+                             :todo "WAIT")
+                            (:name "=== Held"
+                             :todo "HOLD")
                             (:discard (:anything t))))))))))
+
 
 ;;; 76_custom-commands ends here
