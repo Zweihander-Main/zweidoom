@@ -8,8 +8,9 @@
 
 (defun zwei/font-exists-p (font-name)
   "Check if a specific FONT-NAME is available on the user's system."
-  (let ((font (x-list-fonts font-name)))
-    (if font t nil)))
+  (when(display-graphic-p)
+    (let ((font (x-list-fonts font-name)))
+      (if font t nil))))
 
 (setq doom-theme 'doom-tomorrow-night
       doom-font (if (zwei/font-exists-p "Iosevka SS09 Extended")
