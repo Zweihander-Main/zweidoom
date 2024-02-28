@@ -8,9 +8,9 @@
 
 (defun zwei/which-linux-distro ()
   "Info from lsb_release. Will output strings such as 'Debian' or 'Arch'."
-  (interactive)
   (when (eq system-type 'gnu/linux)
-    (shell-command-to-string "echo -n $(lsb_release -is)")))
+    (let ((output (process-lines "lsb_release" "-is")))
+      (and output (car output)))))
 
 (defun zwei/port-in-use-by-emacs (port)
   "Will return t if PORT has been created by Emacs, nil otherwise."
@@ -19,5 +19,11 @@
                    (shell-command-to-string
                     (format "lsof -i :%d | grep emacs" port)))))
     t))
+
+(defmacro measure-time (&rest body)
+  "Measure the time it takes to evaluate BODY."
+  `(let ((time (current-time)))
+     ,@body
+     (message "%.06f" (float-time (time-since time)))))
 
 ;;; 02_util.el ends here
