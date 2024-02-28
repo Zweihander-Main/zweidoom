@@ -22,7 +22,7 @@
      (message "%.06f" (/ (apply '+ results) (length results)))))
 
 ;; https://github.com/hlissner/doom-emacs/issues/4498
-(when (and (boundp 'doom-debug-p) doom-debug-p)
+(when init-file-debug
   (require 'benchmark-init)
   (add-hook 'doom-first-input-hook #'benchmark-init/deactivate))
 

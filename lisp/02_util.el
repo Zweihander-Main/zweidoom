@@ -20,10 +20,4 @@
                     (format "lsof -i :%d | grep emacs" port)))))
     t))
 
-(defmacro measure-time (&rest body)
-  "Measure the time it takes to evaluate BODY."
-  `(let ((time (current-time)))
-     ,@body
-     (message "%.06f" (float-time (time-since time)))))
-
 ;;; 02_util.el ends here
