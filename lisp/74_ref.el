@@ -105,7 +105,6 @@ No API key needed for minor use."
              isbn-to-bibtex-lead
              zwei/ref-isbn-from-title)
   :after org-roam
-  :hook bibtex-mode-hook
   :config
   (require 'citar-org)
   (let ((bib-files
