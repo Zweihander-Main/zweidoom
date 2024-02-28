@@ -14,8 +14,8 @@
 (setq doom-theme 'doom-tomorrow-night
       doom-font (if (zwei/font-exists-p "Iosevka SS09 Extended")
                     (font-spec :family "Iosevka SS09 Extended" :size 15))
-      doom-unicode-font (if (zwei/font-exists-p "Iosevka Term SS09 Extended")
-                            (font-spec :family "Iosevka Term SS09 Extended" :size 15))
+      doom-symbol-font (if (zwei/font-exists-p "Iosevka Term SS09 Extended")
+                           (font-spec :family "Iosevka Term SS09 Extended" :size 15))
       doom-variable-pitch-font (if (zwei/font-exists-p "Iosevka Aile")
                                    (font-spec :family "Iosevka Aile" :size 16))
       doom-serif-font doom-variable-pitch-font
