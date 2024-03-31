@@ -36,10 +36,7 @@
             :repo "ag91/emacs-with-nyxt"
             :files ("emacs-with-nyxt.el")))
 (package! doom-snippets :ignore t) ;; ignore doom's snippets
-(package! org-wild-notifier 
-  :recipe '(:host github
-            :repo "jpgichw/org-wild-notifier.el"
-            :branch "patch-1"))
+(package! org-wild-notifier)
 (package! copilot
   :recipe (:host github :repo "zerolfx/copilot.el" :files ("*.el" "dist")))
 
