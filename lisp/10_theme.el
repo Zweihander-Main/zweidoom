@@ -14,11 +14,11 @@
 
 (setq doom-theme 'doom-tomorrow-night
       doom-font (if (zwei/font-exists-p "Iosevka SS09 Extended")
-                    (font-spec :family "Iosevka SS09 Extended" :size 15))
+                    (font-spec :family "Iosevka SS09 Extended" :size 11.0))
       doom-symbol-font (if (zwei/font-exists-p "Iosevka Term SS09 Extended")
-                           (font-spec :family "Iosevka Term SS09 Extended" :size 15))
+                           (font-spec :family "Iosevka Term SS09 Extended" :size 11.0))
       doom-variable-pitch-font (if (zwei/font-exists-p "Iosevka Aile")
-                                   (font-spec :family "Iosevka Aile" :size 16))
+                                   (font-spec :family "Iosevka Aile" :size 12.0))
       doom-serif-font doom-variable-pitch-font
       doom-themes-treemacs-theme "doom-colors"
       display-line-numbers-type t
