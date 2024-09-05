@@ -56,6 +56,12 @@
            :files (:defaults )
            :build (:not compile)))
 
+;; Temp waiting on https://gitlab.com/emacs-ansible/emacs-ansible/-/issues/2
+(package! ansible
+  :recipe (:host github :repo "k1LoW/emacs-ansible")
+  :pin "dff3cd4250320e83f65ac616acace66257aa6c21")
+
+
 ;; Fix broken packages
 ;; (straight-use-package '(flymake :type built-in))
 ;; Local Variables:
