@@ -56,6 +56,9 @@
            :files (:defaults )
            :build (:not compile)))
 
+(package! org-super-agenda
+  :recipe (:local-repo "~/dev/tmp/org-super-agenda"))
+
 ;; Temp waiting on https://gitlab.com/emacs-ansible/emacs-ansible/-/issues/2
 (package! ansible
   :recipe (:host github :repo "k1LoW/emacs-ansible")
