@@ -75,6 +75,9 @@ If CHECK-FUNC is provided, will check using that too."
                                :order 9)
                               (:name ""
                                :time-grid t)
+                              (:name "" ;; Timestamp only, pulled in by agenda so no need for :date
+                               :not (:deadline t
+                                     :scheduled t))
                               (:name ""
                                :deadline past)
                               (:name ""
