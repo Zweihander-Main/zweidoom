@@ -5,8 +5,6 @@
 
 ;; Unpin doom's version
 (unpin! org-roam)
-;; Pin to org 9.6 for now
-(package! org :pin "806abc5a2bbcb5f884467a0145547221ba09eb59")
 
 ;; Load 3rd party packages
 (package! init-loader)
