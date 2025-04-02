@@ -11,7 +11,7 @@
       :m "gMe" #'org-toggle-pretty-entities
       :m "gMl" #'org-latex-preview
       (:localleader
-        :desc "Edit headline" "E" #'org-edit-headline)
+       :desc "Edit headline" "E" #'org-edit-headline)
       (:localleader
        (:prefix "r"
         :desc "Archive all done tasks" "a" #'zwei/org-archive-done-tasks))
@@ -90,7 +90,7 @@ Could be slow if it has a lot of overlays."
         org-blank-before-new-entry '((heading . nil)
                                      (plain-list-item . nil))
         org-hierarchical-todo-statistics nil
-        org-startup-folded 'overview
+        org-startup-folded 'content
         org-image-actual-width 600
         org-todo-keywords
         '((sequence
