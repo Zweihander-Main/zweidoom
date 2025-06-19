@@ -71,7 +71,8 @@ If CHECK-FUNC is provided, will check using that too."
                            (org-deadline-warning-days 365)
                            (org-super-agenda-groups
                             '((:name "⤷Goals"
-                               :file-path("goals")
+                               :and (:file-path("goals")
+                                     :not (:scheduled future))
                                :order 9)
                               (:name ""
                                :time-grid t)
