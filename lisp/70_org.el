@@ -116,7 +116,7 @@ Could be slow if it has a lot of overlays."
 
   ;; Logging
   (setq org-log-done 'time
-        org-log-into-drawer t)
+        org-log-into-drawer nil)
 
   ;; Tagging -- used for place and goal
   (setq org-tag-persistent-alist `((:startgroup . "place")
